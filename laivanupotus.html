@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Battleship vs MiniWerner</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #e6f4f1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 2rem 0;
+    }
+    h1 {
+      color: #0077cc;
+      margin-bottom: 10px;
+    }
+    #status {
+      font-size: 1.1rem;
+      color: #39a678;
+      margin-bottom: 20px;
+      min-height: 1.5em;
+    }
+    .boards {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(6, 32px);
+      grid-template-rows: repeat(6, 32px);
+      gap: 4px;
+      background: #b2ebf2;
+      padding: 8px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .cell {
+      width: 32px;
+      height: 32px;
+      background: #fff;
+      border-radius: 6px;
+      border: 1px solid #b2ebf2;
+      cursor: pointer;
+      font-size: 1.1rem;
+      text-align: center;
+      line-height: 32px;
+      transition: background 0.2s;
+      user-select: none;
+    }
+    .cell.ship {
+      background: #90caf9;
+    }
+    .cell.hit {
+      background: #ff5252;
+      color: #fff;
+    }
+    .cell.miss {
+      background: #bdbdbd;
+      color: #fff;
+    }
+    .board-title {
+      text-align: center;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #0077cc;
+    }
+    button {
+      padding: 10px 25px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      margin: 10px;
+      background: linear-gradient(to right, #00c6a2, #0077cc);
+      color: white;
+      font-weight: bold;
+    }
+    button:hover {
+      background: linear-gradient(to right, #00b191, #005fa3);
+    }
+    .back-btn {
+      display: block;
+      margin: 2rem auto 0 auto;
+      background: #00bfae;
+      color: #fff;
+      padding: 0.4em 1.2em;
+      border-radius: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      text-align: center;
+      width: fit-content;
+      transition: background 0.2s, color 0.2s;
+    }
+    .back-btn:hover {
+      background: #007acc;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Battleship vs MiniWerner</h1>
+  <div id="status">Sink all MiniWerner's ships!</div>
+  <div class="boards">
+    <div>
+      <div class="board-title">Your Board</div>
+      <div id="player-board" class="board"></div>
+    </div>
+    <div>
+      <div class="board-title">MiniWerner's Board</div>
+      <div id="bot-board" class="board"></div>
+    </div>
+  </div>
+  <button onclick="resetGame()">Restart Game</button>
+  <a href="index.html" class="back-btn">← Back to Home</a>
+  <script>
+    const size = 6;
+    const ships = [3, 2, 2]; // ship lengths
+    let playerBoard = [];
+    let botBoard = [];
+    let playerShips = [];
+    let botShips = [];
+    let playerHits = 0;
+    let botHits = 0;
+    let gameActive = true;
+    let playerTurn = true;
+
+    const playerBoardDiv = document.getElementById('player-board');
+    const botBoardDiv = document.getElementById('bot-board');
+    const statusDiv = document.getElementById('status');
+
+    function createEmptyBoard() {
+      return Array(size * size).fill('');
+    }
+
+    function placeShipsRandomly(board, shipsArr) {
+      shipsArr.length = 0;
+      for (let len of ships) {
+        let placed = false;
+        while (!placed) {
+          const dir = Math.random() < 0.5 ? 'h' : 'v';
+          const row = Math.floor(Math.random() * (dir === 'h' ? size : size - len + 1));
+          const col = Math.floor(Math.random() * (dir === 'v' ? size : size - len + 1));
+          let ok = true;
+          let indices = [];
+          for (let i = 0; i < len; i++) {
+            let r = row + (dir === 'v' ? i : 0);
+            let c = col + (dir === 'h' ? i : 0);
+            let idx = r * size + c;
+            if (board[idx] === 'S') ok = false;
+            indices.push(idx);
+          }
+          if (ok) {
+            for (let idx of indices) board[idx] = 'S';
+            shipsArr.push(indices);
+            placed = true;
+          }
+        }
+      }
+    }
+
+    function drawBoard(board, div, isPlayer, reveal = false) {
+      div.innerHTML = '';
+      for (let i = 0; i < size * size; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'cell';
+        if (isPlayer && board[i] === 'S') cell.classList.add('ship');
+        if (board[i] === 'H') cell.classList.add('hit');
+        if (board[i] === 'M') cell.classList.add('miss');
+        cell.textContent = '';
+        if (!isPlayer && gameActive && playerTurn && board[i] !== 'H' && board[i] !== 'M') {
+          cell.onclick = () => playerFire(i);
+        }
+        div.appendChild(cell);
+      }
+    }
+
+    function playerFire(idx) {
+      if (!gameActive || !playerTurn) return;
+      if (botBoard[idx] === 'H' || botBoard[idx] === 'M') return;
+      if (botBoard[idx] === 'S') {
+        botBoard[idx] = 'H';
+        playerHits++;
+        statusDiv.textContent = "Hit! Go again!";
+        playerTurn = true;
+        drawBoard(botBoard, botBoardDiv, false);
+        if (playerHits === ships.reduce((a, b) => a + b)) {
+          statusDiv.textContent = "You win! All MiniWerner's ships are sunk!";
+          gameActive = false;
+        }
+        return; // <--- ADD THIS LINE: return immediately after a hit!
+      } else {
+        botBoard[idx] = 'M';
+        statusDiv.textContent = "Miss! MiniWerner's turn...";
+        playerTurn = false;
+        drawBoard(botBoard, botBoardDiv, false);
+        setTimeout(botFire, 900);
+      }
+    }
+
+    function botFire() {
+      if (!gameActive) return;
+      let idx;
+      do {
+        idx = Math.floor(Math.random() * size * size);
+      } while (playerBoard[idx] === 'H' || playerBoard[idx] === 'M');
+      if (playerBoard[idx] === 'S') {
+        playerBoard[idx] = 'H';
+        botHits++;
+        statusDiv.textContent = "MiniWerner hit your ship! MiniWerner shoots again!";
+        drawBoard(playerBoard, playerBoardDiv, true);
+        if (botHits === ships.reduce((a, b) => a + b)) {
+          statusDiv.textContent = "MiniWerner wins! All your ships are sunk!";
+          gameActive = false;
+          return;
+        }
+        setTimeout(botFire, 900);
+      } else {
+        playerBoard[idx] = 'M';
+        statusDiv.textContent = "MiniWerner missed! Your turn.";
+        playerTurn = true;
+        drawBoard(playerBoard, playerBoardDiv, true);
+        drawBoard(botBoard, botBoardDiv, false); // <-- lisää tämä rivi!
+      }
+    }
+
+    function resetGame() {
+      playerBoard = createEmptyBoard();
+      botBoard = createEmptyBoard();
+      playerShips = [];
+      botShips = [];
+      playerHits = 0;
+      botHits = 0;
+      gameActive = true;
+      playerTurn = true;
+      placeShipsRandomly(playerBoard, playerShips);
+      placeShipsRandomly(botBoard, botShips);
+      drawBoard(playerBoard, playerBoardDiv, true);
+      drawBoard(botBoard, botBoardDiv, false);
+      statusDiv.textContent = "Sink all MiniWerner's ships!";
+    }
+
+    resetGame();
+  </script>
+</body>
+</html>
