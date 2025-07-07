@@ -58,5 +58,41 @@
 
     <!-- Add more blog posts below as needed -->
 
+    <div class="blog-post">
+        <h2>Site Makeover: From Scattered Code to Unified Architecture</h2>
+        <div class="date">July 8, 2025</div>
+        <p>Just pushed a major update that completely restructured how this site works under the hood. What started as separate HTML files with duplicated styles has evolved into a clean, maintainable architecture.</p>
+        
+        <h3>🔧 What Changed?</h3>
+        <ul>
+            <li><strong>Unified CSS:</strong> Created a single <code>styles.css</code> that handles all global styles and dark mode</li>
+            <li><strong>Shared JavaScript:</strong> Added <code>scripts.js</code> for common functionality across all pages</li>
+            <li><strong>Dark Mode Toggle:</strong> Every page now has a consistent theme switcher (🔄 button in top-right)</li>
+            <li><strong>Battleship Game:</strong> Properly centered and responsive with full dark mode support</li>
+            <li><strong>Keyboard Shortcuts:</strong> Alt+D toggles dark mode, Alt+H goes home</li>
+        </ul>
+
+        <h3>🎯 Why This Matters</h3>
+        <p>This isn't just about cleaner code (though that's nice). It's about creating a foundation that can scale. No more copy-pasting styles between files. No more inconsistent user experience. One change, everywhere it needs to be.</p>
+
+        <p>The dark mode implementation is particularly interesting—it respects your system preferences but lets you override manually. Your choice persists across page visits using localStorage.</p>
+
+        <h3>🚀 The Technical Stack</h3>
+        <ul>
+            <li><strong>DRY Principle:</strong> Don't Repeat Yourself—shared CSS/JS eliminates duplication</li>
+            <li><strong>Progressive Enhancement:</strong> Works without JavaScript, better with it</li>
+            <li><strong>Mobile-First:</strong> Responsive design that works on any screen size</li>
+            <li><strong>Accessibility:</strong> Keyboard shortcuts and semantic HTML</li>
+        </ul>
+
+        <h3>🔍 Behind the Scenes</h3>
+        <p>This update involved touching every HTML file, consolidating hundreds of lines of CSS, and implementing a state management system for theme switching. The battleship game alone required careful CSS overrides to maintain its unique styling while integrating with the global dark mode.</p>
+
+        <p>Working with GitHub Copilot on this refactor was like pair programming with someone who never gets tired of explaining CSS specificity rules. 🤖</p>
+
+        <h3>✨ Try It Out</h3>
+        <p>Click the 🔄 button to test dark mode, or try the keyboard shortcuts. The changes are live across the entire site. Sometimes the best updates are the ones you barely notice—everything just works better.</p>
+    </div>
+
 </body>
 </html>
