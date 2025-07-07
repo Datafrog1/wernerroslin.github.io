@@ -4,241 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio – Werner Roslin</title>
-        <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
-        <link rel="manifest" href="/assets/icons/site.webmanifest">
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #f9f9f9 0%, #e0f7fa 100%);
-            color: #222;
-            padding: 2rem;
-            max-width: 800px;
-            margin: auto;
-            min-height: 100vh;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 2rem;
-            background: #007acc;
-            color: #fff;
-            padding: 2rem 1rem 1.5rem 1rem;
-            border-radius: 18px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-        }
-        h1 {
-            font-size: 2.2rem;
-            margin-bottom: 0.2rem;
-        }
-        .back-btn {
-            display: inline-block;
-            margin-top: 1rem;
-            background: #00bfae;
-            color: #fff;
-            padding: 0.4em 1.2em;
-            border-radius: 20px;
-            font-weight: bold;
-            text-decoration: none;
-            transition: background 0.2s, color 0.2s;
-        }
-        .back-btn:hover {
-            background: #007acc;
-            color: #fff;
-        }
-        .portfolio-item {
-            background: #fff;
-            border-radius: 14px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            padding: 1.5rem 1.2rem;
-            margin-bottom: 2rem;
-            animation: fadeIn 1s;
-        }
-        .portfolio-item h2 {
-            color: #007acc;
-            margin-top: 0;
-        }
-        .portfolio-item p {
-            margin-bottom: 0.5rem;
-        }
-        .portfolio-item a {
-            color: #00bfae;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .portfolio-item a:hover {
-            color: #007acc;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px);}
-            to { opacity: 1; transform: none;}
-        }
-        #miniwerner-chat {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            width: 320px;
-            max-width: 90vw;
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.14);
-            font-family: 'Segoe UI', sans-serif;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            animation: fadeIn 0.7s;
-        }
-        #miniwerner-header {
-            background: #007acc;
-            color: #fff;
-            padding: 0.8em 1em;
-            font-weight: bold;
-            font-size: 1.1em;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        #miniwerner-close {
-            cursor: pointer;
-            font-size: 1.2em;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-        }
-        #miniwerner-close:hover { opacity: 1; }
-        #miniwerner-messages {
-            flex: 1;
-            padding: 1em;
-            overflow-y: auto;
-            max-height: 260px;
-            background: #f9f9f9;
-        }
-        .miniwerner-bot, .miniwerner-user {
-            margin-bottom: 0.7em;
-            padding: 0.7em 1em;
-            border-radius: 12px;
-            max-width: 85%;
-            word-break: break-word;
-            font-size: 1em;
-        }
-        .miniwerner-bot {
-            background: #e0f7fa;
-            color: #007acc;
-            align-self: flex-start;
-        }
-        .miniwerner-user {
-            background: #007acc;
-            color: #fff;
-            align-self: flex-end;
-            margin-left: auto;
-        }
-        #miniwerner-form {
-            display: flex;
-            border-top: 1px solid #e0f7fa;
-            background: #fff;
-        }
-        #miniwerner-input {
-            flex: 1;
-            border: none;
-            padding: 0.8em;
-            font-size: 1em;
-            border-radius: 0 0 0 16px;
-            outline: none;
-            background: #f9f9f9;
-        }
-        #miniwerner-form button {
-            background: #00bfae;
-            color: #fff;
-            border: none;
-            padding: 0 1.3em;
-            font-size: 1em;
-            border-radius: 0 0 16px 0;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        #miniwerner-form button:hover {
-            background: #007acc;
-        }
-        @media (max-width: 500px) {
-            #miniwerner-chat { right: 2vw; left: 2vw; width: unset; }
-        }
-    </style>
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/icons/site.webmanifest">
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js"></script>
 </head>
 <body>
+    <button class="dark-mode-toggle" onclick="toggleTheme()" title="Toggle theme">🔄</button>
+    
     <header>
         <h1>Portfolio</h1>
         <a href="index.html" class="back-btn">← Back to Home</a>
     </header>
 
     <div class="portfolio-item">
-        <h2>Battleship vs MiniWerner</h2>
-        <p>Play Battleship against MiniWerner – try to sink all the bot's ships before it sinks yours!</p>
-        <a href="laivanupotus.html" target="_blank">Play Battleship</a>
+        <h2>Battleship vs AI</h2>
+        <p>Play Battleship against AI – try to sink all the bot's ships before it sinks yours!</p>
+        <a href="laivanupotus.html">Play Battleship</a>
     </div>
 
     <!-- Add more portfolio items as needed -->
 
-    <!-- MiniWerner Chatbot BEGIN -->
-    <div id="miniwerner-chat">
-        <div id="miniwerner-header">MiniWerner 🤖 <span id="miniwerner-close" title="Close">×</span></div>
-        <div id="miniwerner-messages">
-            <div class="miniwerner-bot">Hi! I’m MiniWerner. Ask me anything about this site or just say hello!</div>
-        </div>
-        <form id="miniwerner-form" autocomplete="off">
-            <input type="text" id="miniwerner-input" placeholder="Type your message..." required />
-            <button type="submit">Send</button>
-        </form>
-    </div>
-    <script>
-    const miniwernerBotReplies = [
-        { q: /hello|hi|hei/i, a: "Hello! 👋 How can I help you today?" },
-        { q: /blog|post/i, a: "This blog is about web projects and AI. Want to know more?" },
-        { q: /who.*you|name/i, a: "I’m MiniWerner, your friendly blog bot!" },
-        { q: /project|portfolio/i, a: "Check out the Portfolio page for cool projects!" },
-        { q: /contact|email/i, a: "You can use the Contact Form or email Werner directly." },
-        { q: /thank/i, a: "You’re welcome! 😊" },
-        { q: /ai|artificial/i, a: "AI helps make this site smarter and more fun!" },
-        { q: /bye|goodbye/i, a: "Bye! Come back soon!" }
-    ];
-    function miniwernerBotResponse(msg) {
-        for (const pair of miniwernerBotReplies) {
-            if (pair.q.test(msg)) return pair.a;
-        }
-        // Default reply
-        const funReplies = [
-            "Interesting! Tell me more.",
-            "I’m still learning. Try asking about the blog, portfolio, or contact!",
-            "That’s cool! 😃",
-            "Sorry, I didn’t get that. But I’m happy to chat!"
-        ];
-        return funReplies[Math.floor(Math.random() * funReplies.length)];
-    }
-    const chat = document.getElementById('miniwerner-chat');
-    const messages = document.getElementById('miniwerner-messages');
-    const form = document.getElementById('miniwerner-form');
-    const input = document.getElementById('miniwerner-input');
-    form.onsubmit = function(e) {
-        e.preventDefault();
-        const userMsg = input.value.trim();
-        if (!userMsg) return;
-        const userDiv = document.createElement('div');
-        userDiv.className = 'miniwerner-user';
-        userDiv.textContent = userMsg;
-        messages.appendChild(userDiv);
-        messages.scrollTop = messages.scrollHeight;
-        input.value = '';
-        setTimeout(() => {
-            const botDiv = document.createElement('div');
-            botDiv.className = 'miniwerner-bot';
-            botDiv.textContent = miniwernerBotResponse(userMsg);
-            messages.appendChild(botDiv);
-            messages.scrollTop = messages.scrollHeight;
-        }, 600);
-    };
-    document.getElementById('miniwerner-close').onclick = function() {
-        chat.style.display = 'none';
-    };
-    </script>
-    <!-- MiniWerner Chatbot END -->
 </body>
 </html>

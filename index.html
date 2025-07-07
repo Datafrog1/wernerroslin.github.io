@@ -7,210 +7,16 @@
     <meta name="description" content="Web projects enhanced with AI. Explore my portfolio, blog, and experiments.">
     <meta name="keywords" content="Werner Roslin, web projects, AI, portfolio, blog, experiments">
     <meta name="author" content="Werner Roslin">
-        <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
-        <link rel="manifest" href="/assets/icons/site.webmanifest">
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #f9f9f9 0%, #e0f7fa 100%);
-            color: #222;
-            padding: 2rem;
-            max-width: 800px;
-            margin: auto;
-            min-height: 100vh;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 2rem;
-            background: #007acc;
-            color: #fff;
-            padding: 2rem 1rem 1.5rem 1rem;
-            border-radius: 18px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-            position: relative;
-        }
-        h1 {
-            font-size: 2.8rem;
-            margin-bottom: 0.2rem;
-            letter-spacing: 2px;
-        }
-        p.tagline {
-            color: #e0f7fa;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-        nav {
-            display: none; /* Hide language navigation */
-        }
-        section {
-            margin-top: 2.5rem;
-            background: #fff;
-            border-radius: 14px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            padding: 2rem 1.5rem;
-            animation: fadeIn 1s;
-        }
-        section h2 {
-            color: #007acc;
-            margin-top: 0;
-        }
-        ul {
-            padding-left: 1.2em;
-        }
-        ul li {
-            margin-bottom: 0.5em;
-        }
-        a {
-            transition: color 0.2s;
-        }
-        a:hover {
-            color: #00bfae;
-        }
-        .cta-btn {
-            display: inline-block;
-            margin-top: 1.5rem;
-            background: linear-gradient(90deg, #00bfae 0%, #007acc 100%);
-            color: #fff;
-            padding: 0.7em 2em;
-            border: none;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 2px 12px rgba(0,191,174,0.18);
-            transition: background 0.2s, transform 0.2s;
-        }
-        .cta-btn:hover {
-            background: linear-gradient(90deg, #007acc 0%, #00bfae 100%);
-            transform: translateY(-2px) scale(1.04);
-        }
-        footer {
-            text-align: center;
-            margin-top: 3rem;
-            font-size: 0.95rem;
-            color: #007acc;
-            background: #e0f7fa;
-            border-radius: 12px;
-            padding: 1.2rem 0 1rem 0;
-            box-shadow: 0 2px 8px rgba(0,191,174,0.08);
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px);}
-            to { opacity: 1; transform: none;}
-        }
-        /* Responsive */
-        @media (max-width: 600px) {
-            body {
-                padding: 0.5rem;
-            }
-            section {
-                padding: 1.2rem 0.7rem;
-            }
-            header {
-                padding: 1.2rem 0.5rem 1rem 0.5rem;
-            }
-        }
-        /* MiniWerner Chatbot */
-        #miniwerner-chat {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            width: 320px;
-            max-width: 90vw;
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.14);
-            font-family: 'Segoe UI', sans-serif;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            animation: fadeIn 0.7s;
-        }
-        #miniwerner-header {
-            background: #007acc;
-            color: #fff;
-            padding: 0.8em 1em;
-            font-weight: bold;
-            font-size: 1.1em;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        #miniwerner-close {
-            cursor: pointer;
-            font-size: 1.2em;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-        }
-        #miniwerner-close:hover { opacity: 1; }
-        #miniwerner-messages {
-            flex: 1;
-            padding: 1em;
-            overflow-y: auto;
-            max-height: 260px;
-            background: #f9f9f9;
-        }
-        .miniwerner-bot, .miniwerner-user {
-            margin-bottom: 0.7em;
-            padding: 0.7em 1em;
-            border-radius: 12px;
-            max-width: 85%;
-            word-break: break-word;
-            font-size: 1em;
-        }
-        .miniwerner-bot {
-            background: #e0f7fa;
-            color: #007acc;
-            align-self: flex-start;
-        }
-        .miniwerner-user {
-            background: #007acc;
-            color: #fff;
-            align-self: flex-end;
-            margin-left: auto;
-        }
-        #miniwerner-form {
-            display: flex;
-            border-top: 1px solid #e0f7fa;
-            background: #fff;
-        }
-        #miniwerner-input {
-            flex: 1;
-            border: none;
-            padding: 0.8em;
-            font-size: 1em;
-            border-radius: 0 0 0 16px;
-            outline: none;
-            background: #f9f9f9;
-        }
-        #miniwerner-form button {
-            background: #00bfae;
-            color: #fff;
-            border: none;
-            padding: 0 1.3em;
-            font-size: 1em;
-            border-radius: 0 0 16px 0;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        #miniwerner-form button:hover {
-            background: #007acc;
-        }
-        @media (max-width: 500px) {
-            #miniwerner-chat { right: 2vw; left: 2vw; width: unset; }
-        }
-    </style>
-    <script>
-        // Fun little interactive button
-        function sayHello() {
-            alert("👋 Thanks for visiting! If you want to collaborate, connect on LinkedIn!");
-        }
-    </script>
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/icons/site.webmanifest">
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js"></script>
 </head>
 <body>
+    <button class="dark-mode-toggle" onclick="toggleTheme()" title="Toggle theme">🔄</button>
+    
     <header>
         <h1>Werner Roslin</h1>
         <p class="tagline">Web projects enhanced with AI</p>
@@ -218,7 +24,7 @@
 
     <section>
         <h2>Welcome</h2>
-        <p>This site brings together what I’m working on – projects, experiments, and thoughts.</p>
+        <p>This site brings together what I'm working on – projects, experiments, and thoughts.</p>
         <a class="cta-btn" href="https://www.linkedin.com/in/werner-r-589095154" target="_blank">Say Hello!</a>
     </section>
 
@@ -232,7 +38,6 @@
         <ul>
             <li><a href="portfolio.html">Portfolio</a></li>
             <li><a href="blog.html">Blog</a></li>
-            <!-- <li><a href="contact.html">Contact Form</a></li> -->
         </ul>
     </section>
 
@@ -241,70 +46,5 @@
         <a href="mailto:werner.roslin@gmail.com">werner.roslin@gmail.com</a> &nbsp;|&nbsp;
         <a href="https://www.linkedin.com/in/werner-r-589095154" target="_blank">LinkedIn</a>
     </footer>
-
-    <!-- MiniWerner Chatbot BEGIN -->
-    <div id="miniwerner-chat">
-        <div id="miniwerner-header">MiniWerner 🤖 <span id="miniwerner-close" title="Close">×</span></div>
-        <div id="miniwerner-messages">
-            <div class="miniwerner-bot">Hi! I’m MiniWerner. Ask me anything about this site or just say hello!</div>
-        </div>
-        <form id="miniwerner-form" autocomplete="off">
-            <input type="text" id="miniwerner-input" placeholder="Type your message..." required />
-            <button type="submit">Send</button>
-        </form>
-    </div>
-    <!-- MiniWerner Chatbot END -->
-
-    <script>
-        const miniwernerBotReplies = [
-            { q: /hello|hi|hei/i, a: "Hello! 👋 How can I help you today?" },
-            { q: /blog|post/i, a: "This blog is about web projects and AI. Want to know more?" },
-            { q: /who.*you|name/i, a: "I’m MiniWerner, your friendly blog bot!" },
-            { q: /project|portfolio/i, a: "Check out the Portfolio page for cool projects!" },
-            { q: /contact|email/i, a: "You can use the Contact Form or email Werner directly." },
-            { q: /thank/i, a: "You’re welcome! 😊" },
-            { q: /ai|artificial/i, a: "AI helps make this site smarter and more fun!" },
-            { q: /bye|goodbye/i, a: "Bye! Come back soon!" },
-            { q: /ristinolla|tic.?tac.?toe|play.*game|peli/i, a: 'Want to play Tic-Tac-Toe? Try it in the Portfolio page or <a href="tictactoe.html" target="_blank">click here</a>.' }
-        ];
-        function miniwernerBotResponse(msg) {
-            for (const pair of miniwernerBotReplies) {
-                if (pair.q.test(msg)) return pair.a;
-            }
-            // Default reply
-            const funReplies = [
-                "Interesting! Tell me more.",
-                "I’m still learning. Try asking about the blog, portfolio, or contact!",
-                "That’s cool! 😃",
-                "Sorry, I didn’t get that. But I’m happy to chat!"
-            ];
-            return funReplies[Math.floor(Math.random() * funReplies.length)];
-        }
-        var chat = document.getElementById('miniwerner-chat');
-        var messages = document.getElementById('miniwerner-messages');
-        var form = document.getElementById('miniwerner-form');
-        var input = document.getElementById('miniwerner-input');
-        form.onsubmit = function(e) {
-            e.preventDefault();
-            const userMsg = input.value.trim();
-            if (!userMsg) return;
-            const userDiv = document.createElement('div');
-            userDiv.className = 'miniwerner-user';
-            userDiv.textContent = userMsg;
-            messages.appendChild(userDiv);
-            messages.scrollTop = messages.scrollHeight;
-            input.value = '';
-            setTimeout(() => {
-                const botDiv = document.createElement('div');
-                botDiv.className = 'miniwerner-bot';
-                botDiv.innerHTML = miniwernerBotResponse(userMsg); // HUOM! innerHTML
-                messages.appendChild(botDiv);
-                messages.scrollTop = messages.scrollHeight;
-            }, 600);
-        };
-        document.getElementById('miniwerner-close').onclick = function() {
-            chat.style.display = 'none';
-        };
-    </script>
 </body>
 </html>

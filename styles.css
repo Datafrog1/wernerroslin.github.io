@@ -1,0 +1,349 @@
+/* Global Styles for Werner Roslin Website */
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #f9f9f9 0%, #e0f7fa 100%);
+    color: #222;
+    padding: 2rem;
+    max-width: 800px;
+    margin: auto;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+    background: #007acc;
+    color: #fff;
+    padding: 2rem 1rem 1.5rem 1rem;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    position: relative;
+}
+
+h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.2rem;
+    letter-spacing: 2px;
+}
+
+p.tagline {
+    color: #e0f7fa;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+nav {
+    display: none; /* Hide language navigation */
+}
+
+section {
+    margin-top: 2.5rem;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    padding: 2rem 1.5rem;
+    animation: fadeIn 1s;
+}
+
+section h2 {
+    color: #007acc;
+    margin-top: 0;
+}
+
+ul {
+    padding-left: 1.2em;
+}
+
+ul li {
+    margin-bottom: 0.5em;
+}
+
+a {
+    color: #007acc;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: #00bfae;
+}
+
+.cta-btn {
+    display: inline-block;
+    margin-top: 1.5rem;
+    background: linear-gradient(90deg, #00bfae 0%, #007acc 100%);
+    color: #fff;
+    padding: 0.7em 2em;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 2px 12px rgba(0,191,174,0.18);
+    transition: background 0.2s, transform 0.2s;
+    text-decoration: none;
+}
+
+.cta-btn:hover {
+    background: linear-gradient(90deg, #007acc 0%, #00bfae 100%);
+    transform: translateY(-2px) scale(1.04);
+    color: #fff;
+}
+
+.back-btn {
+    display: inline-block;
+    margin-top: 1rem;
+    background: #00bfae;
+    color: #fff;
+    padding: 0.4em 1.2em;
+    border-radius: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+.back-btn:hover {
+    background: #007acc;
+    color: #fff;
+}
+
+footer {
+    text-align: center;
+    margin-top: 3rem;
+    font-size: 0.95rem;
+    color: #007acc;
+    background: #e0f7fa;
+    border-radius: 12px;
+    padding: 1.2rem 0 1rem 0;
+    box-shadow: 0 2px 8px rgba(0,191,174,0.08);
+}
+
+/* Blog specific styles */
+.blog-post {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    padding: 1.5rem 1.2rem;
+    margin-bottom: 2rem;
+    animation: fadeIn 1s;
+}
+
+.blog-post h2 {
+    color: #007acc;
+    margin-top: 0;
+}
+
+.blog-post .date {
+    color: #888;
+    font-size: 0.95rem;
+    margin-bottom: 0.7rem;
+}
+
+/* Portfolio specific styles */
+.portfolio-item {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    padding: 1.5rem 1.2rem;
+    margin-bottom: 2rem;
+    animation: fadeIn 1s;
+}
+
+.portfolio-item h2 {
+    color: #007acc;
+    margin-top: 0;
+}
+
+.portfolio-item p {
+    margin-bottom: 0.5rem;
+}
+
+.portfolio-item a {
+    color: #00bfae;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.portfolio-item a:hover {
+    color: #007acc;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px);}
+    to { opacity: 1; transform: none;}
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    body {
+        padding: 0.5rem;
+    }
+    section, .blog-post, .portfolio-item {
+        padding: 1.2rem 0.7rem;
+    }
+    header {
+        padding: 1.2rem 0.5rem 1rem 0.5rem;
+    }
+    h1 {
+        font-size: 2.2rem;
+    }
+}
+
+/* Dark Mode Toggle Button */
+.dark-mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #007acc;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+    z-index: 1000;
+}
+
+.dark-mode-toggle:hover {
+    transform: scale(1.1);
+}
+
+/* Automatic Dark Mode (follows system preference) */
+@media (prefers-color-scheme: dark) {
+    body:not(.light-mode) {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
+        color: #ffffff; /* Vaalentanut #f7fafc -> #ffffff */
+    }
+
+    body:not(.light-mode) header {
+        background: #2d3748;
+        color: #ffffff; /* Vaalentanut */
+    }
+
+    body:not(.light-mode) section,
+    body:not(.light-mode) .blog-post,
+    body:not(.light-mode) .portfolio-item {
+        background: #4a5568; /* Vaalentanut #374151 -> #4a5568 */
+        color: #ffffff; /* Vaalentanut */
+        border: 1px solid #6b7280;
+    }
+
+    body:not(.light-mode) section h2,
+    body:not(.light-mode) .blog-post h2,
+    body:not(.light-mode) .portfolio-item h2 {
+        color: #93c5fd; /* Vaalentanut #7dd3fc -> #93c5fd */
+    }
+
+    body:not(.light-mode) footer {
+        background: #4a5568; /* Vaalentanut */
+        color: #ffffff; /* Vaalentanut */
+        border: 1px solid #6b7280;
+    }
+
+    body:not(.light-mode) a {
+        color: #93c5fd; /* Vaalentanut */
+    }
+
+    body:not(.light-mode) a:hover {
+        color: #dbeafe; /* Vaalentanut #bfdbfe -> #dbeafe */
+    }
+
+    body:not(.light-mode) .portfolio-item a {
+        color: #a7f3d0; /* Vaalentanut #86efac -> #a7f3d0 */
+    }
+
+    body:not(.light-mode) .portfolio-item a:hover {
+        color: #93c5fd;
+    }
+
+    body:not(.light-mode) .blog-post .date {
+        color: #e5e7eb; /* Vaalentanut #cbd5e0 -> #e5e7eb */
+    }
+
+    body:not(.light-mode) .dark-mode-toggle {
+        background: #68d391;
+    }
+}
+
+/* Manual Dark Mode (when user clicks toggle) */
+body.dark-mode {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
+    color: #ffffff; /* Vaalentanut */
+}
+
+body.dark-mode header {
+    background: #2d3748;
+    color: #ffffff; /* Vaalentanut */
+}
+
+body.dark-mode section,
+body.dark-mode .blog-post,
+body.dark-mode .portfolio-item {
+    background: #4a5568; /* Vaalentanut */
+    color: #ffffff; /* Vaalentanut */
+    border: 1px solid #6b7280;
+}
+
+body.dark-mode section h2,
+body.dark-mode .blog-post h2,
+body.dark-mode .portfolio-item h2 {
+    color: #93c5fd; /* Vaalentanut */
+}
+
+body.dark-mode footer {
+    background: #4a5568; /* Vaalentanut */
+    color: #ffffff; /* Vaalentanut */
+    border: 1px solid #6b7280;
+}
+
+body.dark-mode a {
+    color: #93c5fd; /* Vaalentanut */
+}
+
+body.dark-mode a:hover {
+    color: #dbeafe; /* Vaalentanut */
+}
+
+body.dark-mode .portfolio-item a {
+    color: #a7f3d0; /* Vaalentanut */
+}
+
+body.dark-mode .portfolio-item a:hover {
+    color: #93c5fd;
+}
+
+body.dark-mode .blog-post .date {
+    color: #e5e7eb; /* Vaalentanut */
+}
+
+body.dark-mode .dark-mode-toggle {
+    background: #68d391;
+}
+
+/* Light Mode Override (when user wants light despite system dark) */
+body.light-mode {
+    background: linear-gradient(135deg, #f9f9f9 0%, #e0f7fa 100%);
+    color: #222;
+}
+
+body.light-mode header {
+    background: #007acc;
+    color: #fff;
+}
+
+body.light-mode section,
+body.light-mode .blog-post,
+body.light-mode .portfolio-item {
+    background: #fff;
+    color: #222;
+    border: none;
+}
+
+body.light-mode .dark-mode-toggle {
+    background: #007acc;
+}

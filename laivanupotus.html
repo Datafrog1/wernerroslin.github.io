@@ -3,40 +3,115 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Battleship vs MiniWerner</title>
+  <title>Battleship vs AI</title>
         <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
         <link rel="manifest" href="/assets/icons/site.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+  <script src="scripts.js"></script>
   <style>
+    /* Game-specific styles - override styles.css */
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #e6f4f1;
+      background: #e6f4f1 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      max-width: none !important;
+      min-height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      color: #222;
+    }
+    
+    /* Dark Mode for Game */
+    body.dark-mode {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%) !important;
+      color: #ffffff !important;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      body:not(.light-mode) {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%) !important;
+        color: #ffffff !important;
+      }
+    }
+    
+    /* Dark Mode for Game Elements */
+    body.dark-mode .board,
+    body:not(.light-mode) .board {
+      background: #4a5568;
+      border: 1px solid #6b7280;
+    }
+    
+    body.dark-mode .cell,
+    body:not(.light-mode) .cell {
+      background: #2d3748;
+      border: 1px solid #4a5568;
+      color: #ffffff;
+    }
+    
+    body.dark-mode .cell.ship,
+    body:not(.light-mode) .cell.ship {
+      background: #3182ce;
+    }
+    
+    body.dark-mode .board-title,
+    body:not(.light-mode) .board-title {
+      color: #93c5fd;
+    }
+    
+    body.dark-mode h1,
+    body:not(.light-mode) h1 {
+      color: #ffffff;
+    }
+    
+    body.dark-mode #status,
+    body:not(.light-mode) #status {
+      color: #86efac;
+    }
+    
+    body.dark-mode button,
+    body:not(.light-mode) button {
+      background: linear-gradient(to right, #059669, #1e40af);
+    }
+    
+    body.dark-mode button:hover,
+    body:not(.light-mode) button:hover {
+      background: linear-gradient(to right, #047857, #1e3a8a);
+    }
+    
+    /* Pelin pääkontainer - keskittää kaiken */
+    .game-container {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      margin: 0;
-      padding: 2rem 0;
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 1rem;
     }
+    
     h1 {
-      color: #0077cc;
-      margin-bottom: 10px;
+      margin-bottom: 1rem;
+      text-align: center;
     }
+    
     #status {
       font-size: 1.1rem;
       color: #39a678;
       margin-bottom: 20px;
       min-height: 1.5em;
+      text-align: center;
     }
+    
     .boards {
       display: flex;
       gap: 40px;
       margin-bottom: 30px;
       flex-wrap: wrap;
       justify-content: center;
+      align-items: flex-start;
     }
+    
     .board {
       display: grid;
       grid-template-columns: repeat(6, 32px);
@@ -47,6 +122,7 @@
       border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
+    
     .cell {
       width: 32px;
       height: 32px;
@@ -60,71 +136,104 @@
       transition: background 0.2s;
       user-select: none;
     }
+    
     .cell.ship {
       background: #90caf9;
     }
+    
     .cell.hit {
       background: #ff5252;
       color: #fff;
     }
+    
     .cell.miss {
       background: #bdbdbd;
       color: #fff;
     }
+    
     .board-title {
       text-align: center;
       margin-bottom: 6px;
       font-weight: bold;
       color: #0077cc;
     }
+    
+    /* Kontrollien keskittäminen */
+    .controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
     button {
       padding: 10px 25px;
       font-size: 1rem;
       border: none;
       border-radius: 25px;
       cursor: pointer;
-      margin: 10px;
       background: linear-gradient(to right, #00c6a2, #0077cc);
       color: white;
       font-weight: bold;
     }
+    
     button:hover {
       background: linear-gradient(to right, #00b191, #005fa3);
     }
-    .back-btn {
-      display: block;
-      margin: 2rem auto 0 auto;
-      background: #00bfae;
-      color: #fff;
-      padding: 0.4em 1.2em;
-      border-radius: 20px;
-      font-weight: bold;
-      text-decoration: none;
-      text-align: center;
-      width: fit-content;
-      transition: background 0.2s, color 0.2s;
-    }
-    .back-btn:hover {
-      background: #007acc;
-      color: #fff;
+    
+    /* Responsiivinen suunnittelu */
+    @media (max-width: 600px) {
+      body {
+        padding: 1rem 0 !important;
+      }
+      
+      .game-container {
+        padding: 1rem 0.5rem;
+      }
+      
+      .boards {
+        gap: 20px;
+      }
+      
+      .board {
+        grid-template-columns: repeat(6, 28px);
+        grid-template-rows: repeat(6, 28px);
+      }
+      
+      .cell {
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Battleship vs MiniWerner</h1>
-  <div id="status">Sink all MiniWerner's ships!</div>
-  <div class="boards">
-    <div>
-      <div class="board-title">Your Board</div>
-      <div id="player-board" class="board"></div>
+  <button class="dark-mode-toggle" onclick="toggleTheme()" title="Toggle theme">🔄</button>
+  
+  <div class="game-container">
+    <h1>Battleship vs AI</h1>
+    <div id="status">Sink all AI's ships!</div>
+    
+    <div class="boards">
+      <div>
+        <div class="board-title">Your Board</div>
+        <div id="player-board" class="board"></div>
+      </div>
+      <div>
+        <div class="board-title">AI's Board</div>
+        <div id="bot-board" class="board"></div>
+      </div>
     </div>
-    <div>
-      <div class="board-title">MiniWerner's Board</div>
-      <div id="bot-board" class="board"></div>
+    
+    <div class="controls">
+      <button onclick="resetGame()">Restart Game</button>
+      <a href="index.html" class="back-btn">← Back to Home</a>
     </div>
   </div>
-  <button onclick="resetGame()">Restart Game</button>
-  <a href="index.html" class="back-btn">← Back to Home</a>
+  
   <script>
     const size = 6;
     const ships = [3, 2, 2]; // ship lengths
@@ -197,13 +306,13 @@
         playerTurn = true;
         drawBoard(botBoard, botBoardDiv, false);
         if (playerHits === ships.reduce((a, b) => a + b)) {
-          statusDiv.textContent = "You win! All MiniWerner's ships are sunk!";
+          statusDiv.textContent = "You win! All AI's ships are sunk!";
           gameActive = false;
         }
-        return; // <--- ADD THIS LINE: return immediately after a hit!
+        return;
       } else {
         botBoard[idx] = 'M';
-        statusDiv.textContent = "Miss! MiniWerner's turn...";
+        statusDiv.textContent = "Miss! AI's turn...";
         playerTurn = false;
         drawBoard(botBoard, botBoardDiv, false);
         setTimeout(botFire, 900);
@@ -219,20 +328,20 @@
       if (playerBoard[idx] === 'S') {
         playerBoard[idx] = 'H';
         botHits++;
-        statusDiv.textContent = "MiniWerner hit your ship! MiniWerner shoots again!";
+        statusDiv.textContent = "AI hit your ship! AI shoots again!";
         drawBoard(playerBoard, playerBoardDiv, true);
         if (botHits === ships.reduce((a, b) => a + b)) {
-          statusDiv.textContent = "MiniWerner wins! All your ships are sunk!";
+          statusDiv.textContent = "AI wins! All your ships are sunk!";
           gameActive = false;
           return;
         }
         setTimeout(botFire, 900);
       } else {
         playerBoard[idx] = 'M';
-        statusDiv.textContent = "MiniWerner missed! Your turn.";
+        statusDiv.textContent = "AI missed! Your turn.";
         playerTurn = true;
         drawBoard(playerBoard, playerBoardDiv, true);
-        drawBoard(botBoard, botBoardDiv, false); // <-- lisää tämä rivi!
+        drawBoard(botBoard, botBoardDiv, false);
       }
     }
 
@@ -249,7 +358,7 @@
       placeShipsRandomly(botBoard, botShips);
       drawBoard(playerBoard, playerBoardDiv, true);
       drawBoard(botBoard, botBoardDiv, false);
-      statusDiv.textContent = "Sink all MiniWerner's ships!";
+      statusDiv.textContent = "Sink all AI's ships!";
     }
 
     resetGame();
