@@ -55,6 +55,34 @@
       background: #3182ce;
     }
     
+    /* Paremmat kontrastit dark modessa */
+    body.dark-mode .cell.hit,
+    body:not(.light-mode) .cell.hit {
+      background: #dc2626 !important; /* Kirkkaampi punainen */
+      color: #ffffff !important;
+      border: 2px solid #fca5a5 !important; /* Valkoinen reunus */
+      font-weight: bold;
+    }
+    
+    body.dark-mode .cell.miss,
+    body:not(.light-mode) .cell.miss {
+      background: #6b7280 !important; /* Tummempi harmaa */
+      color: #f3f4f6 !important; /* Valkoinen teksti */
+      border: 2px solid #9ca3af !important; /* Vaaleampi reunus */
+      font-weight: bold;
+    }
+    
+    /* Lisää symbolit parempaan näkyvyyteen */
+    .cell.hit::after {
+      content: '💥';
+      font-size: 16px;
+    }
+    
+    .cell.miss::after {
+      content: '💧';
+      font-size: 14px;
+    }
+    
     body.dark-mode .board-title,
     body:not(.light-mode) .board-title {
       color: #93c5fd;
