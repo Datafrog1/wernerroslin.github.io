@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Battleship vs AI</title>
-        <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
         <link rel="manifest" href="/assets/icons/site.webmanifest">
@@ -308,6 +309,9 @@
         if (playerHits === ships.reduce((a, b) => a + b)) {
           statusDiv.textContent = "You win! All AI's ships are sunk!";
           gameActive = false;
+          if (typeof trackEvent !== 'undefined') {
+            trackEvent('game_complete', 'Games', 'battleship_win');
+          }
         }
         return;
       } else {
@@ -333,6 +337,9 @@
         if (botHits === ships.reduce((a, b) => a + b)) {
           statusDiv.textContent = "AI wins! All your ships are sunk!";
           gameActive = false;
+          if (typeof trackEvent !== 'undefined') {
+            trackEvent('game_complete', 'Games', 'battleship_loss');
+          }
           return;
         }
         setTimeout(botFire, 900);
@@ -345,7 +352,7 @@
       }
     }
 
-    function resetGame() {
+    window.resetGame = function() {
       playerBoard = createEmptyBoard();
       botBoard = createEmptyBoard();
       playerShips = [];
@@ -359,6 +366,11 @@
       drawBoard(playerBoard, playerBoardDiv, true);
       drawBoard(botBoard, botBoardDiv, false);
       statusDiv.textContent = "Sink all AI's ships!";
+
+      // Track game start
+      if (typeof trackEvent !== 'undefined') {
+          trackEvent('game_start', 'Games', 'battleship');
+      }
     }
 
     resetGame();

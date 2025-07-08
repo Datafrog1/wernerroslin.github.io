@@ -1,5 +1,34 @@
 // Global JavaScript for Werner Roslin Website
 
+// Google Analytics initialization
+(function() {
+    // Load Google Analytics script
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-LRLHN7K86D';
+    document.head.appendChild(script);
+    
+    // Initialize gtag
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-LRLHN7K86D');
+    
+    // Make gtag globally available
+    window.gtag = gtag;
+})();
+
+// Google Analytics Event Tracking
+function trackEvent(action, category, label, value = 1) {
+    if (typeof gtag !== 'undefined') {
+        gtag('event', action, {
+            'event_category': category,
+            'event_label': label,
+            'value': value
+        });
+    }
+}
+
 // Dark Mode Toggle Functionality
 function toggleTheme() {
     const body = document.body;
@@ -12,16 +41,19 @@ function toggleTheme() {
         button.textContent = '☀️';
         button.title = 'Switch to auto theme';
         localStorage.setItem('theme', 'light');
+        trackEvent('theme_change', 'UI', 'light_mode');
     } else if (body.classList.contains('light-mode')) {
         body.classList.remove('light-mode');
         button.textContent = '🔄';
         button.title = 'Switch to dark theme';
         localStorage.setItem('theme', 'auto');
+        trackEvent('theme_change', 'UI', 'auto_mode');
     } else {
         body.classList.add('dark-mode');
         button.textContent = '🌙';
         button.title = 'Switch to light theme';
         localStorage.setItem('theme', 'dark');
+        trackEvent('theme_change', 'UI', 'dark_mode');
     }
 }
 
