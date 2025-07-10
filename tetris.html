@@ -24,14 +24,24 @@
 
         .game-container {
             display: flex;
-            gap: 20px;
+            flex-direction: column; /* ← Muutettu pystysuoraan */
+            gap: 15px; /* ← Pienempi gap */
             background: rgba(255, 255, 255, 0.1);
             padding: 20px;
             border-radius: 20px;
             backdrop-filter: blur(10px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             max-width: 100vw;
-            align-items: flex-start;
+            align-items: center; /* ← Keskitä kaikki */
+        }
+
+        .info-panels-row {
+            display: flex;
+            gap: 15px;
+            order: 2; /* ← SCORE ja NEXT keskelle */
+            width: 100%;
+            max-width: 500px;
+            justify-content: center;
         }
 
         #tetris {
@@ -47,37 +57,10 @@
             border-radius: 10px;
             touch-action: none;
             user-select: none;
-        }
-
-        .game-board {
-            border: 4px solid #fff;
-            border-radius: 10px;
-            background: linear-gradient(
-                to bottom,
-                #000000 0%,
-                #000000 60%,
-                #a70101 60%,
-                #440000 100%
-            );
-            box-shadow: inset 0 0 20px rgba(0, 100, 255, 0.3);
-            position: relative;
-        }
-
-        .game-info {
-            width: 300px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+            order: 3; /* ← Tetris alas */
         }
 
         /* SCORE & NEXT paneelit ylös */
-        .info-panels-row {
-            display: flex;
-            gap: 12px; /* ← Pienempi gap (oli 15px) */
-            order: 1; /* ← Ylös molemmissa */
-            margin-bottom: 15px; /* ← Lisää marginaalia */
-        }
-
         .info-panel {
             background: rgba(255, 255, 255, 0.1);
             padding: 10px;
@@ -142,7 +125,9 @@
             transition: all 0.3s ease;
             cursor: pointer;
             overflow: hidden;
-            order: 2; /* ← Alas molemmissa */
+            order: 1; /* ← CONTROLS ylös */
+            width: 100%;
+            max-width: 400px; /* ← Maksimileveys */
         }
 
         .controls h3 {
@@ -366,201 +351,88 @@
         /* Mobile-optimointi */
         @media (max-width: 768px) {
             body {
-                padding: 10px;
-                padding-top: 60px; /* ← Tilaa Back-napille */
+                padding: 5px;
+                padding-top: 50px;
+                min-height: 100vh;
+                overflow-x: hidden;
             }
             
             .game-container {
                 flex-direction: column;
-                gap: 10px; /* ← Pienempi gap (oli 15px) */
-                padding: 10px; /* ← Pienempi padding (oli 15px) */
+                gap: 10px;
+                padding: 10px;
                 align-items: center;
-            }
-            
-            #tetris {
-                width: 250px !important;
-                height: 500px !important;
-                border: 2px solid #0099ff;
-                border-radius: 8px;
-            }
-            
-            .game-info {
                 width: 100%;
-                max-width: 250px;
-                gap: 10px; /* ← Pienempi gap (oli 15px) */
-            }
-            
-            .info-panels-row {
-                gap: 6px; /* ← Pienempi gap (oli 8px) */
-                margin-bottom: 8px; /* ← Pienempi margin (oli 12px) */
-            }
-            
-            .info-panel {
-                padding: 6px; /* ← Pienempi padding (oli 8px) */
-                border-radius: 6px; /* ← Pienempi radius (oli 8px) */
-            }
-            
-            .info-panel h2 {
-                font-size: 10px; /* ← Pienempi fontti (oli 12px) */
-                margin-bottom: 4px; /* ← Pienempi margin (oli 6px) */
-            }
-            
-            .score-display {
-                font-size: 14px; /* ← Pienempi fontti (oli 16px) */
-            }
-            
-            .level-display {
-                font-size: 9px; /* ← Pienempi fontti (oli 11px) */
-                margin-top: 2px; /* ← Pienempi margin (oli 4px) */
-            }
-            
-            .lines-display {
-                font-size: 8px; /* ← Pienempi fontti (oli 9px) */
-                margin-top: 1px; /* ← Pienempi margin (oli 2px) */
-            }
-            
-            .next-piece {
-                width: 50px; /* ← Pienempi leveys (oli 70px) */
-                height: 50px; /* ← Pienempi korkeus (oli 70px) */
+                max-width: 100vw;
+                box-sizing: border-box;
             }
             
             .controls {
-                padding: 8px; /* ← Pienempi padding (oli 10px) */
-                font-size: 10px; /* ← Pienempi fontti (oli 12px) */
-                border-radius: 8px;
-                margin-top: 8px;
-            }
-            
-            .controls h3 {
-                font-size: 12px; /* ← Pienempi fontti (oli 14px) */
-                margin-bottom: 0;
-            }
-            
-            .controls p {
-                font-size: 8px; /* ← Pienempi fontti (oli 10px) */
-                margin: 1px 0; /* ← Pienempi margin (oli 2px) */
-            }
-            
-            .controls.expanded .controls-content {
-                max-height: 200px; /* ← Pienempi max-height (oli 250px) */
-                margin-top: 6px; /* ← Pienempi margin (oli 10px) */
-            }
-            
-            .pause-btn, .new-game-btn {
-                padding: 6px 12px; /* ← Pienempi padding (oli 8px 15px) */
-                font-size: 10px; /* ← Pienempi fontti (oli 12px) */
-                margin-top: 6px; /* ← Pienempi margin (oli 8px) */
-            }
-            
-            .volume-control {
-                margin-top: 6px; /* ← Pienempi margin (oli 10px) */
-            }
-            
-            .volume-label {
-                font-size: 9px; /* ← Pienempi fontti (oli 12px) */
-            }
-            
-            .volume-slider {
-                height: 2px; /* ← Ohuempi (oli 3px) */
-            }
-            
-            #volumeValue {
-                font-size: 8px; /* ← Pienempi fontti (oli 10px) */
-            }
-            
-            .controls::after {
-                content: "📱 Tap to expand";
-                font-size: 8px; /* ← Pienempi fontti (oli 10px) */
-                color: rgba(255, 215, 0, 0.6);
-                display: block;
-                text-align: center;
-                line-height: 1.1;
-                margin-top: 4px; /* ← Pienempi margin (oli 8px) */
-            }
-            
-            .controls.expanded::after {
-                display: none;
-            }
-            
-            /* Back-nappi korkeammalle */
-            .back-button-container {
-                top: 10px; /* ← Korkeammalle (oli 20px) */
-            }
-            
-            .back-btn {
-                padding: 6px 12px; /* ← Pienempi padding (oli 8px 15px) */
-                font-size: 12px; /* ← Pienempi fontti (oli 14px) */
-                border-radius: 6px; /* ← Pienempi radius */
-            }
-        }
-
-        /* Erittäin pienet näytöt */
-        @media (max-width: 420px) {
-            body {
-                padding: 5px;
-                padding-top: 50px; /* ← Tilaa Back-napille */
-            }
-            
-            .game-container {
-                gap: 8px; /* ← Pienempi gap (oli 10px) */
-                padding: 8px; /* ← Pienempi padding (oli 10px) */
-            }
-            
-            #tetris {
-                width: 220px !important;
-                height: 440px !important;
-            }
-            
-            .game-info {
-                max-width: 220px;
+                order: 1; /* ← CONTROLS ylös */
+                padding: 6px;
+                font-size: 8px;
+                border-radius: 6px;
+                width: 240px;
+                max-width: 240px;
             }
             
             .info-panels-row {
-                gap: 4px; /* ← Pienempi gap */
-                margin-bottom: 6px; /* ← Pienempi margin */
+                gap: 8px;
+                max-width: 240px;
+                order: 2; /* ← SCORE ja NEXT keskelle */
             }
             
+            #tetris {
+                width: 240px !important;
+                height: 480px !important;
+                border: 2px solid #0099ff;
+                border-radius: 8px;
+                order: 3; /* ← Tetris alas */
+            }
+            
+            /* Loput mobile-tyylit pysyvät samoina... */
             .info-panel {
-                padding: 4px; /* ← Pienempi padding (oli 8px) */
-                border-radius: 4px; /* ← Pienempi radius */
+                padding: 4px;
+                border-radius: 4px;
             }
             
             .info-panel h2 {
-                font-size: 9px; /* ← Pienempi fontti */
-                margin-bottom: 3px; /* ← Pienempi margin */
+                font-size: 9px;
+                margin-bottom: 3px;
             }
             
             .score-display {
-                font-size: 12px; /* ← Pienempi fontti */
+                font-size: 12px;
             }
             
             .level-display {
-                font-size: 8px; /* ← Pienempi fontti */
-                margin-top: 2px;
+                font-size: 8px;
+                margin-top: 1px;
             }
             
             .lines-display {
-                font-size: 7px; /* ← Pienempi fontti */
+                font-size: 7px;
                 margin-top: 1px;
             }
             
             .next-piece {
-                width: 40px; /* ← Pienempi leveys (oli 60px) */
-                height: 40px; /* ← Pienempi korkeus (oli 60px) */
-            }
-            
-            .controls {
-                padding: 6px;
-                font-size: 8px;
+                width: 45px;
+                height: 45px;
             }
             
             .controls h3 {
                 font-size: 10px;
+                margin-bottom: 0;
             }
             
             .controls p {
                 font-size: 7px;
                 margin: 1px 0;
+            }
+            
+            .controls.expanded .controls-content {
+                max-height: 150px;
+                margin-top: 4px;
             }
             
             .pause-btn, .new-game-btn {
@@ -569,15 +441,100 @@
                 margin-top: 4px;
             }
             
-            /* Back-nappi vielä korkeammalle pienissä näytöissä */
+            .volume-control {
+                margin-top: 4px;
+            }
+            
+            .volume-label {
+                font-size: 7px;
+            }
+            
+            .volume-slider {
+                height: 2px;
+            }
+            
+            #volumeValue {
+                font-size: 6px;
+            }
+            
+            .controls::after {
+                content: "📱 Tap to expand";
+                font-size: 7px;
+                color: rgba(255, 215, 0, 0.6);
+                display: block;
+                text-align: center;
+                line-height: 1.1;
+                margin-top: 3px;
+            }
+            
+            .controls.expanded::after {
+                display: none;
+            }
+            
             .back-button-container {
-                top: 5px; /* ← Vielä korkeammalle */
+                top: 5px;
             }
             
             .back-btn {
-                padding: 4px 8px; /* ← Pienempi padding */
-                font-size: 10px; /* ← Pienempi fontti */
-                border-radius: 4px; /* ← Pienempi radius */
+                padding: 4px 8px;
+                font-size: 10px;
+                border-radius: 4px;
+            }
+            
+            .game-over {
+                padding: 15px;
+                max-width: 80vw;
+            }
+            
+            .game-over h2 {
+                font-size: 20px;
+                margin-bottom: 10px;
+            }
+            
+            .restart-btn {
+                padding: 8px 15px;
+                font-size: 12px;
+                margin-top: 10px;
+            }
+        }
+
+        /* Erittäin pienet näytöt */
+        @media (max-width: 420px) {
+            .controls {
+                width: 200px;
+                max-width: 200px;
+                order: 1; /* ← CONTROLS ylös */
+            }
+            
+            .info-panels-row {
+                max-width: 200px;
+                order: 2; /* ← SCORE ja NEXT keskelle */
+            }
+            
+            #tetris {
+                width: 200px !important;
+                height: 400px !important;
+                order: 3; /* ← Tetris alas */
+            }
+        }
+
+        /* Erittäin pienet näytöt (alle 350px) */
+        @media (max-width: 350px) {
+            .controls {
+                max-width: 180px;
+                width: 180px;
+                order: 1; /* ← CONTROLS ylös */
+            }
+            
+            .info-panels-row {
+                max-width: 180px;
+                order: 2; /* ← SCORE ja NEXT keskelle */
+            }
+            
+            #tetris {
+                width: 180px !important;
+                height: 360px !important;
+                order: 3; /* ← Tetris alas */
             }
         }
     </style>
@@ -591,47 +548,45 @@
     </div>
 
     <div class="game-container">
-        <div class="game-board">
-            <canvas id="tetris" width="300" height="600"></canvas>
-        </div>
-        
-        <div class="game-info">
-            <div class="info-panels-row">
-                <div class="info-panel">
-                    <h2>SCORE</h2>
-                    <div class="score-display" id="score">0</div>
-                    <div class="level-display">Level: <span id="level">1</span></div>
-                    <div class="lines-display">Lines: <span id="lines">0</span></div>
-                </div>
-
-                <div class="info-panel">
-                    <h2>NEXT</h2>
-                    <canvas class="next-piece" id="nextPiece" width="120" height="120"></canvas>
-                </div>
+        <!-- 1. SCORE ja NEXT ylös -->
+        <div class="info-panels-row">
+            <div class="info-panel">
+                <h2>SCORE</h2>
+                <div class="score-display" id="score">0</div>
+                <div class="level-display">Level: <span id="level">1</span></div>
+                <div class="lines-display">Lines: <span id="lines">0</span></div>
             </div>
 
-            <!-- CONTROLS takaisin .game-info sisään desktopissa -->
-            <div class="controls" id="controlsPanel">
-    <h3>CONTROLS</h3>
-    <div class="controls-content">
-        <p>⬅️ A / ← - Left</p>
-        <p>➡️ D / → - Right</p>
-        <p>⬇️ S / ↓ - Down</p>
-        <p>🔄 W / ↑ - Rotate</p>
-        <p>⚡ Space - Drop</p>
-        <p>⏸️ P - Pause</p>
-        <p>🔄 Ctrl+R - New Game</p>
-        <button class="pause-btn" id="pauseBtn">⏸️ PAUSE</button>
-        <button class="new-game-btn" id="newGameBtn">🎮 NEW GAME</button>
-        
-        <div class="volume-control">
-            <label class="volume-label">🔊 Volume</label>
-            <input type="range" class="volume-slider" id="volumeSlider" 
-                   min="0" max="100" value="50">
-            <span id="volumeValue">50%</span>
+            <div class="info-panel">
+                <h2>NEXT</h2>
+                <canvas class="next-piece" id="nextPiece" width="120" height="120"></canvas>
+            </div>
         </div>
-    </div>
-</div>
+
+        <!-- 2. TETRIS keskelle - POISTA .game-board wrapper! -->
+        <canvas id="tetris" width="300" height="600"></canvas>
+        
+        <!-- 3. CONTROLS alas -->
+        <div class="controls" id="controlsPanel">
+            <h3>CONTROLS</h3>
+            <div class="controls-content">
+                <p>⬅️ A / ← - Left</p>
+                <p>➡️ D / → - Right</p>
+                <p>⬇️ S / ↓ - Down</p>
+                <p>🔄 W / ↑ - Rotate</p>
+                <p>⚡ Space - Drop</p>
+                <p>⏸️ P - Pause</p>
+                <p>🔄 Ctrl+R - New Game</p>
+                <button class="pause-btn" id="pauseBtn">⏸️ PAUSE</button>
+                <button class="new-game-btn" id="newGameBtn">🎮 NEW GAME</button>
+                
+                <div class="volume-control">
+                    <label class="volume-label">🔊 Volume</label>
+                    <input type="range" class="volume-slider" id="volumeSlider" 
+                           min="0" max="100" value="50">
+                    <span id="volumeValue">50%</span>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1671,31 +1626,44 @@ function adjustCanvasForMobile() {
     context.setTransform(1, 0, 0, 1, 0, 0);
     nextContext.setTransform(1, 0, 0, 1, 0, 0);
     
-    if (window.innerWidth <= 420) {
-        // Pienet näytöt: 220x440
-        canvas.width = 220;
-        canvas.height = 440;
-        canvas.style.width = '220px';
-        canvas.style.height = '440px';
-        context.scale(22, 22); // 220/10 = 22
+    if (window.innerWidth <= 350) {
+        // Erittäin pienet näytöt: 180x360
+        canvas.width = 180;
+        canvas.height = 360;
+        canvas.style.width = '180px';
+        canvas.style.height = '360px';
+        context.scale(18, 18); // 180/10 = 18
         
-        // Next canvas: 40x40 CSS → 80x80 canvas (2x skaalaus)
-        nextCanvas.width = 80;
-        nextCanvas.height = 80;
-        nextContext.scale(8, 8); // 80/10 = 8
+        // Next canvas: 30x30 CSS → 60x60 canvas
+        nextCanvas.width = 60;
+        nextCanvas.height = 60;
+        nextContext.scale(6, 6); // 60/10 = 6
+        
+    } else if (window.innerWidth <= 420) {
+        // Pienet näytöt: 200x400
+        canvas.width = 200;
+        canvas.height = 400;
+        canvas.style.width = '200px';
+        canvas.style.height = '400px';
+        context.scale(20, 20); // 200/10 = 20
+        
+        // Next canvas: 35x35 CSS → 70x70 canvas
+        nextCanvas.width = 70;
+        nextCanvas.height = 70;
+        nextContext.scale(7, 7); // 70/10 = 7
         
     } else if (window.innerWidth <= 768) {
-        // Tavalliset mobiili: 250x500  
-        canvas.width = 250;
-        canvas.height = 500;
-        canvas.style.width = '250px';
-        canvas.style.height = '500px';
-        context.scale(25, 25); // 250/10 = 25
+        // Tavalliset mobiili: 240x480  
+        canvas.width = 240;
+        canvas.height = 480;
+        canvas.style.width = '240px';
+        canvas.style.height = '480px';
+        context.scale(24, 24); // 240/10 = 24
         
-        // Next canvas: 50x50 CSS → 100x100 canvas (2x skaalaus)
-        nextCanvas.width = 100;
-        nextCanvas.height = 100;
-        nextContext.scale(10, 10); // 100/10 = 10
+        // Next canvas: 45x45 CSS → 90x90 canvas
+        nextCanvas.width = 90;
+        nextCanvas.height = 90;
+        nextContext.scale(9, 9); // 90/10 = 9
         
     } else {
         // Desktop: 300x600
@@ -1705,7 +1673,7 @@ function adjustCanvasForMobile() {
         canvas.style.height = '600px';
         context.scale(30, 30); // 300/10 = 30
         
-        // Next canvas: 100x100 CSS → 200x200 canvas (2x skaalaus)
+        // Next canvas: 100x100 CSS → 200x200 canvas
         nextCanvas.width = 200;
         nextCanvas.height = 200;
         nextContext.scale(20, 20); // 200/10 = 20
@@ -1726,10 +1694,6 @@ function adjustCanvasForMobile() {
 adjustCanvasForMobile();
 
 // Kuuntele ikkunan koon muutoksia
-window.addEventListener('resize', () => {
-    adjustCanvasForMobile();
-    draw(); // Piirrä uudelleen
-});
 
 // Kaikki alustukset
 initControls();
