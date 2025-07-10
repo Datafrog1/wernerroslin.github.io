@@ -1,349 +1,617 @@
-/* Global Styles for Werner Roslin Website */
+/* Werner Roslin Website - PIRATE THEMED 🏴‍☠️ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #f9f9f9 0%, #e0f7fa 100%);
-    color: #222;
+    font-family: 'Segoe UI', 'Georgia', serif;
+    background: linear-gradient(135deg, #ff9a56 0%, #ffbe76 25%, #87ceeb 50%, #4ecdc4 75%, #45b7d1 100%);
+    background-size: 400% 400%;
+    animation: sunriseGradient 20s ease infinite;
+    color: #2c1810;
     padding: 2rem;
-    max-width: 800px;
+    max-width: 900px;
     margin: auto;
     min-height: 100vh;
+    position: relative;
+    font-weight: 500;
+}
+
+/* Auringon nousu animaatio */
+@keyframes sunriseGradient {
+    0% { background-position: 0% 50%; filter: brightness(1.1) saturate(1.2); }
+    50% { background-position: 100% 50%; filter: brightness(1.2) saturate(1.3); }
+    100% { background-position: 0% 50%; filter: brightness(1.1) saturate(1.2); }
+}
+
+/* Meren aallot taustalla */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(ellipse at 20% 80%, rgba(72, 201, 176, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 60%, rgba(255, 154, 86, 0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 40% 30%, rgba(135, 206, 235, 0.2) 0%, transparent 50%);
+    animation: waves 25s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes waves {
+    0%, 100% { transform: translateY(0px) scale(1); opacity: 0.7; }
+    33% { transform: translateY(-10px) scale(1.02); opacity: 0.8; }
+    66% { transform: translateY(5px) scale(0.98); opacity: 0.9; }
 }
 
 header {
     text-align: center;
     margin-bottom: 2rem;
-    background: #007acc;
-    color: #fff;
-    padding: 2rem 1rem 1.5rem 1rem;
-    border-radius: 18px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    background: linear-gradient(135deg, rgba(44, 24, 16, 0.9) 0%, rgba(101, 67, 33, 0.85) 100%);
+    backdrop-filter: blur(15px);
+    border: 3px solid #d4af37;
+    color: #f4e4bc;
+    padding: 2.5rem 1rem 2rem 1rem;
+    border-radius: 20px;
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.4),
+        inset 0 2px 0 rgba(212, 175, 55, 0.3),
+        0 0 30px rgba(212, 175, 55, 0.2);
     position: relative;
+    overflow: hidden;
+}
+
+/* Kullan kiilto efekti */
+header::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #d4af37, #ffd700, #cd853f, #daa520, #b8860b, #ffd700);
+    background-size: 400% 400%;
+    animation: goldShimmer 6s ease infinite;
+    border-radius: 22px;
+    z-index: -1;
+    opacity: 0.8;
+}
+
+@keyframes goldShimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* Merirosvo kruunu efekti */
+header::after {
+    content: '⚓ 🏴‍☠️ ⚓';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2rem;
+    color: #d4af37;
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateX(-50%) translateY(0px); }
+    50% { transform: translateX(-50%) translateY(-5px); }
 }
 
 h1 {
-    font-size: 2.8rem;
-    margin-bottom: 0.2rem;
-    letter-spacing: 2px;
+    font-size: 3.2rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 3px;
+    text-shadow: 
+        0 0 20px rgba(212, 175, 55, 0.8),
+        0 0 40px rgba(212, 175, 55, 0.4),
+        2px 2px 0px rgba(44, 24, 16, 0.8);
+    background: linear-gradient(45deg, #ffd700, #f4e4bc, #daa520);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: treasureGlow 4s ease-in-out infinite alternate;
+    font-weight: bold;
+}
+
+@keyframes treasureGlow {
+    0% { filter: brightness(1) hue-rotate(0deg) drop-shadow(0 0 10px #d4af37); }
+    100% { filter: brightness(1.3) hue-rotate(10deg) drop-shadow(0 0 20px #ffd700); }
 }
 
 p.tagline {
-    color: #e0f7fa;
-    font-size: 1.2rem;
+    color: #f4e4bc;
+    font-size: 1.4rem;
     margin-bottom: 0.5rem;
+    text-shadow: 
+        0 0 10px rgba(244, 228, 188, 0.5),
+        2px 2px 4px rgba(44, 24, 16, 0.6);
+    font-style: italic;
 }
 
 nav {
-    display: none; /* Hide language navigation */
+    display: none;
 }
 
 section {
     margin-top: 2.5rem;
-    background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    padding: 2rem 1.5rem;
-    animation: fadeIn 1s;
+    background: linear-gradient(135deg, rgba(101, 67, 33, 0.9) 0%, rgba(139, 69, 19, 0.85) 100%);
+    backdrop-filter: blur(12px);
+    border: 2px solid rgba(212, 175, 55, 0.6);
+    border-radius: 18px;
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(212, 175, 55, 0.2);
+    padding: 2.5rem 2rem;
+    animation: treasureReveal 1s ease-out;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    color: #f4e4bc;
+}
+
+/* Aarre-efekti */
+section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+    animation: treasureSpin 8s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+section:hover::before {
+    opacity: 1;
+}
+
+@keyframes treasureSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+section:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(212, 175, 55, 0.3);
+    border-color: rgba(212, 175, 55, 0.8);
 }
 
 section h2 {
-    color: #007acc;
+    color: #ffd700;
     margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    text-shadow: 
+        0 0 15px rgba(255, 215, 0, 0.6),
+        2px 2px 4px rgba(44, 24, 16, 0.8);
+    position: relative;
+    z-index: 1;
+    font-weight: bold;
 }
 
+/* Pirate bullet points */
 ul {
-    padding-left: 1.2em;
+    padding-left: 1.5em;
+    position: relative;
+    z-index: 1;
 }
 
 ul li {
-    margin-bottom: 0.5em;
+    margin-bottom: 0.8em;
+    color: #f4e4bc;
+    text-shadow: 1px 1px 3px rgba(44, 24, 16, 0.6);
+    position: relative;
+}
+
+ul li::before {
+    content: '⚔️';
+    position: absolute;
+    left: -1.5em;
+    color: #d4af37;
+    font-size: 0.9em;
 }
 
 a {
-    color: #007acc;
+    color: #48c9b0;
     text-decoration: none;
-    transition: color 0.2s;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 8px rgba(72, 201, 176, 0.4);
+    position: relative;
+    font-weight: bold;
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #48c9b0, #d4af37);
+    transition: width 0.3s ease;
+}
+
+a:hover::after {
+    width: 100%;
 }
 
 a:hover {
-    color: #00bfae;
+    color: #d4af37;
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+    transform: translateY(-1px);
 }
 
 .cta-btn {
     display: inline-block;
-    margin-top: 1.5rem;
-    background: linear-gradient(90deg, #00bfae 0%, #007acc 100%);
-    color: #fff;
-    padding: 0.7em 2em;
-    border: none;
-    border-radius: 30px;
-    font-size: 1.1rem;
+    margin-top: 2rem;
+    background: linear-gradient(45deg, #d4af37, #ffd700, #cd853f);
+    background-size: 200% 200%;
+    animation: treasureShine 5s ease infinite;
+    color: #2c1810;
+    padding: 1em 2.5em;
+    border: 3px solid #8b4513;
+    border-radius: 25px;
+    font-size: 1.2rem;
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 2px 12px rgba(0,191,174,0.18);
-    transition: background 0.2s, transform 0.2s;
+    box-shadow: 
+        0 10px 25px rgba(139, 69, 19, 0.4),
+        inset 0 2px 0 rgba(255, 215, 0, 0.3);
+    transition: all 0.3s ease;
     text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    text-shadow: 1px 1px 2px rgba(44, 24, 16, 0.3);
+}
+
+@keyframes treasureShine {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.cta-btn::before {
+    content: '💎';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    font-size: 1.5em;
+    animation: gemFloat 3s ease-in-out infinite;
+    opacity: 0.7;
+}
+
+@keyframes gemFloat {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(180deg); }
 }
 
 .cta-btn:hover {
-    background: linear-gradient(90deg, #007acc 0%, #00bfae 100%);
-    transform: translateY(-2px) scale(1.04);
-    color: #fff;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 
+        0 15px 35px rgba(139, 69, 19, 0.6),
+        inset 0 3px 0 rgba(255, 215, 0, 0.5);
+    color: #2c1810;
+    background: linear-gradient(45deg, #ffd700, #d4af37, #daa520);
 }
 
 .back-btn {
     display: inline-block;
-    margin-top: 1rem;
-    background: #00bfae;
-    color: #fff;
-    padding: 0.4em 1.2em;
+    margin-top: 1.5rem;
+    background: linear-gradient(45deg, #8b4513, #cd853f);
+    color: #f4e4bc;
+    padding: 0.8em 1.8em;
+    border: 2px solid #d4af37;
     border-radius: 20px;
     font-weight: bold;
     text-decoration: none;
-    transition: background 0.2s, color 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(139, 69, 19, 0.3);
+    position: relative;
+    overflow: hidden;
+    text-shadow: 1px 1px 2px rgba(44, 24, 16, 0.5);
 }
 
 .back-btn:hover {
-    background: #007acc;
-    color: #fff;
+    background: linear-gradient(45deg, #cd853f, #8b4513);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(139, 69, 19, 0.4);
+    color: #f4e4bc;
+    border-color: #ffd700;
 }
 
 footer {
     text-align: center;
-    margin-top: 3rem;
-    font-size: 0.95rem;
-    color: #007acc;
-    background: #e0f7fa;
-    border-radius: 12px;
-    padding: 1.2rem 0 1rem 0;
-    box-shadow: 0 2px 8px rgba(0,191,174,0.08);
+    margin-top: 3.5rem;
+    font-size: 1rem;
+    color: #f4e4bc;
+    background: linear-gradient(135deg, rgba(44, 24, 16, 0.9) 0%, rgba(101, 67, 33, 0.85) 100%);
+    backdrop-filter: blur(12px);
+    border: 2px solid rgba(212, 175, 55, 0.5);
+    border-radius: 18px;
+    padding: 1.5rem 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 1px 3px rgba(44, 24, 16, 0.6);
+    position: relative;
 }
 
-/* Blog specific styles */
-.blog-post {
-    background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    padding: 1.5rem 1.2rem;
-    margin-bottom: 2rem;
-    animation: fadeIn 1s;
-}
-
-.blog-post h2 {
-    color: #007acc;
-    margin-top: 0;
-}
-
-.blog-post .date {
-    color: #888;
-    font-size: 0.95rem;
-    margin-bottom: 0.7rem;
-}
-
-/* Portfolio specific styles */
-.portfolio-item {
-    background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    padding: 1.5rem 1.2rem;
-    margin-bottom: 2rem;
-    animation: fadeIn 1s;
-}
-
-.portfolio-item h2 {
-    color: #007acc;
-    margin-top: 0;
-}
-
-.portfolio-item p {
+footer::before {
+    content: '🗝️ ⚓ 🗝️';
+    display: block;
     margin-bottom: 0.5rem;
+    color: #d4af37;
+    font-size: 1.2rem;
+}
+
+/* Blog ja Portfolio - Pirate themed */
+.blog-post, .portfolio-item {
+    background: linear-gradient(135deg, rgba(101, 67, 33, 0.9) 0%, rgba(139, 69, 19, 0.85) 100%);
+    backdrop-filter: blur(12px);
+    border: 2px solid rgba(212, 175, 55, 0.6);
+    border-radius: 18px;
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(212, 175, 55, 0.2);
+    padding: 2rem 1.8rem;
+    margin-bottom: 2.5rem;
+    animation: treasureReveal 1s ease-out;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    color: #f4e4bc;
+}
+
+.blog-post::before, .portfolio-item::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+    animation: treasureSpin 10s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.blog-post:hover::before, .portfolio-item:hover::before {
+    opacity: 1;
+}
+
+.blog-post:hover, .portfolio-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 25px rgba(212, 175, 55, 0.3);
+}
+
+.blog-post h2, .portfolio-item h2 {
+    color: #ffd700;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    text-shadow: 
+        0 0 15px rgba(255, 215, 0, 0.6),
+        2px 2px 4px rgba(44, 24, 16, 0.8);
+    position: relative;
+    z-index: 1;
+}
+
+.blog-post .date, .portfolio-item .date {
+    color: rgba(244, 228, 188, 0.8);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 3px rgba(44, 24, 16, 0.6);
+    position: relative;
+    z-index: 1;
+    font-style: italic;
+}
+
+.blog-post p, .portfolio-item p {
+    color: #f4e4bc;
+    line-height: 1.6;
+    text-shadow: 1px 1px 3px rgba(44, 24, 16, 0.5);
+    position: relative;
+    z-index: 1;
 }
 
 .portfolio-item a {
-    color: #00bfae;
+    color: #48c9b0;
     text-decoration: none;
     font-weight: bold;
+    text-shadow: 0 0 8px rgba(72, 201, 176, 0.5);
+    position: relative;
+    z-index: 1;
 }
 
 .portfolio-item a:hover {
-    color: #007acc;
+    color: #d4af37;
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
 }
 
-/* Animations */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(30px);}
-    to { opacity: 1; transform: none;}
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-    body {
-        padding: 0.5rem;
+/* Animaatiot */
+@keyframes treasureReveal {
+    from { 
+        opacity: 0; 
+        transform: translateY(50px) scale(0.9) rotateX(10deg);
     }
-    section, .blog-post, .portfolio-item {
-        padding: 1.2rem 0.7rem;
-    }
-    header {
-        padding: 1.2rem 0.5rem 1rem 0.5rem;
-    }
-    h1 {
-        font-size: 2.2rem;
+    to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1) rotateX(0deg);
     }
 }
 
-/* Dark Mode Toggle Button */
+/* Dark Mode Toggle - Pirate themed */
 .dark-mode-toggle {
     position: fixed;
     top: 20px;
     right: 20px;
-    background: #007acc;
-    color: white;
-    border: none;
+    background: linear-gradient(45deg, #d4af37, #ffd700);
+    color: #2c1810;
+    border: 3px solid #8b4513;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 65px;
+    height: 65px;
     cursor: pointer;
-    font-size: 1.2rem;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    transition: all 0.3s;
+    font-size: 1.8rem;
+    box-shadow: 
+        0 10px 25px rgba(139, 69, 19, 0.4),
+        inset 0 2px 0 rgba(255, 215, 0, 0.3);
+    transition: all 0.3s ease;
     z-index: 1000;
+    backdrop-filter: blur(10px);
+    font-weight: bold;
 }
 
 .dark-mode-toggle:hover {
-    transform: scale(1.1);
+    transform: scale(1.1) rotate(15deg);
+    box-shadow: 
+        0 15px 35px rgba(139, 69, 19, 0.6),
+        inset 0 3px 0 rgba(255, 215, 0, 0.5);
 }
 
-/* Automatic Dark Mode (follows system preference) */
+.dark-mode-toggle::before {
+    content: '☀️';
+    display: block;
+}
+
+/* DARK MODE - Auringon lasku 🌅➡️🌆 */
 @media (prefers-color-scheme: dark) {
     body:not(.light-mode) {
-        background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
-        color: #ffffff; /* Vaalentanut #f7fafc -> #ffffff */
+        background: linear-gradient(135deg, #2c1810 0%, #8b4513 25%, #4a4a4a 50%, #2f4f4f 75%, #1a1a2e 100%);
+        animation: sunsetGradient 20s ease infinite;
+        color: #f4e4bc;
     }
-
-    body:not(.light-mode) header {
-        background: #2d3748;
-        color: #ffffff; /* Vaalentanut */
+    
+    @keyframes sunsetGradient {
+        0% { background-position: 0% 50%; filter: brightness(0.8) saturate(1.1); }
+        50% { background-position: 100% 50%; filter: brightness(0.9) saturate(1.2); }
+        100% { background-position: 0% 50%; filter: brightness(0.8) saturate(1.1); }
     }
-
-    body:not(.light-mode) section,
-    body:not(.light-mode) .blog-post,
-    body:not(.light-mode) .portfolio-item {
-        background: #4a5568; /* Vaalentanut #374151 -> #4a5568 */
-        color: #ffffff; /* Vaalentanut */
-        border: 1px solid #6b7280;
+    
+    body:not(.light-mode)::before {
+        background: 
+            radial-gradient(ellipse at 20% 80%, rgba(139, 69, 19, 0.3) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 60%, rgba(44, 24, 16, 0.4) 0%, transparent 50%),
+            radial-gradient(ellipse at 40% 30%, rgba(47, 79, 79, 0.2) 0%, transparent 50%);
     }
-
-    body:not(.light-mode) section h2,
-    body:not(.light-mode) .blog-post h2,
-    body:not(.light-mode) .portfolio-item h2 {
-        color: #93c5fd; /* Vaalentanut #7dd3fc -> #93c5fd */
+    
+    body:not(.light-mode) .dark-mode-toggle::before {
+        content: '🌙';
     }
-
-    body:not(.light-mode) footer {
-        background: #4a5568; /* Vaalentanut */
-        color: #ffffff; /* Vaalentanut */
-        border: 1px solid #6b7280;
-    }
-
-    body:not(.light-mode) a {
-        color: #93c5fd; /* Vaalentanut */
-    }
-
-    body:not(.light-mode) a:hover {
-        color: #dbeafe; /* Vaalentanut #bfdbfe -> #dbeafe */
-    }
-
-    body:not(.light-mode) .portfolio-item a {
-        color: #a7f3d0; /* Vaalentanut #86efac -> #a7f3d0 */
-    }
-
-    body:not(.light-mode) .portfolio-item a:hover {
-        color: #93c5fd;
-    }
-
-    body:not(.light-mode) .blog-post .date {
-        color: #e5e7eb; /* Vaalentanut #cbd5e0 -> #e5e7eb */
-    }
-
-    body:not(.light-mode) .dark-mode-toggle {
-        background: #68d391;
+    
+    body:not(.light-mode) header::after {
+        content: '🦜 💀 🦜';
     }
 }
 
-/* Manual Dark Mode (when user clicks toggle) */
+/* Manual Dark Mode */
 body.dark-mode {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d3748 100%);
-    color: #ffffff; /* Vaalentanut */
+    background: linear-gradient(135deg, #2c1810 0%, #8b4513 25%, #4a4a4a 50%, #2f4f4f 75%, #1a1a2e 100%);
+    animation: sunsetGradient 20s ease infinite;
+    color: #f4e4bc;
 }
 
-body.dark-mode header {
-    background: #2d3748;
-    color: #ffffff; /* Vaalentanut */
+body.dark-mode::before {
+    background: 
+        radial-gradient(ellipse at 20% 80%, rgba(139, 69, 19, 0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 60%, rgba(44, 24, 16, 0.4) 0%, transparent 50%),
+        radial-gradient(ellipse at 40% 30%, rgba(47, 79, 79, 0.2) 0%, transparent 50%);
 }
 
-body.dark-mode section,
-body.dark-mode .blog-post,
-body.dark-mode .portfolio-item {
-    background: #4a5568; /* Vaalentanut */
-    color: #ffffff; /* Vaalentanut */
-    border: 1px solid #6b7280;
+body.dark-mode .dark-mode-toggle::before {
+    content: '🌙';
 }
 
-body.dark-mode section h2,
-body.dark-mode .blog-post h2,
-body.dark-mode .portfolio-item h2 {
-    color: #93c5fd; /* Vaalentanut */
+body.dark-mode header::after {
+    content: '🦜 💀 🦜';
 }
 
-body.dark-mode footer {
-    background: #4a5568; /* Vaalentanut */
-    color: #ffffff; /* Vaalentanut */
-    border: 1px solid #6b7280;
-}
-
-body.dark-mode a {
-    color: #93c5fd; /* Vaalentanut */
-}
-
-body.dark-mode a:hover {
-    color: #dbeafe; /* Vaalentanut */
-}
-
-body.dark-mode .portfolio-item a {
-    color: #a7f3d0; /* Vaalentanut */
-}
-
-body.dark-mode .portfolio-item a:hover {
-    color: #93c5fd;
-}
-
-body.dark-mode .blog-post .date {
-    color: #e5e7eb; /* Vaalentanut */
-}
-
-body.dark-mode .dark-mode-toggle {
-    background: #68d391;
-}
-
-/* Light Mode Override (when user wants light despite system dark) */
+/* Light Mode Override */
 body.light-mode {
-    background: linear-gradient(135deg, #f9f9f9 0%, #e0f7fa 100%);
-    color: #222;
+    background: linear-gradient(135deg, #ff9a56 0%, #ffbe76 25%, #87ceeb 50%, #4ecdc4 75%, #45b7d1 100%);
+    animation: sunriseGradient 20s ease infinite;
+    color: #2c1810;
 }
 
-body.light-mode header {
-    background: #007acc;
-    color: #fff;
+body.light-mode .dark-mode-toggle::before {
+    content: '☀️';
 }
 
-body.light-mode section,
-body.light-mode .blog-post,
-body.light-mode .portfolio-item {
-    background: #fff;
-    color: #222;
-    border: none;
+body.light-mode header::after {
+    content: '⚓ 🏴‍☠️ ⚓';
 }
 
-body.light-mode .dark-mode-toggle {
-    background: #007acc;
+/* Responsive - Pirate edition */
+@media (max-width: 600px) {
+    body {
+        padding: 1rem;
+    }
+    
+    section, .blog-post, .portfolio-item {
+        padding: 1.8rem 1.2rem;
+    }
+    
+    header {
+        padding: 2rem 1rem 1.5rem 1rem;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+    }
+    
+    .dark-mode-toggle {
+        width: 55px;
+        height: 55px;
+        font-size: 1.5rem;
+        top: 15px;
+        right: 15px;
+    }
+    
+    .cta-btn {
+        padding: 0.8em 2em;
+        font-size: 1.1rem;
+    }
+}
+
+/* Erikoisefektit pirate-teemalle */
+/*
+@keyframes pirateFlag {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+}
+
+.portfolio-item:hover, .blog-post:hover {
+    animation: pirateFlag 2s ease-in-out infinite;
+}
+*/
+
+/* Compass navigation effect */
+section h2::after {
+    content: ' 🧭';
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+section:hover h2::after {
+    opacity: 1;
+    animation: compass 2s linear infinite;
+}
+
+@keyframes compass {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
