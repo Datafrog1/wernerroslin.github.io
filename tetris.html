@@ -19,31 +19,36 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
+            margin: 0;
         }
 
         .game-container {
             display: flex;
-            gap: 30px;
+            gap: 20px;
             background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
+            padding: 20px;
             border-radius: 20px;
             backdrop-filter: blur(10px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            max-width: 100vw;
+            align-items: flex-start;
         }
 
         #tetris {
             display: block;
-            background: 
-                /* Tumma pohja */
-                radial-gradient(circle at center, #001122 0%, #000000 100%);
+            background: radial-gradient(circle at center, #001122 0%, #000000 100%);
             background-size: 100% 100%;
             border: 3px solid #0099ff;
             box-shadow: 
                 inset 0 0 30px rgba(0,150,255,0.3),
                 0 0 20px rgba(0,150,255,0.5);
+            width: 300px;
+            height: 600px;
+            border-radius: 10px;
+            touch-action: none;
+            user-select: none;
         }
 
-        /* Vaihda pelilaudan alaosan väri */
         .game-board {
             border: 4px solid #fff;
             border-radius: 10px;
@@ -58,66 +63,44 @@
             position: relative;
         }
 
-        /* Lisää ruudukko-overlay */
-        .game-board::before {
-            content: '';
-            position: absolute;
-            top: 4px;
-            left: 4px;
+        .game-info {
             width: 300px;
-            height: 600px;
-            background-image: 
-                /* Pystyviivat - joka 30px */
-                repeating-linear-gradient(
-                    to right,
-                    transparent 0px,
-                    transparent 29px,
-                    rgba(0,150,255,0.3) 29px,
-                    rgba(0,150,255,0.3) 30px
-                ),
-                /* Vaakaviivat - joka 30px */
-                repeating-linear-gradient(
-                    to bottom,
-                    transparent 0px,
-                    transparent 29px,
-                    rgba(0,150,255,0.3) 29px,
-                    rgba(0,150,255,0.3) 30px
-                ),
-                /* Alaosan korostus */
-                linear-gradient(
-                    to bottom,
-                    transparent 0%,
-                    transparent 70%,
-                    rgba(255,0,0,0.1) 70%,
-                    rgba(255,0,0,0.2) 100%
-                );
-            pointer-events: none;
-            z-index: 1;
-            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        .game-info {
-            color: white;
-            width: 250px;
+        /* SCORE & NEXT paneelit ylös */
+        .info-panels-row {
+            display: flex;
+            gap: 12px; /* ← Pienempi gap (oli 15px) */
+            order: 1; /* ← Ylös molemmissa */
+            margin-bottom: 15px; /* ← Lisää marginaalia */
         }
 
         .info-panel {
             background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 12px;
             border: 2px solid rgba(255, 255, 255, 0.2);
+            flex: 1;
+            display: flex; /* ← Lisää flex */
+            flex-direction: column; /* ← Pystysuora layout */
+            align-items: center; /* ← Keskitä kaikki sisältö */
+            text-align: center; /* ← Keskitä teksti */
         }
 
         .info-panel h2 {
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
             color: #ffd700;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-size: 14px;
+            width: 100%; /* ← Vie koko leveys */
         }
 
         .score-display {
-            font-size: 24px;
+            font-size: 20px; /* ← Pienempi fontti (oli 24px) */
             font-weight: bold;
             text-align: center;
             color: #00ff88;
@@ -125,95 +108,108 @@
         }
 
         .level-display {
-            font-size: 18px;
+            font-size: 14px; /* ← Pienempi fontti (oli 16px) */
             text-align: center;
-            margin-top: 10px;
+            margin-top: 6px; /* ← Pienempi margin (oli 8px) */
             color: #ff6b6b;
         }
 
         .lines-display {
-            font-size: 16px;
+            font-size: 12px; /* ← Pienempi fontti (oli 14px) */
             text-align: center;
-            margin-top: 5px;
+            margin-top: 4px; /* ← Pienempi margin (oli 5px) */
             color: #4ecdc4;
         }
 
         .next-piece {
-            width: 120px;
-            height: 120px;
+            width: 100px; /* ← Pienempi leveys (oli 120px) */
+            height: 100px; /* ← Pienempi korkeus (oli 120px) */
             background: #000;
             border: 2px solid #fff;
-            border-radius: 10px;
-            margin: 0 auto;
+            border-radius: 8px; /* ← Pienempi radius (oli 10px) */
+            display: block;
+            image-rendering: pixelated;
+            margin: 0; /* ← Ei marginaalia, flex hoitaa keskityksen */
         }
 
+        /* CONTROLS alas molemmissa */
         .controls {
             background: rgba(255, 255, 255, 0.1);
             padding: 20px;
             border-radius: 15px;
             border: 2px solid rgba(255, 255, 255, 0.2);
+            font-size: 14px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+            order: 2; /* ← Alas molemmissa */
         }
 
         .controls h3 {
             color: #ffd700;
             margin-bottom: 15px;
             text-align: center;
-        }
-
-        .controls p {
-            margin: 8px 0;
-            font-size: 14px;
-            color: #fff;
-        }
-
-        .game-over {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.9);
-            color: white;
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            border: 3px solid #ff4757;
-            display: none;
-            z-index: 1000;
-        }
-
-        .game-over h2 {
-            color: #ff4757;
-            margin-bottom: 20px;
-            font-size: 32px;
-        }
-
-        .restart-btn {
-            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
             font-size: 18px;
-            cursor: pointer;
-            margin-top: 20px;
             transition: all 0.3s ease;
         }
 
-        .restart-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3);
+        .controls-content {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .controls.expanded .controls-content {
+            max-height: 400px;
+            opacity: 1;
+            margin-top: 15px;
+        }
+
+        .controls:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .controls.expanded {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 215, 0, 0.4);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .controls h3::after {
+            content: " ▼";
+            font-size: 14px;
+            color: rgba(255, 215, 0, 0.7);
+            transition: transform 0.3s ease;
+        }
+
+        .controls.expanded h3::after {
+            transform: rotate(180deg);
+        }
+
+        .controls p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #fff;
+            display: block;
+        }
+
+        .controls::after {
+            content: "";
+            display: none;
         }
 
         .pause-btn {
             background: linear-gradient(45deg, #ffd700, #ffed4e);
             color: #333;
             border: none;
-            padding: 15px 30px;
+            padding: 12px 20px;
             border-radius: 25px;
-            font-size: 16px;
+            font-size: 14px;
             cursor: pointer;
             width: 100%;
-            margin-top: 15px;
+            margin-top: 10px;
             font-weight: bold;
             transition: all 0.3s ease;
         }
@@ -227,12 +223,12 @@
             background: linear-gradient(45deg, #ff6b6b, #ee5a52);
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 12px 20px;
             border-radius: 25px;
-            font-size: 16px;
+            font-size: 14px;
             cursor: pointer;
             width: 100%;
-            margin-top: 15px;
+            margin-top: 10px;
             font-weight: bold;
             transition: all 0.3s ease;
         }
@@ -250,22 +246,93 @@
 
         .volume-control {
             margin-top: 15px;
-            text-align: center;
         }
 
         .volume-slider {
+            height: 4px;
+            margin-top: 8px;
             width: 100%;
-            margin-top: 10px;
             accent-color: #ffd700;
         }
 
         .volume-label {
-            color: #ffd700;
             font-size: 14px;
+            color: rgba(255, 215, 0, 0.8);
             margin-bottom: 5px;
             display: block;
         }
 
+        #volumeValue {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .game-over {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 3px solid #ff4757;
+            display: none;
+            z-index: 1000;
+            max-width: 90vw;
+        }
+
+        .game-over h2 {
+            color: #ff4757;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .restart-btn {
+            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .restart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3);
+        }
+
+        /* Takaisin-nappi */
+        .back-button-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffd700;
+            text-decoration: none;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Animaatiot */
         @keyframes lineComplete {
             0% { background-color: #fff; }
             50% { background-color: #ff0000; }
@@ -300,119 +367,218 @@
         @media (max-width: 768px) {
             body {
                 padding: 10px;
+                padding-top: 60px; /* ← Tilaa Back-napille */
             }
             
             .game-container {
                 flex-direction: column;
-                gap: 15px;
-                padding: 15px;
-                max-width: 100vw;
-            }
-            
-            .game-board {
-                align-self: center;
+                gap: 10px; /* ← Pienempi gap (oli 15px) */
+                padding: 10px; /* ← Pienempi padding (oli 15px) */
+                align-items: center;
             }
             
             #tetris {
-                width: 300px !important;
-                height: 600px !important;
-                border: 3px solid #0099ff;
-                border-radius: 10px;
-                /* Tärkeää kosketukselle */
-                touch-action: none;
-                user-select: none;
+                width: 250px !important;
+                height: 500px !important;
+                border: 2px solid #0099ff;
+                border-radius: 8px;
             }
             
             .game-info {
                 width: 100%;
-                max-width: 300px;
-                align-self: center;
+                max-width: 250px;
+                gap: 10px; /* ← Pienempi gap (oli 15px) */
+            }
+            
+            .info-panels-row {
+                gap: 6px; /* ← Pienempi gap (oli 8px) */
+                margin-bottom: 8px; /* ← Pienempi margin (oli 12px) */
             }
             
             .info-panel {
-                padding: 15px;
-                margin-bottom: 15px;
+                padding: 6px; /* ← Pienempi padding (oli 8px) */
+                border-radius: 6px; /* ← Pienempi radius (oli 8px) */
+            }
+            
+            .info-panel h2 {
+                font-size: 10px; /* ← Pienempi fontti (oli 12px) */
+                margin-bottom: 4px; /* ← Pienempi margin (oli 6px) */
+            }
+            
+            .score-display {
+                font-size: 14px; /* ← Pienempi fontti (oli 16px) */
+            }
+            
+            .level-display {
+                font-size: 9px; /* ← Pienempi fontti (oli 11px) */
+                margin-top: 2px; /* ← Pienempi margin (oli 4px) */
+            }
+            
+            .lines-display {
+                font-size: 8px; /* ← Pienempi fontti (oli 9px) */
+                margin-top: 1px; /* ← Pienempi margin (oli 2px) */
+            }
+            
+            .next-piece {
+                width: 50px; /* ← Pienempi leveys (oli 70px) */
+                height: 50px; /* ← Pienempi korkeus (oli 70px) */
             }
             
             .controls {
-                padding: 15px;
+                padding: 8px; /* ← Pienempi padding (oli 10px) */
+                font-size: 10px; /* ← Pienempi fontti (oli 12px) */
+                border-radius: 8px;
+                margin-top: 8px;
+            }
+            
+            .controls h3 {
+                font-size: 12px; /* ← Pienempi fontti (oli 14px) */
+                margin-bottom: 0;
             }
             
             .controls p {
-                font-size: 12px;
-                margin: 5px 0;
+                font-size: 8px; /* ← Pienempi fontti (oli 10px) */
+                margin: 1px 0; /* ← Pienempi margin (oli 2px) */
             }
             
-            /* Piilota desktop-ohjeet mobiilissa */
-            .controls p:nth-child(2),
-            .controls p:nth-child(3),
-            .controls p:nth-child(4),
-            .controls p:nth-child(5),
-            .controls p:nth-child(6),
-            .controls p:nth-child(7),
-            .controls p:nth-child(8) {
+            .controls.expanded .controls-content {
+                max-height: 200px; /* ← Pienempi max-height (oli 250px) */
+                margin-top: 6px; /* ← Pienempi margin (oli 10px) */
+            }
+            
+            .pause-btn, .new-game-btn {
+                padding: 6px 12px; /* ← Pienempi padding (oli 8px 15px) */
+                font-size: 10px; /* ← Pienempi fontti (oli 12px) */
+                margin-top: 6px; /* ← Pienempi margin (oli 8px) */
+            }
+            
+            .volume-control {
+                margin-top: 6px; /* ← Pienempi margin (oli 10px) */
+            }
+            
+            .volume-label {
+                font-size: 9px; /* ← Pienempi fontti (oli 12px) */
+            }
+            
+            .volume-slider {
+                height: 2px; /* ← Ohuempi (oli 3px) */
+            }
+            
+            #volumeValue {
+                font-size: 8px; /* ← Pienempi fontti (oli 10px) */
+            }
+            
+            .controls::after {
+                content: "📱 Tap to expand";
+                font-size: 8px; /* ← Pienempi fontti (oli 10px) */
+                color: rgba(255, 215, 0, 0.6);
+                display: block;
+                text-align: center;
+                line-height: 1.1;
+                margin-top: 4px; /* ← Pienempi margin (oli 8px) */
+            }
+            
+            .controls.expanded::after {
                 display: none;
             }
             
-            /* Lisää mobile-ohjeet */
-            .controls::after {
-                content: "📱 TOUCH CONTROLS:\\A⬅️➡️ Swipe left/right\\A🔄 Tap to rotate\\A⬇️ Swipe down\\A⚡ Long press to drop";
-                white-space: pre-line;
-                font-size: 12px;
-                color: #ffd700;
-                display: block;
-                margin-top: 10px;
-                text-align: center;
-                line-height: 1.4;
+            /* Back-nappi korkeammalle */
+            .back-button-container {
+                top: 10px; /* ← Korkeammalle (oli 20px) */
+            }
+            
+            .back-btn {
+                padding: 6px 12px; /* ← Pienempi padding (oli 8px 15px) */
+                font-size: 12px; /* ← Pienempi fontti (oli 14px) */
+                border-radius: 6px; /* ← Pienempi radius */
             }
         }
-        
-        @media (max-width: 480px) {
-            #tetris {
-                width: 250px !important;
-                height: 500px !important;
+
+        /* Erittäin pienet näytöt */
+        @media (max-width: 420px) {
+            body {
+                padding: 5px;
+                padding-top: 50px; /* ← Tilaa Back-napille */
             }
             
             .game-container {
-                padding: 10px;
+                gap: 8px; /* ← Pienempi gap (oli 10px) */
+                padding: 8px; /* ← Pienempi padding (oli 10px) */
             }
-        }
-        
-        /* Kosketuspalautteen animaatio */
-        @keyframes touchFeedback {
-            0% { transform: scale(1); }
-            50% { transform: scale(0.98); }
-            100% { transform: scale(1); }
-        }
-        
-        .touch-feedback {
-            animation: touchFeedback 0.1s ease-out;
-        }
-
-        /* Takaisin-nappi */
-        .back-button-container {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 100;
-        }
-
-        .back-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #ffd700;
-            text-decoration: none;
-            border-radius: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .back-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            
+            #tetris {
+                width: 220px !important;
+                height: 440px !important;
+            }
+            
+            .game-info {
+                max-width: 220px;
+            }
+            
+            .info-panels-row {
+                gap: 4px; /* ← Pienempi gap */
+                margin-bottom: 6px; /* ← Pienempi margin */
+            }
+            
+            .info-panel {
+                padding: 4px; /* ← Pienempi padding (oli 8px) */
+                border-radius: 4px; /* ← Pienempi radius */
+            }
+            
+            .info-panel h2 {
+                font-size: 9px; /* ← Pienempi fontti */
+                margin-bottom: 3px; /* ← Pienempi margin */
+            }
+            
+            .score-display {
+                font-size: 12px; /* ← Pienempi fontti */
+            }
+            
+            .level-display {
+                font-size: 8px; /* ← Pienempi fontti */
+                margin-top: 2px;
+            }
+            
+            .lines-display {
+                font-size: 7px; /* ← Pienempi fontti */
+                margin-top: 1px;
+            }
+            
+            .next-piece {
+                width: 40px; /* ← Pienempi leveys (oli 60px) */
+                height: 40px; /* ← Pienempi korkeus (oli 60px) */
+            }
+            
+            .controls {
+                padding: 6px;
+                font-size: 8px;
+            }
+            
+            .controls h3 {
+                font-size: 10px;
+            }
+            
+            .controls p {
+                font-size: 7px;
+                margin: 1px 0;
+            }
+            
+            .pause-btn, .new-game-btn {
+                padding: 4px 8px;
+                font-size: 8px;
+                margin-top: 4px;
+            }
+            
+            /* Back-nappi vielä korkeammalle pienissä näytöissä */
+            .back-button-container {
+                top: 5px; /* ← Vielä korkeammalle */
+            }
+            
+            .back-btn {
+                padding: 4px 8px; /* ← Pienempi padding */
+                font-size: 10px; /* ← Pienempi fontti */
+                border-radius: 4px; /* ← Pienempi radius */
+            }
         }
     </style>
 </head>
@@ -430,37 +596,42 @@
         </div>
         
         <div class="game-info">
-            <div class="info-panel">
-                <h2>SCORE</h2>
-                <div class="score-display" id="score">0</div>
-                <div class="level-display">Level: <span id="level">1</span></div>
-                <div class="lines-display">Lines: <span id="lines">0</span></div>
-            </div>
+            <div class="info-panels-row">
+                <div class="info-panel">
+                    <h2>SCORE</h2>
+                    <div class="score-display" id="score">0</div>
+                    <div class="level-display">Level: <span id="level">1</span></div>
+                    <div class="lines-display">Lines: <span id="lines">0</span></div>
+                </div>
 
-            <div class="info-panel">
-                <h2>NEXT</h2>
-                <canvas class="next-piece" id="nextPiece" width="120" height="120"></canvas>
-            </div>
-
-            <div class="controls">
-                <h3>CONTROLS</h3>
-                <p>⬅️ A / ← - Left</p>
-                <p>➡️ D / → - Right</p>
-                <p>⬇️ S / ↓ - Down</p>
-                <p>🔄 W / ↑ - Rotate</p>
-                <p>⚡ Space - Drop</p>
-                <p>⏸️ P - Pause</p>
-                <p>🔄 Ctrl+R - New Game</p>
-                <button class="pause-btn" id="pauseBtn">⏸️ PAUSE</button>
-                <button class="new-game-btn" id="newGameBtn">🎮 NEW GAME</button>
-                
-                <div class="volume-control">
-                    <label class="volume-label">🔊 Volume</label>
-                    <input type="range" class="volume-slider" id="volumeSlider" 
-                           min="0" max="100" value="50">
-                    <span id="volumeValue">50%</span>
+                <div class="info-panel">
+                    <h2>NEXT</h2>
+                    <canvas class="next-piece" id="nextPiece" width="120" height="120"></canvas>
                 </div>
             </div>
+
+            <!-- CONTROLS takaisin .game-info sisään desktopissa -->
+            <div class="controls" id="controlsPanel">
+    <h3>CONTROLS</h3>
+    <div class="controls-content">
+        <p>⬅️ A / ← - Left</p>
+        <p>➡️ D / → - Right</p>
+        <p>⬇️ S / ↓ - Down</p>
+        <p>🔄 W / ↑ - Rotate</p>
+        <p>⚡ Space - Drop</p>
+        <p>⏸️ P - Pause</p>
+        <p>🔄 Ctrl+R - New Game</p>
+        <button class="pause-btn" id="pauseBtn">⏸️ PAUSE</button>
+        <button class="new-game-btn" id="newGameBtn">🎮 NEW GAME</button>
+        
+        <div class="volume-control">
+            <label class="volume-label">🔊 Volume</label>
+            <input type="range" class="volume-slider" id="volumeSlider" 
+                   min="0" max="100" value="50">
+            <span id="volumeValue">50%</span>
+        </div>
+    </div>
+</div>
         </div>
     </div>
 
@@ -477,10 +648,6 @@ const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
 const nextCanvas = document.getElementById('nextPiece');
 const nextContext = nextCanvas.getContext('2d');
-
-// Skaalaa peli
-context.scale(30, 30);
-nextContext.scale(20, 20);
 
 // Pelin muuttujat
 let dropCounter = 0;
@@ -696,9 +863,15 @@ function createPiece(type) {
 }
 
 function drawGrid() {
+    // Määritä ruudukon koko dynaamisesti
+    const gridWidth = canvas.width / context.getTransform().a; // a = scaleX
+    const gridHeight = canvas.height / context.getTransform().d; // d = scaleY
+    
+    // Ohut ristikko
     context.strokeStyle = 'rgba(0, 100, 150, 0.4)';
     context.lineWidth = 0.02;
     
+    // Pystyviivat
     for (let x = 0; x <= 10; x++) {
         context.beginPath();
         context.moveTo(x, 0);
@@ -706,6 +879,7 @@ function drawGrid() {
         context.stroke();
     }
     
+    // Vaakaviivat
     for (let y = 0; y <= 20; y++) {
         context.beginPath();
         context.moveTo(0, y);
@@ -713,6 +887,7 @@ function drawGrid() {
         context.stroke();
     }
     
+    // Paksummat 5-ruudun viivat
     context.strokeStyle = 'rgba(0, 150, 255, 0.6)';
     context.lineWidth = 0.03;
     
@@ -723,14 +898,19 @@ function drawGrid() {
         context.stroke();
     }
     
+    // Vaara-alue (alaosa)
     context.fillStyle = 'rgba(255, 0, 0, 0.05)';
     context.fillRect(0, 17, 10, 3);
 }
 
 function draw() {
+    // Määritä canvas koko dynaamisesti
+    const canvasWidth = canvas.width / context.getTransform().a;
+    const canvasHeight = canvas.height / context.getTransform().d;
+    
     if (gameOver && !player.matrix) {
         context.fillStyle = '#000';
-        context.fillRect(0, 0, canvas.width / 30, canvas.height / 30);
+        context.fillRect(0, 0, canvasWidth, canvasHeight);
         drawGrid();
 
         arena.forEach((row, y) => {
@@ -749,7 +929,7 @@ function draw() {
     }
 
     context.fillStyle = '#000';
-    context.fillRect(0, 0, canvas.width / 30, canvas.height / 30);
+    context.fillRect(0, 0, canvasWidth, canvasHeight);
 
     drawGrid();
 
@@ -789,20 +969,31 @@ function draw() {
     if (!gameOver) {
         drawNextPiece();
     } else {
+        // Tyhjennä next canvas game over -tilassa
+        const nextCanvasSize = nextCanvas.width / nextContext.getTransform().a;
         nextContext.fillStyle = '#000';
-        nextContext.fillRect(0, 0, nextCanvas.width / 20, nextCanvas.height / 20);
+        nextContext.fillRect(0, 0, nextCanvasSize, nextCanvasSize);
     }
 }
 
 function drawNextPiece() {
+    // Tyhjennä next canvas oikein
+    const scale = nextContext.getTransform().a;
+    const canvasSize = 10; // Oletetaan 10x10 ruudukon koko
+    
     nextContext.fillStyle = '#000';
-    nextContext.fillRect(0, 0, nextCanvas.width / 20, nextCanvas.height / 20);
+    nextContext.fillRect(0, 0, canvasSize, canvasSize);
     
     if (nextPiece) {
+        // Keskitä pala canvakseen
+        const pieceWidth = nextPiece.matrix[0].length;
+        const pieceHeight = nextPiece.matrix.length;
+        
         const offset = {
-            x: (6 - nextPiece.matrix[0].length) / 2,
-            y: (6 - nextPiece.matrix.length) / 2
+            x: (canvasSize - pieceWidth) / 2,
+            y: (canvasSize - pieceHeight) / 2
         };
+        
         nextPiece.matrix.forEach((row, y) => {
             row.forEach((value, x) => {
                 if (value !== 0) {
@@ -1087,9 +1278,39 @@ function update(time = 0) {
     }
 }
 
+// CONTROLS-panelin laajennus
+const controlsPanel = document.getElementById('controlsPanel');
+let controlsExpanded = false;
+
+controlsPanel.addEventListener('click', (e) => {
+    // Älä laajenna jos klikkaat nappeja
+    if (e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT') {
+        return;
+    }
+    
+    controlsExpanded = !controlsExpanded;
+    
+    if (controlsExpanded) {
+        controlsPanel.classList.add('expanded');
+    } else {
+        controlsPanel.classList.remove('expanded');
+    }
+});
+
+// Estä laajennus/kutistus kun interaktoidaan controlsien kanssa
+const controlsContent = document.querySelector('.controls-content');
+controlsContent.addEventListener('click', (e) => {
+    e.stopPropagation(); // Estä klikkauksen kulkeutuminen ylöspäin
+});
+
 // TOUCH & MOUSE KONTROLLIT
 function initControls() {
     const canvas = document.getElementById('tetris');
+    
+    // Touch/Mouse muuttujat toistoa varten
+    let touchRepeatInterval = null;
+    let touchDirection = null;
+    let isLongPress = false;
     
     // CSS hiirelle
     canvas.style.cursor = 'grab';
@@ -1099,7 +1320,6 @@ function initControls() {
     const initAudioOnInteraction = () => {
         if (!audioInitialized) {
             initAudio();
-            // Testaa audio heti
             setTimeout(() => {
                 if (soundVolume > 0) {
                     createBeep(200, 0.1, 'sine');
@@ -1111,7 +1331,7 @@ function initControls() {
     // Touch events
     canvas.addEventListener('touchstart', (e) => {
         e.preventDefault();
-        initAudioOnInteraction(); // Alusta audio
+        initAudioOnInteraction();
         
         if (gameOver || isPaused) return;
         
@@ -1120,36 +1340,121 @@ function initControls() {
         touchStartX = touch.clientX - rect.left;
         touchStartY = touch.clientY - rect.top;
         touchStartTime = Date.now();
+        isLongPress = false;
+        
+        // Aloita long press timer
+        setTimeout(() => {
+            if (touchStartTime > 0) { // Vielä kosketetaan
+                isLongPress = true;
+            }
+        }, 200);
+    }, { passive: false });
+    
+    canvas.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        if (gameOver || isPaused || !isLongPress) return;
+        
+        const touch = e.touches[0];
+        const rect = canvas.getBoundingClientRect();
+        const currentX = touch.clientX - rect.left;
+        const currentY = touch.clientY - rect.top;
+        const deltaX = currentX - touchStartX;
+        const deltaY = currentY - touchStartY;
+        
+        // Päivitä aloituspiste kun suunta vaihtuu (sujuvampi liike)
+        let shouldUpdateStartPos = false;
+        
+        // Määritä suunta ja aloita/vaihda toisto
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 20) {
+            const newDirection = deltaX > 0 ? 'right' : 'left';
+            if (touchDirection !== newDirection) {
+                touchDirection = newDirection;
+                shouldUpdateStartPos = true;
+                // Pysäytä vanha toisto ja aloita uusi
+                if (touchRepeatInterval) clearInterval(touchRepeatInterval);
+                
+                // Tee ensimmäinen liike heti
+                if (touchStartTime > 0 && !gameOver && !isPaused) {
+                    playerMove(touchDirection === 'right' ? 1 : -1);
+                }
+                
+                touchRepeatInterval = setInterval(() => {
+                    if (touchStartTime > 0 && !gameOver && !isPaused) {
+                        playerMove(touchDirection === 'right' ? 1 : -1);
+                    }
+                }, 100); // 100ms toisto
+            }
+        } else if (deltaY > 30) {
+            if (touchDirection !== 'down') {
+                touchDirection = 'down';
+                shouldUpdateStartPos = true;
+                // Pysäytä vanha toisto ja aloita uusi
+                if (touchRepeatInterval) clearInterval(touchRepeatInterval);
+                
+                // Tee ensimmäinen liike heti
+                if (touchStartTime > 0 && !gameOver && !isPaused) {
+                    playerDrop();
+                }
+                
+                touchRepeatInterval = setInterval(() => {
+                    if (touchStartTime > 0 && !gameOver && !isPaused) {
+                        playerDrop();
+                    }
+                }, 80); // 80ms toisto alaspäin
+            }
+        }
+        
+        // Päivitä aloituspiste sulavampaa liikettä varten
+        if (shouldUpdateStartPos) {
+            touchStartX = currentX;
+            touchStartY = currentY;
+        }
     }, { passive: false });
     
     canvas.addEventListener('touchend', (e) => {
         e.preventDefault();
-        if (gameOver || isPaused) return;
+        
+        // Pysäytä toisto
+        if (touchRepeatInterval) {
+            clearInterval(touchRepeatInterval);
+            touchRepeatInterval = null;
+        }
+        touchDirection = null;
+        
+        if (gameOver || isPaused) {
+            touchStartTime = 0;
+            return;
+        }
         
         const touchDuration = Date.now() - touchStartTime;
-        const touch = e.changedTouches[0];
-        const rect = canvas.getBoundingClientRect();
+        touchStartTime = 0;
         
-        const endX = touch.clientX - rect.left;
-        const endY = touch.clientY - rect.top;
-        const deltaX = endX - touchStartX;
-        const deltaY = endY - touchStartY;
-        
-        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 30) {
-            playerMove(deltaX > 0 ? 1 : -1);
-        } else if (deltaY > 40) {
-            playerDrop();
-        } else if (touchDuration < 300 && Math.abs(deltaX) < 20 && Math.abs(deltaY) < 20) {
-            playerRotate(1);
-        } else if (touchDuration > 600) {
-            hardDrop();
+        if (!isLongPress) {
+            // Lyhyt kosketus - normaalit liikkeet
+            const touch = e.changedTouches[0];
+            const rect = canvas.getBoundingClientRect();
+            
+            const endX = touch.clientX - rect.left;
+            const endY = touch.clientY - rect.top;
+            const deltaX = endX - touchStartX;
+            const deltaY = endY - touchStartY;
+            
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 30) {
+                playerMove(deltaX > 0 ? 1 : -1);
+            } else if (deltaY > 40) {
+                playerDrop();
+            } else if (touchDuration < 300 && Math.abs(deltaX) < 20 && Math.abs(deltaY) < 20) {
+                playerRotate(1);
+            } else if (touchDuration > 600) {
+                hardDrop();
+            }
         }
     }, { passive: false });
     
     // Mouse events
     canvas.addEventListener('mousedown', (e) => {
         e.preventDefault();
-        initAudioOnInteraction(); // Alusta audio
+        initAudioOnInteraction();
         
         if (gameOver || isPaused) return;
         
@@ -1158,43 +1463,124 @@ function initControls() {
         touchStartY = e.clientY - rect.top;
         touchStartTime = Date.now();
         isDragging = true;
+        isLongPress = false;
         canvas.style.cursor = 'grabbing';
+        
+        // Aloita long press timer hiirelle
+        setTimeout(() => {
+            if (isDragging && touchStartTime > 0) {
+                isLongPress = true;
+            }
+        }, 200);
+    });
+    
+    canvas.addEventListener('mousemove', (e) => {
+        e.preventDefault();
+        if (!isDragging || gameOver || isPaused || !isLongPress) return;
+        
+        const rect = canvas.getBoundingClientRect();
+        const currentX = e.clientX - rect.left;
+        const currentY = e.clientY - rect.top;
+        const deltaX = currentX - touchStartX;
+        const deltaY = currentY - touchStartY;
+        
+        // Määritä suunta ja aloita/vaihda toisto hiirelle
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 15) {
+            const newDirection = deltaX > 0 ? 'right' : 'left';
+            if (touchDirection !== newDirection) {
+                touchDirection = newDirection;
+                // Pysäytä vanha toisto ja aloita uusi
+                if (touchRepeatInterval) clearInterval(touchRepeatInterval);
+                
+                // Tee ensimmäinen liike heti
+                if (isDragging && !gameOver && !isPaused) {
+                    playerMove(touchDirection === 'right' ? 1 : -1);
+                }
+                
+                touchRepeatInterval = setInterval(() => {
+                    if (isDragging && !gameOver && !isPaused) {
+                        playerMove(touchDirection === 'right' ? 1 : -1);
+                    }
+                }, 90); // 90ms toisto hiirelle
+            }
+        } else if (deltaY > 20) {
+            if (touchDirection !== 'down') {
+                touchDirection = 'down';
+                // Pysäytä vanha toisto ja aloita uusi
+                if (touchRepeatInterval) clearInterval(touchRepeatInterval);
+                
+                // Tee ensimmäinen liike heti
+                if (isDragging && !gameOver && !isPaused) {
+                    playerDrop();
+                }
+                
+                touchRepeatInterval = setInterval(() => {
+                    if (isDragging && !gameOver && !isPaused) {
+                        playerDrop();
+                    }
+                }, 70); // 70ms toisto alaspäin hiirelle
+            }
+        }
     });
     
     canvas.addEventListener('mouseup', (e) => {
         e.preventDefault();
+        
+        // Pysäytä toisto
+        if (touchRepeatInterval) {
+            clearInterval(touchRepeatInterval);
+            touchRepeatInterval = null;
+        }
+        touchDirection = null;
+        
         if (!isDragging) return;
         
         isDragging = false;
         canvas.style.cursor = 'grab';
         
-        if (gameOver || isPaused) return;
-        
-        const mouseDuration = Date.now() - touchStartTime;
-        const rect = canvas.getBoundingClientRect();
-        const endX = e.clientX - rect.left;
-        const endY = e.clientY - rect.top;
-        const deltaX = endX - touchStartX;
-        const deltaY = endY - touchStartY;
-        
-        if (e.button === 2) {
-            hardDrop();
+        if (gameOver || isPaused) {
+            touchStartTime = 0;
             return;
         }
         
-        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 20) {
-            playerMove(deltaX > 0 ? 1 : -1);
-        } else if (deltaY > 15) {
-            playerDrop();
-        } else if (mouseDuration < 300 && Math.abs(deltaX) < 15 && Math.abs(deltaY) < 15) {
-            playerRotate(1);
-        } else if (mouseDuration > 500) {
-            hardDrop();
+        const mouseDuration = Date.now() - touchStartTime;
+        touchStartTime = 0;
+        
+        if (!isLongPress) {
+            // Lyhyt klikkaus - normaalit liikkeet
+            const rect = canvas.getBoundingClientRect();
+            const endX = e.clientX - rect.left;
+            const endY = e.clientY - rect.top;
+            const deltaX = endX - touchStartX;
+            const deltaY = endY - touchStartY;
+            
+            if (e.button === 2) {
+                hardDrop();
+                return;
+            }
+            
+            if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 20) {
+                playerMove(deltaX > 0 ? 1 : -1);
+            } else if (deltaY > 15) {
+                playerDrop();
+            } else if (mouseDuration < 300 && Math.abs(deltaX) < 15 && Math.abs(deltaY) < 15) {
+                playerRotate(1);
+            } else if (mouseDuration > 500) {
+                hardDrop();
+            }
         }
     });
     
     canvas.addEventListener('mouseleave', () => {
+        // Pysäytä toisto kun hiiri poistuu
+        if (touchRepeatInterval) {
+            clearInterval(touchRepeatInterval);
+            touchRepeatInterval = null;
+        }
+        touchDirection = null;
         isDragging = false;
+        isLongPress = false;
+        touchStartTime = 0;
         canvas.style.cursor = 'grab';
     });
     
@@ -1274,7 +1660,78 @@ volumeSlider.addEventListener('input', (e) => {
 document.getElementById('pauseBtn').addEventListener('click', togglePause);
 document.getElementById('newGameBtn').addEventListener('click', startNewGame);
 
-// Alusta kaikki
+// Dynaaminen canvas-skaalaus mobiilille
+function adjustCanvasForMobile() {
+    // Tallenna nykyinen tila
+    const currentMatrix = player.matrix;
+    const currentPos = {...player.pos};
+    const currentType = player.type;
+    
+    // Nollaa transformaatiot
+    context.setTransform(1, 0, 0, 1, 0, 0);
+    nextContext.setTransform(1, 0, 0, 1, 0, 0);
+    
+    if (window.innerWidth <= 420) {
+        // Pienet näytöt: 220x440
+        canvas.width = 220;
+        canvas.height = 440;
+        canvas.style.width = '220px';
+        canvas.style.height = '440px';
+        context.scale(22, 22); // 220/10 = 22
+        
+        // Next canvas: 40x40 CSS → 80x80 canvas (2x skaalaus)
+        nextCanvas.width = 80;
+        nextCanvas.height = 80;
+        nextContext.scale(8, 8); // 80/10 = 8
+        
+    } else if (window.innerWidth <= 768) {
+        // Tavalliset mobiili: 250x500  
+        canvas.width = 250;
+        canvas.height = 500;
+        canvas.style.width = '250px';
+        canvas.style.height = '500px';
+        context.scale(25, 25); // 250/10 = 25
+        
+        // Next canvas: 50x50 CSS → 100x100 canvas (2x skaalaus)
+        nextCanvas.width = 100;
+        nextCanvas.height = 100;
+        nextContext.scale(10, 10); // 100/10 = 10
+        
+    } else {
+        // Desktop: 300x600
+        canvas.width = 300;
+        canvas.height = 600;
+        canvas.style.width = '300px';
+        canvas.style.height = '600px';
+        context.scale(30, 30); // 300/10 = 30
+        
+        // Next canvas: 100x100 CSS → 200x200 canvas (2x skaalaus)
+        nextCanvas.width = 200;
+        nextCanvas.height = 200;
+        nextContext.scale(20, 20); // 200/10 = 20
+    }
+    
+    // Palauta pelaajan tila
+    player.matrix = currentMatrix;
+    player.pos = currentPos;
+    player.type = currentType;
+    
+    // Piirrä next-pala heti
+    if (nextPiece) {
+        drawNextPiece();
+    }
+}
+
+// Kutsu alustuksessa
+adjustCanvasForMobile();
+
+// Kuuntele ikkunan koon muutoksia
+window.addEventListener('resize', () => {
+    adjustCanvasForMobile();
+    draw(); // Piirrä uudelleen
+});
+
+// Kaikki alustukset
 initControls();
 playerReset();
 updateDisplay();
