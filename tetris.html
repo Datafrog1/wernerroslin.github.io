@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tetris Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .game-container {
+            display: flex;
+            gap: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        #tetris {
+            display: block;
+            background: 
+                /* Tumma pohja */
+                radial-gradient(circle at center, #001122 0%, #000000 100%);
+            background-size: 100% 100%;
+            border: 3px solid #0099ff;
+            box-shadow: 
+                inset 0 0 30px rgba(0,150,255,0.3),
+                0 0 20px rgba(0,150,255,0.5);
+        }
+
+        /* Vaihda pelilaudan alaosan väri */
+        .game-board {
+            border: 4px solid #fff;
+            border-radius: 10px;
+            background: linear-gradient(
+                to bottom,
+                #000000 0%,
+                #000000 60%,
+                #a70101 60%,
+                #440000 100%
+            );
+            box-shadow: inset 0 0 20px rgba(0, 100, 255, 0.3);
+            position: relative;
+        }
+
+        /* Lisää ruudukko-overlay */
+        .game-board::before {
+            content: '';
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 300px;
+            height: 600px;
+            background-image: 
+                /* Pystyviivat - joka 30px */
+                repeating-linear-gradient(
+                    to right,
+                    transparent 0px,
+                    transparent 29px,
+                    rgba(0,150,255,0.3) 29px,
+                    rgba(0,150,255,0.3) 30px
+                ),
+                /* Vaakaviivat - joka 30px */
+                repeating-linear-gradient(
+                    to bottom,
+                    transparent 0px,
+                    transparent 29px,
+                    rgba(0,150,255,0.3) 29px,
+                    rgba(0,150,255,0.3) 30px
+                ),
+                /* Alaosan korostus */
+                linear-gradient(
+                    to bottom,
+                    transparent 0%,
+                    transparent 70%,
+                    rgba(255,0,0,0.1) 70%,
+                    rgba(255,0,0,0.2) 100%
+                );
+            pointer-events: none;
+            z-index: 1;
+            border-radius: 6px;
+        }
+
+        .game-info {
+            color: white;
+            width: 250px;
+        }
+
+        .info-panel {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .info-panel h2 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .score-display {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            color: #00ff88;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .level-display {
+            font-size: 18px;
+            text-align: center;
+            margin-top: 10px;
+            color: #ff6b6b;
+        }
+
+        .lines-display {
+            font-size: 16px;
+            text-align: center;
+            margin-top: 5px;
+            color: #4ecdc4;
+        }
+
+        .next-piece {
+            width: 120px;
+            height: 120px;
+            background: #000;
+            border: 2px solid #fff;
+            border-radius: 10px;
+            margin: 0 auto;
+        }
+
+        .controls {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .controls h3 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .controls p {
+            margin: 8px 0;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .game-over {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 3px solid #ff4757;
+            display: none;
+            z-index: 1000;
+        }
+
+        .game-over h2 {
+            color: #ff4757;
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+
+        .restart-btn {
+            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .restart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 210, 255, 0.3);
+        }
+
+        .pause-btn {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #333;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .pause-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .new-game-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .new-game-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
+            background: linear-gradient(45deg, #ff5252, #e53935);
+        }
+
+        .new-game-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 5px 10px rgba(255, 107, 107, 0.2);
+        }
+
+        .volume-control {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .volume-slider {
+            width: 100%;
+            margin-top: 10px;
+            accent-color: #ffd700;
+        }
+
+        .volume-label {
+            color: #ffd700;
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        @keyframes lineComplete {
+            0% { background-color: #fff; }
+            50% { background-color: #ff0000; }
+            100% { background-color: #fff; }
+        }
+
+        .line-flash {
+            animation: lineComplete 0.3s ease-in-out 3;
+        }
+
+        @keyframes levelUp {
+            0% { 
+                transform: scale(1);
+                color: #ff6b6b;
+            }
+            50% { 
+                transform: scale(1.2);
+                color: #ffd700;
+                text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            }
+            100% { 
+                transform: scale(1);
+                color: #ff6b6b;
+            }
+        }
+
+        .level-up-animation {
+            animation: levelUp 0.6s ease-in-out;
+        }
+
+        /* Mobile-optimointi */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .game-container {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+                max-width: 100vw;
+            }
+            
+            .game-board {
+                align-self: center;
+            }
+            
+            #tetris {
+                width: 300px !important;
+                height: 600px !important;
+                border: 3px solid #0099ff;
+                border-radius: 10px;
+                /* Tärkeää kosketukselle */
+                touch-action: none;
+                user-select: none;
+            }
+            
+            .game-info {
+                width: 100%;
+                max-width: 300px;
+                align-self: center;
+            }
+            
+            .info-panel {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+            
+            .controls {
+                padding: 15px;
+            }
+            
+            .controls p {
+                font-size: 12px;
+                margin: 5px 0;
+            }
+            
+            /* Piilota desktop-ohjeet mobiilissa */
+            .controls p:nth-child(2),
+            .controls p:nth-child(3),
+            .controls p:nth-child(4),
+            .controls p:nth-child(5),
+            .controls p:nth-child(6),
+            .controls p:nth-child(7),
+            .controls p:nth-child(8) {
+                display: none;
+            }
+            
+            /* Lisää mobile-ohjeet */
+            .controls::after {
+                content: "📱 TOUCH CONTROLS:\\A⬅️➡️ Swipe left/right\\A🔄 Tap to rotate\\A⬇️ Swipe down\\A⚡ Long press to drop";
+                white-space: pre-line;
+                font-size: 12px;
+                color: #ffd700;
+                display: block;
+                margin-top: 10px;
+                text-align: center;
+                line-height: 1.4;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #tetris {
+                width: 250px !important;
+                height: 500px !important;
+            }
+            
+            .game-container {
+                padding: 10px;
+            }
+        }
+        
+        /* Kosketuspalautteen animaatio */
+        @keyframes touchFeedback {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.98); }
+            100% { transform: scale(1); }
+        }
+        
+        .touch-feedback {
+            animation: touchFeedback 0.1s ease-out;
+        }
+
+        /* Takaisin-nappi */
+        .back-button-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffd700;
+            text-decoration: none;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Takaisin-nappi -->
+    <div class="back-button-container">
+        <a href="index.html" class="back-btn">
+            ⬅️ Back to Home
+        </a>
+    </div>
+
+    <div class="game-container">
+        <div class="game-board">
+            <canvas id="tetris" width="300" height="600"></canvas>
+        </div>
+        
+        <div class="game-info">
+            <div class="info-panel">
+                <h2>SCORE</h2>
+                <div class="score-display" id="score">0</div>
+                <div class="level-display">Level: <span id="level">1</span></div>
+                <div class="lines-display">Lines: <span id="lines">0</span></div>
+            </div>
+
+            <div class="info-panel">
+                <h2>NEXT</h2>
+                <canvas class="next-piece" id="nextPiece" width="120" height="120"></canvas>
+            </div>
+
+            <div class="controls">
+                <h3>CONTROLS</h3>
+                <p>⬅️ A / ← - Left</p>
+                <p>➡️ D / → - Right</p>
+                <p>⬇️ S / ↓ - Down</p>
+                <p>🔄 W / ↑ - Rotate</p>
+                <p>⚡ Space - Drop</p>
+                <p>⏸️ P - Pause</p>
+                <p>🔄 Ctrl+R - New Game</p>
+                <button class="pause-btn" id="pauseBtn">⏸️ PAUSE</button>
+                <button class="new-game-btn" id="newGameBtn">🎮 NEW GAME</button>
+                
+                <div class="volume-control">
+                    <label class="volume-label">🔊 Volume</label>
+                    <input type="range" class="volume-slider" id="volumeSlider" 
+                           min="0" max="100" value="50">
+                    <span id="volumeValue">50%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="game-over" id="gameOver">
+        <h2>GAME OVER!</h2>
+        <p>Final Score: <span id="finalScore">0</span></p>
+        <p>Level: <span id="finalLevel">1</span></p>
+        <p>Lines: <span id="finalLines">0</span></p>
+        <button class="restart-btn" onclick="startNewGame()">🎮 NEW GAME</button>
+    </div>
+
+    <script>
+const canvas = document.getElementById('tetris');
+const context = canvas.getContext('2d');
+const nextCanvas = document.getElementById('nextPiece');
+const nextContext = nextCanvas.getContext('2d');
+
+// Skaalaa peli
+context.scale(30, 30);
+nextContext.scale(20, 20);
+
+// Pelin muuttujat
+let dropCounter = 0;
+let dropInterval = 1000;
+let lastTime = 0;
+let score = 0;
+let level = 1;
+let lines = 0;
+let isPaused = false;
+let gameOver = false;
+let soundVolume = 0.5;
+
+// Touch/Mouse muuttujat
+let isDragging = false;
+let touchStartX = 0;
+let touchStartY = 0;
+let touchStartTime = 0;
+
+// Tetris-palikat
+const tetrominoes = {
+    T: [
+        [0, 1, 0],
+        [1, 1, 1],
+        [0, 0, 0]
+    ],
+    O: [
+        [1, 1],
+        [1, 1]
+    ],
+    L: [
+        [0, 0, 1],
+        [1, 1, 1],
+        [0, 0, 0]
+    ],
+    J: [
+        [1, 0, 0],
+        [1, 1, 1],
+        [0, 0, 0]
+    ],
+    I: [
+        [0, 0, 0, 0],
+        [1, 1, 1, 1],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0]
+    ],
+    S: [
+        [0, 1, 1],
+        [1, 1, 0],
+        [0, 0, 0]
+    ],
+    Z: [
+        [1, 1, 0],
+        [0, 1, 1],
+        [0, 0, 0]
+    ]
+};
+
+// Värit
+const colors = {
+    T: '#a855f7',
+    O: '#fbbf24',
+    L: '#f97316',
+    J: '#3b82f6',
+    I: '#06b6d4',
+    S: '#10b981',
+    Z: '#ef4444'
+};
+
+// Pelialue
+const arena = createMatrix(10, 20);
+
+// Pelaajan pala
+const player = {
+    pos: {x: 0, y: 0},
+    matrix: null,
+    type: null
+};
+
+let nextPiece = null;
+
+// ÄÄNITEHOSTEET - KORJATTU VERSIO
+let audioContext = null;
+let audioInitialized = false;
+
+function initAudio() {
+    if (audioContext || soundVolume === 0) return;
+    
+    try {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        audioInitialized = true;
+        console.log('Audio initialized successfully');
+    } catch (e) {
+        console.log('Audio not supported:', e);
+        audioInitialized = false;
+    }
+}
+
+function resumeAudioContext() {
+    if (audioContext && audioContext.state === 'suspended') {
+        audioContext.resume().then(() => {
+            console.log('Audio context resumed');
+        }).catch(e => {
+            console.log('Failed to resume audio context:', e);
+        });
+    }
+}
+
+function createBeep(frequency, duration, type = 'sine') {
+    if (soundVolume === 0) return;
+    
+    // Alusta audio ensimmäisellä kerralla
+    if (!audioContext) {
+        initAudio();
+    }
+    
+    if (!audioContext || !audioInitialized) return;
+    
+    try {
+        // Varmista että context on käynnissä
+        resumeAudioContext();
+        
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+        oscillator.type = type;
+        
+        // Lyhyempi fade out, vähemmän eksponentiaalinen
+        const volume = soundVolume * 0.1;
+        gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
+        gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + duration);
+        
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + duration);
+        
+        // Siivoa muisti
+        oscillator.onended = () => {
+            try {
+                oscillator.disconnect();
+                gainNode.disconnect();
+            } catch (e) {
+                // Ei tee mitään jos jo disconnected
+            }
+        };
+        
+    } catch (e) {
+        console.log('Audio creation failed:', e);
+        // Yritä alustaa uudelleen seuraavalla kerralla
+        audioContext = null;
+        audioInitialized = false;
+    }
+}
+
+// Ääni-funktiot pysyvät samoina
+function playRotateSound() {
+    createBeep(300, 0.15, 'sine');
+}
+
+function playMoveSound() {
+    createBeep(200, 0.1, 'sine');
+}
+
+function playDropSound() {
+    createBeep(120, 0.2, 'sine');
+}
+
+function playLineSound() {
+    setTimeout(() => createBeep(262, 0.15, 'sine'), 0);
+    setTimeout(() => createBeep(330, 0.15, 'sine'), 150);
+    setTimeout(() => createBeep(392, 0.15, 'sine'), 300);
+    setTimeout(() => createBeep(523, 0.25, 'sine'), 450);
+}
+
+function playTetrisSound() {
+    setTimeout(() => createBeep(262, 0.12, 'sine'), 0);
+    setTimeout(() => createBeep(330, 0.12, 'sine'), 120);
+    setTimeout(() => createBeep(392, 0.12, 'sine'), 240);
+    setTimeout(() => createBeep(523, 0.12, 'sine'), 360);
+    setTimeout(() => createBeep(659, 0.12, 'sine'), 480);
+    setTimeout(() => createBeep(784, 0.25, 'sine'), 600);
+}
+
+function playGameOverSound() {
+    setTimeout(() => createBeep(392, 0.3, 'sine'), 0);
+    setTimeout(() => createBeep(370, 0.3, 'sine'), 300);
+    setTimeout(() => createBeep(349, 0.3, 'sine'), 600);
+    setTimeout(() => createBeep(330, 0.3, 'sine'), 900);
+    setTimeout(() => createBeep(294, 0.3, 'sine'), 1200);
+    setTimeout(() => createBeep(262, 0.5, 'sine'), 1500);
+}
+
+function playLevelUpSound() {
+    setTimeout(() => createBeep(262, 0.15, 'sine'), 0);
+    setTimeout(() => createBeep(294, 0.15, 'sine'), 150);
+    setTimeout(() => createBeep(330, 0.15, 'sine'), 300);
+    setTimeout(() => createBeep(349, 0.15, 'sine'), 450);
+    setTimeout(() => createBeep(392, 0.25, 'sine'), 600);
+}
+
+function createMatrix(w, h) {
+    const matrix = [];
+    while (h--) {
+        matrix.push(new Array(w).fill(0));
+    }
+    return matrix;
+}
+
+function createPiece(type) {
+    return tetrominoes[type];
+}
+
+function drawGrid() {
+    context.strokeStyle = 'rgba(0, 100, 150, 0.4)';
+    context.lineWidth = 0.02;
+    
+    for (let x = 0; x <= 10; x++) {
+        context.beginPath();
+        context.moveTo(x, 0);
+        context.lineTo(x, 20);
+        context.stroke();
+    }
+    
+    for (let y = 0; y <= 20; y++) {
+        context.beginPath();
+        context.moveTo(0, y);
+        context.lineTo(10, y);
+        context.stroke();
+    }
+    
+    context.strokeStyle = 'rgba(0, 150, 255, 0.6)';
+    context.lineWidth = 0.03;
+    
+    for (let y = 5; y <= 20; y += 5) {
+        context.beginPath();
+        context.moveTo(0, y);
+        context.lineTo(10, y);
+        context.stroke();
+    }
+    
+    context.fillStyle = 'rgba(255, 0, 0, 0.05)';
+    context.fillRect(0, 17, 10, 3);
+}
+
+function draw() {
+    if (gameOver && !player.matrix) {
+        context.fillStyle = '#000';
+        context.fillRect(0, 0, canvas.width / 30, canvas.height / 30);
+        drawGrid();
+
+        arena.forEach((row, y) => {
+            row.forEach((value, x) => {
+                if (value !== 0) {
+                    context.fillStyle = value;
+                    context.fillRect(x, y, 1, 1);
+                    
+                    context.strokeStyle = '#fff';
+                    context.lineWidth = 0.05;
+                    context.strokeRect(x, y, 1, 1);
+                }
+            });
+        });
+        return;
+    }
+
+    context.fillStyle = '#000';
+    context.fillRect(0, 0, canvas.width / 30, canvas.height / 30);
+
+    drawGrid();
+
+    arena.forEach((row, y) => {
+        row.forEach((value, x) => {
+            if (value !== 0) {
+                context.fillStyle = value;
+                context.fillRect(x, y, 1, 1);
+                
+                context.strokeStyle = '#fff';
+                context.lineWidth = 0.05;
+                context.strokeRect(x, y, 1, 1);
+            }
+        });
+    });
+
+    if (player.matrix && !gameOver) {
+        player.matrix.forEach((row, y) => {
+            row.forEach((value, x) => {
+                if (value !== 0) {
+                    const drawY = y + player.pos.y;
+                    const drawX = x + player.pos.x;
+                    
+                    if (drawY >= 0 && drawY < 20 && drawX >= 0 && drawX < 10) {
+                        context.fillStyle = colors[player.type];
+                        context.fillRect(drawX, drawY, 1, 1);
+                        
+                        context.strokeStyle = '#fff';
+                        context.lineWidth = 0.05;
+                        context.strokeRect(drawX, drawY, 1, 1);
+                    }
+                }
+            });
+        });
+    }
+
+    if (!gameOver) {
+        drawNextPiece();
+    } else {
+        nextContext.fillStyle = '#000';
+        nextContext.fillRect(0, 0, nextCanvas.width / 20, nextCanvas.height / 20);
+    }
+}
+
+function drawNextPiece() {
+    nextContext.fillStyle = '#000';
+    nextContext.fillRect(0, 0, nextCanvas.width / 20, nextCanvas.height / 20);
+    
+    if (nextPiece) {
+        const offset = {
+            x: (6 - nextPiece.matrix[0].length) / 2,
+            y: (6 - nextPiece.matrix.length) / 2
+        };
+        nextPiece.matrix.forEach((row, y) => {
+            row.forEach((value, x) => {
+                if (value !== 0) {
+                    nextContext.fillStyle = colors[nextPiece.type];
+                    nextContext.fillRect(x + offset.x, y + offset.y, 1, 1);
+                    
+                    nextContext.strokeStyle = '#fff';
+                    nextContext.lineWidth = 0.05;
+                    nextContext.strokeRect(x + offset.x, y + offset.y, 1, 1);
+                }
+            });
+        });
+    }
+}
+
+function merge(arena, player) {
+    player.matrix.forEach((row, y) => {
+        row.forEach((value, x) => {
+            if (value !== 0) {
+                const mergeY = y + player.pos.y;
+                const mergeX = x + player.pos.x;
+                
+                // Tarkista että koordinaatit ovat alueen sisällä
+                if (mergeY >= 0 && mergeY < arena.length && 
+                    mergeX >= 0 && mergeX < arena[0].length) {
+                    arena[mergeY][mergeX] = colors[player.type];
+                }
+            }
+        });
+    });
+}
+
+function rotate(matrix, dir = 1) {
+    for (let y = 0; y < matrix.length; ++y) {
+        for (let x = 0; x < y; ++x) {
+            [matrix[x][y], matrix[y][x]] = [matrix[y][x], matrix[x][y]];
+        }
+    }
+
+    if (dir > 0) {
+        matrix.forEach(row => row.reverse());
+    } else {
+        matrix.reverse();
+    }
+}
+
+function collide(arena, player) {
+    const [m, o] = [player.matrix, player.pos];
+    for (let y = 0; y < m.length; ++y) {
+        for (let x = 0; x < m[y].length; ++x) {
+            if (m[y][x] !== 0) {
+                if (y + o.y >= 0) {
+                    if (y + o.y >= arena.length || 
+                        x + o.x < 0 || 
+                        x + o.x >= arena[0].length || 
+                        arena[y + o.y][x + o.x] !== 0) {
+                    return true;
+                }
+                } else {
+                    if (x + o.x < 0 || x + o.x >= arena[0].length) {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
+function arenaSweep() {
+    let linesCleared = 0;
+    
+    for (let y = arena.length - 1; y >= 0; --y) {
+        let fullLine = true;
+        
+        for (let x = 0; x < arena[y].length; ++x) {
+            if (arena[y][x] === 0) {
+                fullLine = false;
+                break;
+            }
+        }
+        
+        if (fullLine) {
+            arena.splice(y, 1);
+            arena.unshift(new Array(10).fill(0));
+            linesCleared++;
+            y++;
+        }
+    }
+
+    if (linesCleared > 0) {
+        if (linesCleared === 4) {
+            playTetrisSound();
+        } else {
+            playLineSound();
+        }
+
+        const pointValues = [0, 40, 100, 300, 1200];
+        const oldLevel = level;
+        score += pointValues[linesCleared] * level;
+        lines += linesCleared;
+        
+        level = Math.floor(lines / 10) + 1;
+        
+        if (level > oldLevel) {
+            setTimeout(() => {
+                playLevelUpSound();
+                const levelElement = document.getElementById('level').parentElement;
+                levelElement.classList.add('level-up-animation');
+                setTimeout(() => {
+                    levelElement.classList.remove('level-up-animation');
+                }, 600);
+            }, 500);
+        }
+        
+        dropInterval = Math.max(50, 1000 - (level - 1) * 50);
+        updateDisplay();
+    }
+}
+
+function playerDrop() {
+    if (gameOver) return;
+    
+    player.pos.y++;
+    if (collide(arena, player)) {
+        player.pos.y--;
+        playDropSound();
+        merge(arena, player);
+        playerReset();
+        arenaSweep();
+    }
+    dropCounter = 0;
+}
+
+function playerMove(dir) {
+    if (gameOver) return;
+    
+    player.pos.x += dir;
+    if (collide(arena, player)) {
+        player.pos.x -= dir;
+    } else {
+        playMoveSound();
+    }
+}
+
+function playerReset() {
+    if (gameOver) return;
+    
+    if (nextPiece) {
+        player.matrix = JSON.parse(JSON.stringify(nextPiece.matrix));
+        player.type = nextPiece.type;
+    } else {
+        const pieces = 'TLOJISZ';
+        const type = pieces[Math.floor(Math.random() * pieces.length)];
+        player.matrix = JSON.parse(JSON.stringify(createPiece(type)));
+        player.type = type;
+    }
+    
+    const pieces = 'TLOJISZ';
+    const nextType = pieces[Math.floor(Math.random() * pieces.length)];
+    nextPiece = {
+        matrix: JSON.parse(JSON.stringify(createPiece(nextType))),
+        type: nextType
+    };
+
+    player.pos.y = -1;
+    player.pos.x = Math.floor((arena[0].length - player.matrix[0].length) / 2);
+    
+    if (collide(arena, player)) {
+        endGame();
+        return;
+    }
+}
+
+function playerRotate(dir) {
+    if (gameOver) return;
+    
+    const pos = player.pos.x;
+    let offset = 1;
+    rotate(player.matrix, dir);
+    while (collide(arena, player)) {
+        player.pos.x += offset;
+        offset = -(offset + (offset > 0 ? 1 : -1));
+        if (offset > player.matrix[0].length) {
+            rotate(player.matrix, -dir);
+            player.pos.x = pos;
+            return;
+        }
+    }
+    playRotateSound();
+}
+
+function hardDrop() {
+    if (gameOver) return;
+    
+    while (!collide(arena, player)) {
+        player.pos.y++;
+        score += 1;
+    }
+    player.pos.y--;
+    createBeep(100, 0.3, 'sine');
+    merge(arena, player);
+    playerReset();
+    arenaSweep();
+    updateDisplay();
+}
+
+function updateDisplay() {
+    document.getElementById('score').textContent = score;
+    document.getElementById('level').textContent = level;
+    document.getElementById('lines').textContent = lines;
+}
+
+function endGame() {
+    gameOver = true;
+    playGameOverSound();
+    
+    player.matrix = null;
+    player.type = null;
+    
+    document.getElementById('finalScore').textContent = score;
+    document.getElementById('finalLevel').textContent = level;
+    document.getElementById('finalLines').textContent = lines;
+    document.getElementById('gameOver').style.display = 'block';
+}
+
+function startNewGame() {
+    const confirmRestart = gameOver || confirm('Do you really want to start a new game?');
+    
+    if (!confirmRestart) return;
+
+    gameOver = true;
+    
+    arena.forEach(row => row.fill(0));
+    score = 0;
+    level = 1;
+    lines = 0;
+    dropInterval = 1000;
+    dropCounter = 0;
+    lastTime = 0;
+    isPaused = false;
+    
+    player.matrix = null;
+    player.type = null;
+    player.pos = {x: 0, y: 0};
+    nextPiece = null;
+    
+    document.getElementById('gameOver').style.display = 'none';
+    document.getElementById('pauseBtn').textContent = '⏸️ PAUSE';
+    
+    gameOver = false;
+    playerReset();
+    updateDisplay();
+    update();
+}
+
+function togglePause() {
+    if (gameOver) return;
+    
+    isPaused = !isPaused;
+    const btn = document.getElementById('pauseBtn');
+    btn.textContent = isPaused ? '▶️ RESUME' : '⏸️ PAUSE';
+}
+
+function update(time = 0) {
+    if (gameOver) return;
+    
+    if (!isPaused) {
+        const deltaTime = time - lastTime;
+        dropCounter += deltaTime;
+        
+        if (dropCounter > dropInterval) {
+            playerDrop();
+        }
+    }
+    
+    lastTime = time;
+    draw();
+    
+    if (!gameOver) {
+        requestAnimationFrame(update);
+    }
+}
+
+// TOUCH & MOUSE KONTROLLIT
+function initControls() {
+    const canvas = document.getElementById('tetris');
+    
+    // CSS hiirelle
+    canvas.style.cursor = 'grab';
+    canvas.style.transition = 'transform 0.1s ease';
+    
+    // Alusta audio ensimmäisen käyttäjävuorovaikutuksen yhteydessä
+    const initAudioOnInteraction = () => {
+        if (!audioInitialized) {
+            initAudio();
+            // Testaa audio heti
+            setTimeout(() => {
+                if (soundVolume > 0) {
+                    createBeep(200, 0.1, 'sine');
+                }
+            }, 100);
+        }
+    };
+    
+    // Touch events
+    canvas.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        initAudioOnInteraction(); // Alusta audio
+        
+        if (gameOver || isPaused) return;
+        
+        const touch = e.touches[0];
+        const rect = canvas.getBoundingClientRect();
+        touchStartX = touch.clientX - rect.left;
+        touchStartY = touch.clientY - rect.top;
+        touchStartTime = Date.now();
+    }, { passive: false });
+    
+    canvas.addEventListener('touchend', (e) => {
+        e.preventDefault();
+        if (gameOver || isPaused) return;
+        
+        const touchDuration = Date.now() - touchStartTime;
+        const touch = e.changedTouches[0];
+        const rect = canvas.getBoundingClientRect();
+        
+        const endX = touch.clientX - rect.left;
+        const endY = touch.clientY - rect.top;
+        const deltaX = endX - touchStartX;
+        const deltaY = endY - touchStartY;
+        
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 30) {
+            playerMove(deltaX > 0 ? 1 : -1);
+        } else if (deltaY > 40) {
+            playerDrop();
+        } else if (touchDuration < 300 && Math.abs(deltaX) < 20 && Math.abs(deltaY) < 20) {
+            playerRotate(1);
+        } else if (touchDuration > 600) {
+            hardDrop();
+        }
+    }, { passive: false });
+    
+    // Mouse events
+    canvas.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        initAudioOnInteraction(); // Alusta audio
+        
+        if (gameOver || isPaused) return;
+        
+        const rect = canvas.getBoundingClientRect();
+        touchStartX = e.clientX - rect.left;
+        touchStartY = e.clientY - rect.top;
+        touchStartTime = Date.now();
+        isDragging = true;
+        canvas.style.cursor = 'grabbing';
+    });
+    
+    canvas.addEventListener('mouseup', (e) => {
+        e.preventDefault();
+        if (!isDragging) return;
+        
+        isDragging = false;
+        canvas.style.cursor = 'grab';
+        
+        if (gameOver || isPaused) return;
+        
+        const mouseDuration = Date.now() - touchStartTime;
+        const rect = canvas.getBoundingClientRect();
+        const endX = e.clientX - rect.left;
+        const endY = e.clientY - rect.top;
+        const deltaX = endX - touchStartX;
+        const deltaY = endY - touchStartY;
+        
+        if (e.button === 2) {
+            hardDrop();
+            return;
+        }
+        
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 20) {
+            playerMove(deltaX > 0 ? 1 : -1);
+        } else if (deltaY > 15) {
+            playerDrop();
+        } else if (mouseDuration < 300 && Math.abs(deltaX) < 15 && Math.abs(deltaY) < 15) {
+            playerRotate(1);
+        } else if (mouseDuration > 500) {
+            hardDrop();
+        }
+    });
+    
+    canvas.addEventListener('mouseleave', () => {
+        isDragging = false;
+        canvas.style.cursor = 'grab';
+    });
+    
+    // Scroll wheel
+    canvas.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        if (gameOver || isPaused) return;
+        
+        if (e.deltaY < 0) {
+            playerRotate(1);
+        } else {
+            playerDrop();
+        }
+    }, { passive: false });
+    
+    canvas.addEventListener('contextmenu', (e) => e.preventDefault());
+}
+
+// Keyboard controls
+document.addEventListener('keydown', event => {
+    // Alusta audio ensimmäisen näppäimen painalluksen yhteydessä
+    if (!audioInitialized && soundVolume > 0) {
+        initAudio();
+    }
+    
+    if (event.code === 'KeyR' && (event.ctrlKey || event.metaKey)) {
+        event.preventDefault();
+        startNewGame();
+        return;
+    }
+    
+    if (gameOver) return;
+    if (isPaused && event.code !== 'KeyP') return;
+    
+    switch(event.code) {
+        case 'ArrowLeft':
+        case 'KeyA':
+            event.preventDefault();
+            playerMove(-1);
+            break;
+        case 'ArrowRight':
+        case 'KeyD':
+            event.preventDefault();
+            playerMove(1);
+            break;
+        case 'ArrowDown':
+        case 'KeyS':
+            event.preventDefault();
+            playerDrop();
+            break;
+        case 'ArrowUp':
+        case 'KeyW':
+            event.preventDefault();
+            playerRotate(1);
+            break;
+        case 'Space':
+            event.preventDefault();
+            hardDrop();
+            break;
+        case 'KeyP':
+            event.preventDefault();
+            togglePause();
+            break;
+    }
+});
+
+// Volume control
+const volumeSlider = document.getElementById('volumeSlider');
+const volumeValue = document.getElementById('volumeValue');
+
+volumeSlider.addEventListener('input', (e) => {
+    soundVolume = e.target.value / 100;
+    volumeValue.textContent = e.target.value + '%';
+});
+
+// Event listeners
+document.getElementById('pauseBtn').addEventListener('click', togglePause);
+document.getElementById('newGameBtn').addEventListener('click', startNewGame);
+
+// Alusta kaikki
+initControls();
+playerReset();
+updateDisplay();
+update();
+    </script>
+</body>
+</html>

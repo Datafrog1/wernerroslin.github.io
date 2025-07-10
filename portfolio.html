@@ -11,6 +11,99 @@
     <link rel="manifest" href="/assets/icons/site.webmanifest">
     <link rel="stylesheet" href="styles.css">
     <script src="scripts.js"></script>
+    
+    <style>
+        /* Tetris-specifinen tyyli */
+        .tetris-item {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            border: 3px solid #0099ff;
+            box-shadow: 0 0 20px rgba(0,150,255,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tetris-item::before {
+            content: '🎮';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            opacity: 0.7;
+            animation: gameFloat 2s ease-in-out infinite;
+        }
+        
+        .tetris-preview {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 10px 0;
+        }
+        
+        .tetris-blocks {
+            display: flex;
+            gap: 3px;
+        }
+        
+        .tetris-block {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            border: 1px solid rgba(255,255,255,0.3);
+            animation: blockPulse 1.5s ease-in-out infinite;
+        }
+        
+        .block-t { background: #a855f7; animation-delay: 0s; }
+        .block-o { background: #fbbf24; animation-delay: 0.2s; }
+        .block-l { background: #f97316; animation-delay: 0.4s; }
+        .block-i { background: #06b6d4; animation-delay: 0.6s; }
+        .block-s { background: #10b981; animation-delay: 0.8s; }
+        .block-z { background: #ef4444; animation-delay: 1s; }
+        .block-j { background: #3b82f6; animation-delay: 1.2s; }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin: 10px 0;
+        }
+        
+        .tech-tag {
+            background: rgba(255,255,255,0.1);
+            color: #ffd700;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.8em;
+            border: 1px solid rgba(255,215,0,0.3);
+        }
+        
+        @keyframes gameFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(10deg); }
+        }
+        
+        @keyframes blockPulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+        
+        .tetris-item:hover .tetris-block {
+            animation-duration: 0.5s;
+        }
+        
+        .tetris-item a {
+            background: linear-gradient(45deg, #ff6b6b, #ffd700);
+            color: #000;
+            font-weight: bold;
+            text-shadow: none;
+            transition: all 0.3s ease;
+        }
+        
+        .tetris-item a:hover {
+            background: linear-gradient(45deg, #ffd700, #ff6b6b);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,215,0,0.4);
+        }
+    </style>
 </head>
 <body>
     <button class="dark-mode-toggle" onclick="toggleTheme()" title="Toggle theme">🔄</button>
@@ -20,13 +113,50 @@
         <a href="index.html" class="back-btn">← Back to Home</a>
     </header>
 
-    <div class="portfolio-item">
-        <h2>Battleship vs AI</h2>
-        <p>Play Battleship against AI – try to sink all the bot's ships before it sinks yours!</p>
-        <a href="laivanupotus.html">Play Battleship</a>
+    <!-- Tetris-peli -->
+    <div class="portfolio-item tetris-item">
+        <h2>🎮 Tetris Game</h2>
+        <p>
+            Täysimittainen Tetris-peli modernilla HTML5 Canvas -tekniikalla. 
+            Sisältää klassisen pelimekaniikan, äänitehosteet, touch-kontrollit 
+            ja responsiivisen designin kaikille laitteille.
+        </p>
+        
+        <div class="tetris-preview">
+            <div class="tetris-blocks">
+                <div class="tetris-block block-t"></div>
+                <div class="tetris-block block-o"></div>
+                <div class="tetris-block block-l"></div>
+                <div class="tetris-block block-i"></div>
+                <div class="tetris-block block-s"></div>
+                <div class="tetris-block block-z"></div>
+                <div class="tetris-block block-j"></div>
+            </div>
+            <span style="color: #4ecdc4; font-size: 0.9em;">
+                ⬅️➡️ Liikuta • 🔄 Kierrä • ⬇️ Pudota • 📱 Touch Support
+            </span>
+        </div>
+        
+        <div class="tech-stack">
+            <span class="tech-tag">JavaScript ES6+</span>
+            <span class="tech-tag">HTML5 Canvas</span>
+            <span class="tech-tag">CSS3 Animations</span>
+            <span class="tech-tag">Web Audio API</span>
+            <span class="tech-tag">Touch Events</span>
+            <span class="tech-tag">Responsive Design</span>
+        </div>
+        
+        <a href="tetris.html">🎮 Play Tetris</a>
     </div>
 
-    <!-- Add more portfolio items as needed -->
+    <!-- Battleship-peli -->
+    <div class="portfolio-item">
+        <h2>⚓ Battleship vs AI</h2>
+        <p>Play Battleship against AI – try to sink all the bot's ships before it sinks yours!</p>
+        <a href="laivanupotus.html">⚓ Play Battleship</a>
+    </div>
+
+    <!-- Voit lisätä lisää projekteja tähän -->
 
 </body>
 </html>
