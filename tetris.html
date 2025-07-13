@@ -3,7 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LRLHN7K86D"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-LRLHN7K86D');
+    </script>
+    
     <title>Tetris Game</title>
+    
+    <!-- Favicon and App Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/icons/site.webmanifest">
+    
     <style>
         * {
             margin: 0;
@@ -1536,6 +1554,14 @@ function updateDisplay() {
 }
 
 function endGame() {
+    // Analytics
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'game_over', { 
+            event_category: 'tetris',
+            value: score 
+        });
+    }
+    
     gameOver = true;
     playGameOverSound();
     
@@ -1549,6 +1575,11 @@ function endGame() {
 }
 
 function startNewGame() {
+    // Analytics
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'game_start', { event_category: 'tetris' });
+    }
+    
     const confirmRestart = gameOver || confirm('Do you really want to start a new game?');
     
     if (!confirmRestart) return;
@@ -2058,6 +2089,15 @@ initControls();
 playerReset();
 updateDisplay();
 update();
+
+// Simple Google Analytics tracking
+window.addEventListener('load', () => {
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'page_view', {
+            page_title: 'Tetris Game'
+        });
+    }
+});
     </script>
 </body>
 </html>
