@@ -15,9 +15,10 @@ body {
     padding: 2rem;
     max-width: 900px;
     margin: auto;
-    min-height: 100vh;
+    min-height: calc(100vh + 20px); /* Lisää ylimääräistä tilaa */
     position: relative;
     font-weight: 500;
+    overflow-x: hidden;
 }
 
 /* Auringon nousu animaatio */
