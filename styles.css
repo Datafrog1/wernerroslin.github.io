@@ -87,11 +87,11 @@ header::before {
 @keyframes goldShimmer {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
-}
 
+}
 /* Merirosvo kruunu efekti */
 header::after {
-    content: '⚓ 🏴‍☠️ ⚓';
+    content: ' ';
     position: absolute;
     top: 10px;
     left: 50%;
@@ -350,7 +350,7 @@ footer {
 }
 
 footer::before {
-    content: '🗝️ ⚓ 🗝️';
+    content: '';
     display: block;
     margin-bottom: 0.5rem;
     color: #d4af37;
@@ -514,7 +514,7 @@ footer::before {
     }
     
     body:not(.light-mode) header::after {
-        content: '🦜 💀 🦜';
+        content: ' ';
     }
 }
 
@@ -537,7 +537,7 @@ body.dark-mode .dark-mode-toggle::before {
 }
 
 body.dark-mode header::after {
-    content: '🦜 💀 🦜';
+    content: '';
 }
 
 /* Light Mode Override */
@@ -552,7 +552,7 @@ body.light-mode .dark-mode-toggle::before {
 }
 
 body.light-mode header::after {
-    content: '⚓ 🏴‍☠️ ⚓';
+    content: '';
 }
 
 /* Responsive - Pirate edition */
@@ -663,4 +663,94 @@ section:hover h2::after {
     box-shadow: 
         0 15px 35px rgba(0, 0, 0, 0.4),
         0 0 30px rgba(212, 175, 55, 0.6);
+}
+
+/* About Section Styling */
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-intro {
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.about-item {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    text-align: left;
+}
+
+.about-item:hover {
+    transform: translateY(-5px);
+}
+
+.about-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.about-item p {
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Simple About Section */
+.about-simple {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.about-simple p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: #f4e4bc; /* Sama väri kuin muut tekstit */
+}
+
+.about-simple p:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .about-intro {
+        font-size: 1.1rem;
+    }
+    
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .about-item {
+        padding: 1.5rem;
+        text-align: center;
+    }
+    
+    .about-simple {
+        text-align: center;
+    }
+    
+    .about-simple p {
+        font-size: 1rem;
+        margin-bottom: 1.2rem;
+    }
 }
