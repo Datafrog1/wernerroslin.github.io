@@ -641,3 +641,15 @@ section:hover h2::after {
     color: #2c1810 !important;
     border-color: #cd853f !important;
 }
+
+.header-profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 1rem 0;
+    border: 3px solid var(--accent-color);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
