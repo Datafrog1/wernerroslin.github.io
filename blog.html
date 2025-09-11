@@ -1,193 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog – Werner Roslin</title>
-    
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
-    <link rel="manifest" href="/assets/icons/site.webmanifest">
-    <link rel="stylesheet" href="styles.css">
-    <script src="scripts.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog — Werner Roslin</title>
+
+  <meta name="description" content="Technical insights and development notes by Werner Roslin — AI-assisted development, web technologies, and lessons learned.">
+  <meta name="author" content="Werner Roslin" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
+  <link rel="manifest" href="/assets/icons/site.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+  <script src="scripts.js" defer></script>
 </head>
 <body>
-    <button class="dark-mode-toggle" onclick="toggleTheme()" title="Toggle theme">🔄</button>
+  <header>
+    <h1>Blog</h1>
+    <p class="tagline">Development notes and insights</p>
+  </header>
+
+  <section aria-label="Articles">
+    <h2>Recent Articles</h2>
     
-    <header>
-        <div class="container">
-            <h1>Blog</h1>
-            <nav>
-                <a href="index.html">Home</a>
-                <a href="portfolio.html">Portfolio</a>
-                <a href="blog.html" class="active">Blog</a>
-            </nav>
-        </div>
-    </header>
+    <article class="blog-post">
+      <h3>Building a Personal Portfolio from Scratch</h3>
+      <div class="date">July 4, 2025</div>
+      <p>This website represents my journey into web development, built entirely from the ground up using modern web technologies and AI-assisted development practices.</p>
+      
+      <h4>Technology Stack</h4>
+      <ul>
+        <li><strong>Frontend:</strong> HTML5, CSS3, Vanilla JavaScript</li>
+        <li><strong>Development Environment:</strong> Visual Studio Code</li>
+        <li><strong>Version Control:</strong> Git, GitHub</li>
+        <li><strong>Hosting:</strong> GitHub Pages</li>
+        <li><strong>Domain:</strong> Custom domain (wernerroslin.fi)</li>
+        <li><strong>Development Assistant:</strong> ChatGPT for code generation and debugging</li>
+      </ul>
+      
+      <h4>Design Philosophy</h4>
+      <p>The site prioritizes clean, responsive design with cross-device compatibility. Key features include semantic HTML structure and progressive enhancement principles.</p>
+    </article>
 
-    <main class="container">
-        <div class="blog-posts">
-            <article class="blog-post">
-                <h2>Building a Personal Portfolio from Scratch</h2>
-                <div class="date">July 4, 2025</div>
-                <p>This website represents my journey into web development, built entirely from the ground up using modern web technologies and AI-assisted development practices.</p>
-                
-                <h3>Technology Stack</h3>
-                <ul>
-                    <li><strong>Frontend:</strong> HTML5, CSS3, Vanilla JavaScript</li>
-                    <li><strong>Development Environment:</strong> Visual Studio Code</li>
-                    <li><strong>Version Control:</strong> Git, GitHub</li>
-                    <li><strong>Hosting:</strong> GitHub Pages</li>
-                    <li><strong>Domain:</strong> Custom domain (wernerroslin.fi)</li>
-                    <li><strong>Development Assistant:</strong> ChatGPT for code generation and debugging</li>
-                </ul>
-                
-                <h3>Design Philosophy</h3>
-                <p>The site prioritizes clean, responsive design with cross-device compatibility. Key features include dark mode functionality, semantic HTML structure, and progressive enhancement principles.</p>
-            </article>
+    <article class="blog-post">
+      <h3>Implementing Consistent Design Systems</h3>
+      <div class="date">July 8, 2025</div>
+      <p>Recently completed a comprehensive refactoring to establish a unified design system across all pages, improving maintainability and user experience consistency.</p>
+      
+      <h4>Key Improvements</h4>
+      <ul>
+        <li><strong>Centralized CSS:</strong> Consolidated styling into a single stylesheet</li>
+        <li><strong>Component Architecture:</strong> Reusable UI components across pages</li>
+        <li><strong>Responsive Design:</strong> Mobile-first approach with fluid layouts</li>
+      </ul>
 
-            <article class="blog-post">
-                <h2>Implementing Consistent Design Systems</h2>
-                <div class="date">July 8, 2025</div>
-                <p>Recently completed a comprehensive refactoring to establish a unified design system across all pages, improving maintainability and user experience consistency.</p>
-                
-                <h3>Key Improvements</h3>
-                <ul>
-                    <li><strong>Centralized CSS:</strong> Consolidated styling into a single stylesheet</li>
-                    <li><strong>Component Architecture:</strong> Reusable UI components across pages</li>
-                    <li><strong>Theme System:</strong> Dynamic light/dark mode with user preference persistence</li>
-                    <li><strong>Responsive Design:</strong> Mobile-first approach with fluid layouts</li>
-                </ul>
+      <h4>Technical Implementation</h4>
+      <p>The refactoring involved establishing CSS custom properties for consistent theming and creating a modular component system that scales across the application.</p>
+    </article>
 
-                <h3>Technical Implementation</h3>
-                <p>The refactoring involved establishing CSS custom properties for consistent theming, implementing localStorage for user preferences, and creating a modular component system that scales across the application.</p>
-            </article>
+    <article class="blog-post">
+      <h3>Lessons in AI-Assisted Development</h3>
+      <div class="date">July 11, 2025</div>
+      <p>Working with AI tools like ChatGPT has revealed both the potential and limitations of current AI assistance in software development workflows.</p>
+      
+      <h4>Effective AI Integration</h4>
+      <ul>
+        <li><strong>Rapid Prototyping:</strong> AI excels at generating initial code structures</li>
+        <li><strong>Problem Solving:</strong> Effective for debugging and optimization suggestions</li>
+        <li><strong>Knowledge Transfer:</strong> Excellent for explaining complex concepts</li>
+        <li><strong>Code Review:</strong> Useful for identifying potential improvements</li>
+      </ul>
 
-            <article class="blog-post">
-                <h2>Lessons in AI-Assisted Development</h2>
-                <div class="date">July 11, 2025</div>
-                <p>Working with AI tools like ChatGPT has revealed both the potential and limitations of current AI assistance in software development workflows.</p>
-                
-                <h3>Effective AI Integration</h3>
-                <ul>
-                    <li><strong>Rapid Prototyping:</strong> AI excels at generating initial code structures</li>
-                    <li><strong>Problem Solving:</strong> Effective for debugging and optimization suggestions</li>
-                    <li><strong>Knowledge Transfer:</strong> Excellent for explaining complex concepts</li>
-                    <li><strong>Code Review:</strong> Useful for identifying potential improvements</li>
-                </ul>
+      <h4>Identified Limitations</h4>
+      <ul>
+        <li><strong>Context Management:</strong> Performance degrades with project complexity</li>
+        <li><strong>Architectural Decisions:</strong> Requires human oversight for system design</li>
+        <li><strong>User Experience:</strong> Cannot evaluate usability without human feedback</li>
+        <li><strong>Code Quality:</strong> May prioritize functionality over maintainability</li>
+      </ul>
 
-                <h3>Identified Limitations</h3>
-                <ul>
-                    <li><strong>Context Management:</strong> Performance degrades with project complexity</li>
-                    <li><strong>Architectural Decisions:</strong> Requires human oversight for system design</li>
-                    <li><strong>User Experience:</strong> Cannot evaluate usability without human feedback</li>
-                    <li><strong>Code Quality:</strong> May prioritize functionality over maintainability</li>
-                </ul>
+      <h4>Best Practices Developed</h4>
+      <p>Successful AI collaboration requires clear, specific prompts, incremental development approaches, and maintaining human oversight for architectural decisions and user experience considerations.</p>
+    </article>
 
-                <h3>Best Practices Developed</h3>
-                <p>Successful AI collaboration requires clear, specific prompts, incremental development approaches, and maintaining human oversight for architectural decisions and user experience considerations.</p>
-            </article>
+    <article class="blog-post">
+      <h3>The Real Talk About AI: My Love-Hate Relationship</h3>
+      <div class="date">August 12, 2025</div>
+      <p>Let me be brutally honest about working with AI. It's complicated. Without AI, I wouldn't have the patience for coding - but AI also drives me absolutely crazy sometimes.</p>
+      
+      <h4>Why I Need AI (VibeCoder Confession)</h4>
+      <p>I'm what you might call a "VibeCoder." When I get excited about an idea, I want to see it happen RIGHT NOW. I don't want to spend hours debugging tiny mistakes or reading boring documentation. AI saves my sanity by:</p>
+      <ul>
+        <li><strong>Instant help:</strong> When I get stuck, AI unstucks me immediately</li>
+        <li><strong>Skip the boring parts:</strong> AI handles tedious debugging stuff</li>
+        <li><strong>Keep the momentum:</strong> I stay excited instead of getting frustrated</li>
+        <li><strong>Focus on creativity:</strong> I think about what to build, AI helps with how</li>
+      </ul>
 
-            <article class="blog-post">
-                <h2>Evolution of Design Approach: From Maximalism to Minimalism</h2>
-                <div class="date">August 10, 2025</div>
-                <p>The development process included experimental phases with complex theming and animations, ultimately leading to a more refined, user-centered design approach.</p>
-                
-                <h3>Experimental Phase Features</h3>
-                <ul>
-                    <li><strong>Custom Theming:</strong> Pirate-themed interface with extensive visual elements</li>
-                    <li><strong>Advanced Animations:</strong> Complex CSS transitions and JavaScript effects</li>
-                    <li><strong>Interactive Elements:</strong> Gamified interface components</li>
-                    <li><strong>Rich Media:</strong> Audio integration and visual effects</li>
-                </ul>
+      <h4>But AI Also Ruins Everything</h4>
+      <p>Here's where it gets annoying. I'll ask for something simple like "make this button prettier" and suddenly I get 200 lines of CSS with animations, gradients, shadows, hover effects, and transforms. Dude, I just wanted it to be blue!</p>
 
-                <h3>Design Refinement Process</h3>
-                <p>User testing and performance analysis revealed that excessive visual elements compromised usability and accessibility. The redesign focused on content clarity, performance optimization, and universal accessibility.</p>
+      <h4>The Generic Factory Problem</h4>
+      <p>AI loves making everything look the same. Ask for a website design and you get the same boring template: hero section, three feature cards, testimonials, call-to-action button. Where's the personality?</p>
 
-                <h3>Current Implementation</h3>
-                <p>The final design balances personality with professionalism, maintaining subtle animations while prioritizing readability, fast loading times, and cross-device compatibility.</p>
-            </article>
+      <h4>My AI Survival Strategy</h4>
+      <p>I've learned to be very specific with AI:</p>
+      <ul>
+        <li>"Keep it simple" (repeat this 3 times)</li>
+        <li>"Don't add features I didn't ask for"</li>
+        <li>"Make it weird and personal, not generic"</li>
+        <li>"If it takes more than 20 lines, you're doing it wrong"</li>
+      </ul>
 
-            <article class="blog-post">
-                <h2>Game Development Projects: Technical Implementation</h2>
-                <div class="date">August 11, 2025</div>
-                <p>Developed several interactive games to explore different aspects of JavaScript programming, from DOM manipulation to canvas-based graphics and game state management.</p>
-                
-                <h3>Project Portfolio</h3>
-                <ul>
-                    <li><strong>Battleship:</strong> Grid-based game logic with event handling</li>
-                    <li><strong>Tetris:</strong> Canvas rendering with collision detection algorithms</li>
-                    <li><strong>Red Light, Green Light:</strong> Timing-based mechanics with audio integration</li>
-                    <li><strong>Casino Games:</strong> Probability calculations and animation systems</li>
-                </ul>
+      <h4>The Honest Truth</h4>
+      <p>AI is like that friend who always has opinions about your life choices. Sometimes helpful, sometimes overthinking everything. Without it, I'd never finish anything because I'd lose patience. With it, I have to fight to keep my projects from becoming boring.</p>
 
-                <h3>Technical Challenges</h3>
-                <p>Each project presented unique challenges: implementing efficient collision detection, managing complex game states, optimizing performance for mobile devices, and creating intuitive user interfaces.</p>
+      <p>So yeah, I'm a VibeCoder powered by AI who constantly argues with AI. It's messy, but somehow it works!</p>
+    </article>
+  </section>
 
-                <h3>Skills Developed</h3>
-                <p>These projects strengthened proficiency in algorithm design, event-driven programming, performance optimization, and responsive design principles.</p>
-            </article>
-
-            <article class="blog-post">
-                <h2>Reflections on AI-Assisted Development Workflow</h2>
-                <div class="date">August 12, 2025</div>
-                <p>After extensive experience with AI development tools, I've identified optimal workflows that maximize productivity while maintaining code quality and project coherence.</p>
-                
-                <h3>Effective AI Utilization</h3>
-                <ul>
-                    <li><strong>Rapid Iteration:</strong> AI enables quick experimentation with different approaches</li>
-                    <li><strong>Knowledge Augmentation:</strong> Fills gaps in technical knowledge efficiently</li>
-                    <li><strong>Code Generation:</strong> Accelerates boilerplate and repetitive task completion</li>
-                    <li><strong>Debugging Assistance:</strong> Provides alternative perspectives on problem-solving</li>
-                </ul>
-
-                <h3>Quality Control Measures</h3>
-                <ul>
-                    <li><strong>Code Review Process:</strong> Human oversight for all AI-generated code</li>
-                    <li><strong>Incremental Development:</strong> Small, testable changes to maintain system integrity</li>
-                    <li><strong>Documentation Standards:</strong> Clear commenting and documentation practices</li>
-                    <li><strong>Performance Monitoring:</strong> Regular testing across devices and browsers</li>
-                </ul>
-
-                <h3>Productivity Insights</h3>
-                <p>The combination of AI assistance with traditional development practices has significantly accelerated learning and project completion while maintaining professional standards. The key is knowing when to leverage AI capabilities and when human expertise is essential.</p>
-            </article>
-
-            <article class="blog-post">
-                <h2>Technical Architecture and Development Practices</h2>
-                <div class="date">August 12, 2025</div>
-                <p>This project serves as a practical exploration of modern web development principles, demonstrating scalable architecture patterns and industry best practices.</p>
-                
-                <h3>Architecture Decisions</h3>
-                <ul>
-                    <li><strong>Vanilla JavaScript:</strong> Foundation-first approach before framework adoption</li>
-                    <li><strong>Modular CSS:</strong> Component-based styling with custom properties</li>
-                    <li><strong>Progressive Enhancement:</strong> Core functionality without JavaScript dependencies</li>
-                    <li><strong>Semantic HTML:</strong> Accessibility-first markup structure</li>
-                    <li><strong>Performance Optimization:</strong> Minimal dependencies and efficient asset loading</li>
-                </ul>
-
-                <h3>Development Workflow</h3>
-                <ul>
-                    <li><strong>Version Control:</strong> Git-based development with meaningful commit messages</li>
-                    <li><strong>Testing Strategy:</strong> Cross-browser and device compatibility testing</li>
-                    <li><strong>Code Quality:</strong> Consistent formatting and documentation standards</li>
-                    <li><strong>Deployment:</strong> Automated deployment through GitHub Pages</li>
-                </ul>
-
-                <h3>Future Development Plans</h3>
-                <p>Planned enhancements include implementing automated testing, exploring progressive web app features, and investigating modern JavaScript frameworks for larger-scale applications.</p>
-            </article>
-        </div>
-    </main>
-
-    <footer>
-        <div class="container">
-            © Werner Roslin – 2025. Built in collaboration with AI.<br>
-            <a href="https://www.linkedin.com/in/werner-r-589095154" target="_blank">LinkedIn</a>
-        </div>
-    </footer>
+  <footer>
+    © Werner Roslin — 2025. Built with curiosity and AI support.<br>
+    <a href="index.html">Back to Home</a> | 
+    <a href="https://www.linkedin.com/in/werner-r-589095154" target="_blank" rel="noopener">LinkedIn</a>
+  </footer>
 </body>
 </html>
 
