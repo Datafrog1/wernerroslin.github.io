@@ -16,266 +16,178 @@
     <button class="dark-mode-toggle" onclick="toggleTheme()" title="Toggle theme">🔄</button>
     
     <header>
-        <h1>Blog</h1>
-        <a href="index.html" class="back-btn">← Back to Home</a>
+        <div class="container">
+            <h1>Blog</h1>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="portfolio.html">Portfolio</a>
+                <a href="blog.html" class="active">Blog</a>
+            </nav>
+        </div>
     </header>
 
-    <div class="blog-post">
-        <h2>Welcome to My Blog</h2>
-        <div class="date">June 17, 2025</div>
-        <p>Hi! This is my first blog post. Here I write about making websites and working with AI tools.</p>
-    </div>
+    <main class="container">
+        <div class="blog-posts">
+            <article class="blog-post">
+                <h2>Building a Personal Portfolio from Scratch</h2>
+                <div class="date">July 4, 2025</div>
+                <p>This website represents my journey into web development, built entirely from the ground up using modern web technologies and AI-assisted development practices.</p>
+                
+                <h3>Technology Stack</h3>
+                <ul>
+                    <li><strong>Frontend:</strong> HTML5, CSS3, Vanilla JavaScript</li>
+                    <li><strong>Development Environment:</strong> Visual Studio Code</li>
+                    <li><strong>Version Control:</strong> Git, GitHub</li>
+                    <li><strong>Hosting:</strong> GitHub Pages</li>
+                    <li><strong>Domain:</strong> Custom domain (wernerroslin.fi)</li>
+                    <li><strong>Development Assistant:</strong> ChatGPT for code generation and debugging</li>
+                </ul>
+                
+                <h3>Design Philosophy</h3>
+                <p>The site prioritizes clean, responsive design with cross-device compatibility. Key features include dark mode functionality, semantic HTML structure, and progressive enhancement principles.</p>
+            </article>
 
-    <div class="blog-post">
-        <h2>How I Built This Website</h2>
-        <div class="date">July 4, 2025</div>
-        <p>I made this website from scratch! It was like building with digital LEGO blocks. I used HTML (for structure), CSS (for colors and layout), and JavaScript (for making things move).</p>
-        
-        <h3>🔧 Tools I Used</h3>
-        <ul>
-            <li><strong>Code editor:</strong> Visual Studio Code (like a super text editor)</li>
-            <li><strong>Storage:</strong> GitHub (like Google Drive for code)</li>
-            <li><strong>Website hosting:</strong> GitHub Pages (makes my site live on the internet)</li>
-            <li><strong>Domain name:</strong> wernerroslin.fi (my website address)</li>
-            <li><strong>AI helper:</strong> ChatGPT (like having a coding buddy)</li>
-        </ul>
-        
-        <h3>🧠 Things I'm Learning About</h3>
-        <ul>
-            <li>How can AI help me build better websites?</li>
-            <li>What makes websites fun to use?</li>
-            <li>How do simple designs work better?</li>
-        </ul>
-        
-        <h3>📌 What's Coming Next</h3>
-        <ul>
-            <li>More fun experiments on the website</li>
-            <li>Sharing my work with friends</li>
-            <li>Getting feedback from people</li>
-            <li>Writing about what I learned</li>
-        </ul>
-    </div>
+            <article class="blog-post">
+                <h2>Implementing Consistent Design Systems</h2>
+                <div class="date">July 8, 2025</div>
+                <p>Recently completed a comprehensive refactoring to establish a unified design system across all pages, improving maintainability and user experience consistency.</p>
+                
+                <h3>Key Improvements</h3>
+                <ul>
+                    <li><strong>Centralized CSS:</strong> Consolidated styling into a single stylesheet</li>
+                    <li><strong>Component Architecture:</strong> Reusable UI components across pages</li>
+                    <li><strong>Theme System:</strong> Dynamic light/dark mode with user preference persistence</li>
+                    <li><strong>Responsive Design:</strong> Mobile-first approach with fluid layouts</li>
+                </ul>
 
-    <div class="blog-post">
-        <h2>Making My Website Better</h2>
-        <div class="date">July 8, 2025</div>
-        <p>I just made my website much better! Before, each page was like a separate LEGO kit. Now they all share the same pieces, making everything cleaner and easier to fix.</p>
-        
-        <h3>🔧 What I Fixed</h3>
-        <ul>
-            <li><strong>Shared styles:</strong> Now all pages look the same (like wearing matching clothes)</li>
-            <li><strong>Dark mode:</strong> You can switch between light and dark themes with the 🔄 button</li>
-        </ul>
+                <h3>Technical Implementation</h3>
+                <p>The refactoring involved establishing CSS custom properties for consistent theming, implementing localStorage for user preferences, and creating a modular component system that scales across the application.</p>
+            </article>
 
-        <h3>🎯 Why This Matters</h3>
-        <p>It's like organizing your room. When everything has its place, it's easier to find things and keep them clean. Now when I change something, it changes everywhere it needs to.</p>
+            <article class="blog-post">
+                <h2>Lessons in AI-Assisted Development</h2>
+                <div class="date">July 11, 2025</div>
+                <p>Working with AI tools like ChatGPT has revealed both the potential and limitations of current AI assistance in software development workflows.</p>
+                
+                <h3>Effective AI Integration</h3>
+                <ul>
+                    <li><strong>Rapid Prototyping:</strong> AI excels at generating initial code structures</li>
+                    <li><strong>Problem Solving:</strong> Effective for debugging and optimization suggestions</li>
+                    <li><strong>Knowledge Transfer:</strong> Excellent for explaining complex concepts</li>
+                    <li><strong>Code Review:</strong> Useful for identifying potential improvements</li>
+                </ul>
 
-        <h3>✨ Try It Out</h3>
-        <p>Click the 🔄 button to try dark mode! The website remembers what you like for next time.</p>
-    </div>
+                <h3>Identified Limitations</h3>
+                <ul>
+                    <li><strong>Context Management:</strong> Performance degrades with project complexity</li>
+                    <li><strong>Architectural Decisions:</strong> Requires human oversight for system design</li>
+                    <li><strong>User Experience:</strong> Cannot evaluate usability without human feedback</li>
+                    <li><strong>Code Quality:</strong> May prioritize functionality over maintainability</li>
+                </ul>
 
-    <div class="blog-post">
-        <h2>🎮 Learning the Hard Way: When AI Gets Confused</h2>
-        <div class="date">July 11, 2025</div>
-        <p>I learned something important about working with AI: sometimes simple requests turn into big messes!</p>
-        
-        <h3>🎰 The Roulette Game Problem</h3>
-        <p>I asked AI to help me build a roulette game. It seemed easy at first:</p>
-        <ul>
-            <li>"Make a spinning wheel" ✅</li>
-            <li>"Add betting" ✅</li>
-            <li>"Add sounds" ✅</li>
-            <li>"Make it prettier" ❌ Everything broke!</li>
-        </ul>
-        
-        <p>What I learned: Adding features to code is like adding ingredients to a recipe. Each new thing affects everything else. The AI started getting confused and making the code messy.</p>
+                <h3>Best Practices Developed</h3>
+                <p>Successful AI collaboration requires clear, specific prompts, incremental development approaches, and maintaining human oversight for architectural decisions and user experience considerations.</p>
+            </article>
 
-        <h3>🧠 The AI's Memory Problem</h3>
-        <p>AI is like a friend with a short memory. When the code gets too long, it forgets what it did earlier. Then it tries to fix problems in confusing ways.</p>
+            <article class="blog-post">
+                <h2>Evolution of Design Approach: From Maximalism to Minimalism</h2>
+                <div class="date">August 10, 2025</div>
+                <p>The development process included experimental phases with complex theming and animations, ultimately leading to a more refined, user-centered design approach.</p>
+                
+                <h3>Experimental Phase Features</h3>
+                <ul>
+                    <li><strong>Custom Theming:</strong> Pirate-themed interface with extensive visual elements</li>
+                    <li><strong>Advanced Animations:</strong> Complex CSS transitions and JavaScript effects</li>
+                    <li><strong>Interactive Elements:</strong> Gamified interface components</li>
+                    <li><strong>Rich Media:</strong> Audio integration and visual effects</li>
+                </ul>
 
-        <h3>🎮 Tetris Was Different</h3>
-        <p>When I tried building Tetris, I learned something important: I needed to understand how the AI solved problems before asking for changes. It's like understanding how a toy works before trying to fix it.</p>
-        
-        <h3>🗝️ What I Figured Out</h3>
-        <p>Before asking AI to change code, I now ask myself:</p>
-        <ul>
-            <li>How does this code work?</li>
-            <li>What will break if I change this?</li>
-            <li>Is there a simpler way to do what I want?</li>
-        </ul>
-        
-        <h3>🤖 AI Isn't Perfect</h3>
-        <p>Sometimes AI writes code that works but feels weird - like using a hammer to screw in a screw. It works, but it's not the best way.</p>
-        
-        <p>But that's okay! I'm learning when to accept "good enough" and when to ask for something better. It's all part of the learning process! 🚀</p>
-    </div>
+                <h3>Design Refinement Process</h3>
+                <p>User testing and performance analysis revealed that excessive visual elements compromised usability and accessibility. The redesign focused on content clarity, performance optimization, and universal accessibility.</p>
 
-    <div class="blog-post">
-        <h2>🏴‍☠️ My Pirate Phase: From Captain Werner to Clean Code</h2>
-        <div class="date">August 10, 2025</div>
-        <p>I went through a fun pirate phase with my website! For a while, I turned everything into a pirate theme with "Captain Werner Roslin" and treasure chests. It was awesome but got a bit messy.</p>
-        
-        <h3>⚔️ What I Added</h3>
-        <ul>
-            <li><strong>Pirate ship header:</strong> A rocking ship with a pirate flag</li>
-            <li><strong>Treasure chests:</strong> My "About" section became treasure boxes</li>
-            <li><strong>Weapon rack:</strong> Skills became swords and shields</li>
-            <li><strong>Adventure log:</strong> Projects were written like old scrolls</li>
-            <li><strong>Floating treasures:</strong> Gold coins and gems floating around</li>
-        </ul>
+                <h3>Current Implementation</h3>
+                <p>The final design balances personality with professionalism, maintaining subtle animations while prioritizing readability, fast loading times, and cross-device compatibility.</p>
+            </article>
 
-        <h3>🧹 Why I Cleaned It Up</h3>
-        <p>The pirate theme was fun, but I realized something important: sometimes less is more. The website looked cool but was getting harder to read and use. I learned that good design puts the user first, not just looking fancy.</p>
+            <article class="blog-post">
+                <h2>Game Development Projects: Technical Implementation</h2>
+                <div class="date">August 11, 2025</div>
+                <p>Developed several interactive games to explore different aspects of JavaScript programming, from DOM manipulation to canvas-based graphics and game state management.</p>
+                
+                <h3>Project Portfolio</h3>
+                <ul>
+                    <li><strong>Battleship:</strong> Grid-based game logic with event handling</li>
+                    <li><strong>Tetris:</strong> Canvas rendering with collision detection algorithms</li>
+                    <li><strong>Red Light, Green Light:</strong> Timing-based mechanics with audio integration</li>
+                    <li><strong>Casino Games:</strong> Probability calculations and animation systems</li>
+                </ul>
 
-        <h3>🎯 What I Kept</h3>
-        <p>I didn't throw everything away! I kept some fun animations and the idea of making websites more personal. Now I know when to add fun stuff and when to keep things simple.</p>
-    </div>
+                <h3>Technical Challenges</h3>
+                <p>Each project presented unique challenges: implementing efficient collision detection, managing complex game states, optimizing performance for mobile devices, and creating intuitive user interfaces.</p>
 
-    <div class="blog-post">
-        <h2>🎨 Design Experiments: From Ultimate Experience to Simple</h2>
-        <div class="date">August 11, 2025</div>
-        <p>I've been experimenting with different website designs. I tried making an "Ultimate Werner Experience" with tons of animations and effects, but learned that sometimes simple is better.</p>
-        
-        <h3>🌈 What I Tried</h3>
-        <ul>
-            <li><strong>Gradient backgrounds:</strong> Moving rainbow colors</li>
-            <li><strong>Floating elements:</strong> Icons flying around the screen</li>
-            <li><strong>Particle effects:</strong> Sparkles and glitter everywhere</li>
-            <li><strong>Glassmorphism:</strong> See-through cards that look like glass</li>
-            <li><strong>Konami code:</strong> Secret party mode (try ↑↑↓↓←→←→BA!)</li>
-        </ul>
+                <h3>Skills Developed</h3>
+                <p>These projects strengthened proficiency in algorithm design, event-driven programming, performance optimization, and responsive design principles.</p>
+            </article>
 
-        <h3>📱 The Mobile Problem</h3>
-        <p>All those fancy effects looked great on my computer, but on phones they were slow and hard to use. I learned that websites need to work for everyone, not just people with fast computers.</p>
+            <article class="blog-post">
+                <h2>Reflections on AI-Assisted Development Workflow</h2>
+                <div class="date">August 12, 2025</div>
+                <p>After extensive experience with AI development tools, I've identified optimal workflows that maximize productivity while maintaining code quality and project coherence.</p>
+                
+                <h3>Effective AI Utilization</h3>
+                <ul>
+                    <li><strong>Rapid Iteration:</strong> AI enables quick experimentation with different approaches</li>
+                    <li><strong>Knowledge Augmentation:</strong> Fills gaps in technical knowledge efficiently</li>
+                    <li><strong>Code Generation:</strong> Accelerates boilerplate and repetitive task completion</li>
+                    <li><strong>Debugging Assistance:</strong> Provides alternative perspectives on problem-solving</li>
+                </ul>
 
-        <h3>🎭 Finding Balance</h3>
-        <p>Now I try to find the sweet spot: enough personality to make things interesting, but not so much that it gets in the way. It's like wearing a cool t-shirt instead of a full costume to school!</p>
-    </div>
+                <h3>Quality Control Measures</h3>
+                <ul>
+                    <li><strong>Code Review Process:</strong> Human oversight for all AI-generated code</li>
+                    <li><strong>Incremental Development:</strong> Small, testable changes to maintain system integrity</li>
+                    <li><strong>Documentation Standards:</strong> Clear commenting and documentation practices</li>
+                    <li><strong>Performance Monitoring:</strong> Regular testing across devices and browsers</li>
+                </ul>
 
-    <div class="blog-post">
-        <h2>📝 Rewriting My Story: The "Who Am I?" Update</h2>
-        <div class="date">August 12, 2025</div>
-        <p>I just rewrote my "About" section to be more honest and simple. Instead of trying to sound super professional, I decided to just be myself.</p>
-        
-        <h3>✂️ What I Changed</h3>
-        <ul>
-            <li><strong>Removed fancy words:</strong> No more trying to sound like a business person</li>
-            <li><strong>Added emojis:</strong> Makes it more fun and easy to read</li>
-            <li><strong>Shorter sentences:</strong> Easier to understand</li>
-            <li><strong>More personal:</strong> Actually sounds like me talking</li>
-        </ul>
+                <h3>Productivity Insights</h3>
+                <p>The combination of AI assistance with traditional development practices has significantly accelerated learning and project completion while maintaining professional standards. The key is knowing when to leverage AI capabilities and when human expertise is essential.</p>
+            </article>
 
-        <h3>🎯 Why Simple Works</h3>
-        <p>I realized that when I try to use big fancy words, I don't sound like myself. The best websites feel like talking to a real person, not reading a boring textbook.</p>
+            <article class="blog-post">
+                <h2>Technical Architecture and Development Practices</h2>
+                <div class="date">August 12, 2025</div>
+                <p>This project serves as a practical exploration of modern web development principles, demonstrating scalable architecture patterns and industry best practices.</p>
+                
+                <h3>Architecture Decisions</h3>
+                <ul>
+                    <li><strong>Vanilla JavaScript:</strong> Foundation-first approach before framework adoption</li>
+                    <li><strong>Modular CSS:</strong> Component-based styling with custom properties</li>
+                    <li><strong>Progressive Enhancement:</strong> Core functionality without JavaScript dependencies</li>
+                    <li><strong>Semantic HTML:</strong> Accessibility-first markup structure</li>
+                    <li><strong>Performance Optimization:</strong> Minimal dependencies and efficient asset loading</li>
+                </ul>
 
-        <h3>💭 What I Learned</h3>
-        <p>Being authentic is better than trying to impress people. If someone visits my website, I want them to know who I really am - someone who loves building things and learning new stuff!</p>
-    </div>
+                <h3>Development Workflow</h3>
+                <ul>
+                    <li><strong>Version Control:</strong> Git-based development with meaningful commit messages</li>
+                    <li><strong>Testing Strategy:</strong> Cross-browser and device compatibility testing</li>
+                    <li><strong>Code Quality:</strong> Consistent formatting and documentation standards</li>
+                    <li><strong>Deployment:</strong> Automated deployment through GitHub Pages</li>
+                </ul>
 
-    <div class="blog-post">
-        <h2>🤖 My Relationship with AI</h2>
-        <div class="date">August 12, 2025</div>
-        <p>Working with AI like ChatGPT has been like having a really smart friend who knows a lot about coding but sometimes gets confused.</p>
-        
-        <h3>✅ What AI is Great At</h3>
-        <ul>
-            <li><strong>Quick solutions:</strong> Can solve problems really fast</li>
-            <li><strong>Learning helper:</strong> Explains things in simple words</li>
-            <li><strong>Code examples:</strong> Shows me how to do new things</li>
-            <li><strong>Debugging:</strong> Helps find mistakes in my code</li>
-        </ul>
+                <h3>Future Development Plans</h3>
+                <p>Planned enhancements include implementing automated testing, exploring progressive web app features, and investigating modern JavaScript frameworks for larger-scale applications.</p>
+            </article>
+        </div>
+    </main>
 
-        <h3>⚠️ Where AI Gets Confused</h3>
-        <ul>
-            <li><strong>Long projects:</strong> Forgets what we did earlier</li>
-            <li><strong>Complex changes:</strong> Sometimes breaks working code</li>
-            <li><strong>Design choices:</strong> Doesn't know what looks good</li>
-            <li><strong>User experience:</strong> Can't tell if something is annoying to use</li>
-        </ul>
-
-        <h3>🧠 What I've Learned</h3>
-        <p>AI is like a super-powered calculator - amazing for specific tasks, but I still need to understand what I'm asking for and check if the results make sense. The best projects happen when I combine AI's speed with my own ideas and judgment.</p>
-
-        <h3>🔮 Looking Forward</h3>
-        <p>I'm excited to see how AI tools get better at understanding context and maintaining longer conversations. But I think the most important skill is learning how to ask the right questions and know when to trust the answers.</p>
-    </div>
-
-    <div class="blog-post">
-        <h2>📈 What I'm Learning About Web Development</h2>
-        <div class="date">August 12, 2025</div>
-        <p>After building this website and all these projects, I'm starting to understand what makes websites actually good to use.</p>
-        
-        <h3>🎯 Design Principles I've Discovered</h3>
-        <ul>
-            <li><strong>Less is more:</strong> Simple designs are easier to use</li>
-            <li><strong>Mobile first:</strong> Most people use phones, so design for small screens</li>
-            <li><strong>Fast loading:</strong> Nobody likes waiting</li>
-            <li><strong>Clear navigation:</strong> People should never get lost</li>
-            <li><strong>Consistent styling:</strong> Everything should feel like the same website</li>
-        </ul>
-
-        <h3>💻 Technical Skills Growing</h3>
-        <ul>
-            <li><strong>HTML:</strong> Getting better at semantic markup</li>
-            <li><strong>CSS:</strong> Learning about flexbox, grid, and animations</li>
-            <li><strong>JavaScript:</strong> Understanding functions, events, and DOM manipulation</li>
-            <li><strong>Git:</strong> Keeping track of changes and collaborating</li>
-            <li><strong>Responsive design:</strong> Making things work on all devices</li>
-        </ul>
-
-        <h3>🌱 Next Steps</h3>
-        <p>I want to learn more about accessibility (making websites work for everyone), performance optimization (making things faster), and maybe try a JavaScript framework like React. But first, I want to get really good at the basics!</p>
-    </div>
-
-    <div class="blog-post">
-        <h2>🤖 The Real Talk About AI: My Love-Hate Relationship</h2>
-        <div class="date">August 12, 2025</div>
-        <p>Let me be brutally honest about working with AI. It's complicated. Without AI, I wouldn't have the patience for coding - but AI also drives me absolutely crazy sometimes.</p>
-        
-        <h3>⚡ Why I Need AI (VibeCoder Confession)</h3>
-        <p>I'm what you might call a "VibeCoder." When I get excited about an idea, I want to see it happen RIGHT NOW. I don't want to spend hours debugging tiny mistakes or reading boring documentation. AI saves my sanity by:</p>
-        <ul>
-            <li><strong>Instant help:</strong> When I get stuck, AI unstucks me immediately</li>
-            <li><strong>Skip the boring parts:</strong> AI handles tedious debugging stuff</li>
-            <li><strong>Keep the momentum:</strong> I stay excited instead of getting frustrated</li>
-            <li><strong>Focus on creativity:</strong> I think about what to build, AI helps with how</li>
-        </ul>
-
-        <h3>🌪️ But AI Also Ruins Everything</h3>
-        <p>Here's where it gets annoying. I'll ask for something simple like "make this button prettier" and suddenly I get 200 lines of CSS with animations, gradients, shadows, hover effects, and transforms. Dude, I just wanted it to be blue!</p>
-
-        <h3>🏭 The Generic Factory Problem</h3>
-        <p>AI loves making everything look the same. Ask for a website design and you get the same boring template:</p>
-        <ul>
-            <li>Hero section with gradient background ✓</li>
-            <li>Three feature cards in a row ✓</li>
-            <li>Testimonials section ✓</li>
-            <li>Call-to-action button ✓</li>
-        </ul>
-        <p>Where's the personality? It's like AI went to the same boring web design school as everyone else.</p>
-
-        <h3>🤯 The "Best Practices" Trap</h3>
-        <p>AI always wants to follow "best practices" even when they don't make sense. I once asked for a simple game menu and got a lecture about accessibility, semantic HTML, and enterprise-level architecture. Bro, it's just a Tetris game!</p>
-
-        <h3>🌊 Riding the Chaos Wave</h3>
-        <p>Some people are methodical programmers who plan everything. Me? I'm more like a surfer riding waves of inspiration. When I feel like making a pirate website, BAM! Pirate website. When AI tries to "professionalize" my fun ideas, that's when we have problems.</p>
-
-        <h3>⚡ My AI Survival Strategy</h3>
-        <p>I've learned to be very specific with AI:</p>
-        <ul>
-            <li>"Keep it simple" (repeat this 3 times)</li>
-            <li>"Don't add features I didn't ask for"</li>
-            <li>"Make it weird and personal, not generic"</li>
-            <li>"If it takes more than 20 lines, you're doing it wrong"</li>
-        </ul>
-
-        <h3>🎯 The Honest Truth</h3>
-        <p>AI is like that friend who always has opinions about your life choices. Sometimes helpful, sometimes overthinking everything. Without it, I'd never finish anything because I'd lose patience. With it, I have to fight to keep my projects from becoming boring.</p>
-
-        <p>The trick is knowing when to listen and when to say "thanks but no thanks, I'll do it my way." Because at the end of the day, my website should feel like ME, not like it was made by a robot committee! 🤖❌</p>
-
-        <p>So yeah, I'm a VibeCoder powered by AI who constantly argues with AI. It's messy, but somehow it works! 🌟</p>
-    </div>
+    <footer>
+        <div class="container">
+            © Werner Roslin – 2025. Built in collaboration with AI.<br>
+            <a href="https://www.linkedin.com/in/werner-r-589095154" target="_blank">LinkedIn</a>
+        </div>
+    </footer>
 </body>
 </html>
 
