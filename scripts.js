@@ -188,13 +188,49 @@ function initKeyboardShortcuts() {
 }
 
 /* -----------------------------------------------------------------------------
-   Käynnistys
+   Theme Toggle
 ----------------------------------------------------------------------------- */
+
+function getPreferredTheme() {
+  const stored = localStorage.getItem('theme');
+  if (stored) return stored;
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+  updateThemeButton(theme);
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || getPreferredTheme();
+  const newTheme = current === 'dark' ? 'light' : 'dark';
+  setTheme(newTheme);
+}
+
+function updateThemeButton(theme) {
+  const button = document.getElementById('theme-toggle');
+  if (button) {
+    button.textContent = theme === 'dark' ? '☀️' : '🌙';
+  }
+}
+
+function initThemeToggle() {
+  const theme = getPreferredTheme();
+  setTheme(theme);
+
+  const button = document.getElementById('theme-toggle');
+  if (button) {
+    button.addEventListener('click', toggleTheme);
+  }
+}
 document.addEventListener('DOMContentLoaded', function () {
   observeElements();
   initPortfolioFilters();
   initClickTracking();
   initKeyboardShortcuts();
+  initThemeToggle();
 
   console.log('Werner Roslin Website — scripts initialized');
 });
