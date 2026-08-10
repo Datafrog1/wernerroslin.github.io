@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07110f">
+  <title>Snake Game | Werner Roslin</title>
+  <meta name="description" content="A responsive browser-based Snake game by Werner Roslin.">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+  <style>
+    :root { --bg:#07110f; --panel:#0d1917; --line:rgba(181,255,226,.14); --text:#f2fff9; --muted:#91a9a1; --green:#64f4bd; --blue:#6bdcff; --food:#ff6b7a; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { min-height:100vh; padding:76px 20px 36px; color:var(--text); font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; background:radial-gradient(circle at 50% -10%,rgba(68,211,158,.18),transparent 38rem),linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px),var(--bg); background-size:auto,32px 32px,32px 32px,auto; }
+    button,a { font:inherit; }
+    .topbar { position:fixed; inset:16px 20px auto; z-index:20; display:flex; justify-content:space-between; pointer-events:none; }
+    .topbar a,.topbar button { pointer-events:auto; padding:10px 14px; border:1px solid var(--line); border-radius:10px; color:var(--text); background:rgba(7,17,15,.9); text-decoration:none; font-size:12px; font-weight:800; cursor:pointer; backdrop-filter:blur(12px); }
+    .shell { width:min(850px,100%); margin:auto; padding:26px; border:1px solid var(--line); border-radius:24px; background:rgba(9,20,17,.92); box-shadow:0 32px 90px rgba(0,0,0,.42); }
+    header { padding-bottom:20px; border-bottom:1px solid var(--line); }
+    .eyebrow { margin-bottom:7px; color:var(--green); font-size:11px; font-weight:900; letter-spacing:.18em; text-transform:uppercase; }
+    h1 { font-size:clamp(30px,5vw,46px); line-height:1; letter-spacing:-.045em; }
+    .intro { max-width:580px; margin-top:10px; color:var(--muted); font-size:14px; line-height:1.55; }
+    .game-layout { display:grid; grid-template-columns:minmax(280px,600px) 170px; gap:22px; align-items:start; margin-top:24px; }
+    .board-wrap { position:relative; overflow:hidden; border:1px solid rgba(107,220,255,.3); border-radius:16px; background:#050c0b; box-shadow:0 20px 55px rgba(0,0,0,.42); }
+    canvas { display:block; width:100%; height:auto; aspect-ratio:1; touch-action:none; }
+    .overlay { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; padding:24px; background:rgba(3,10,8,.76); backdrop-filter:blur(8px); text-align:center; }
+    .overlay[hidden] { display:none; }
+    .overlay h2 { font-size:30px; margin-bottom:8px; }
+    .overlay p { margin-bottom:18px; color:var(--muted); line-height:1.5; }
+    .primary { width:100%; padding:12px 16px; border:1px solid var(--green); border-radius:10px; color:#062017; background:var(--green); font-weight:900; cursor:pointer; }
+    .side { display:grid; gap:12px; }
+    .card { padding:17px; border:1px solid var(--line); border-radius:15px; background:var(--panel); }
+    .label { display:block; margin-bottom:6px; color:var(--muted); font-size:9px; font-weight:900; letter-spacing:.15em; }
+    .value { color:var(--green); font-size:27px; font-weight:900; font-variant-numeric:tabular-nums; }
+    .small { margin-top:5px; color:var(--muted); font-size:11px; }
+    .controls p { margin:7px 0; color:#c4d7d0; font-size:12px; }
+    .secondary { width:100%; margin-top:8px; padding:10px; border:1px solid var(--line); border-radius:9px; color:var(--text); background:rgba(255,255,255,.05); font-weight:800; cursor:pointer; }
+    .dpad { display:none; grid-template:repeat(2,48px)/repeat(3,48px); justify-content:center; gap:7px; margin-top:15px; }
+    .dpad button { border:1px solid var(--line); border-radius:11px; color:var(--text); background:var(--panel); font-size:20px; touch-action:manipulation; }
+    .dpad .up { grid-column:2; } .dpad .left { grid-area:2/1; } .dpad .down { grid-area:2/2; } .dpad .right { grid-area:2/3; }
+    @media(max-width:700px){ body{padding:68px 10px 24px}.topbar{inset:12px 10px auto}.shell{padding:14px;border-radius:18px}.game-layout{grid-template-columns:1fr;gap:14px;margin-top:16px}.side{grid-template-columns:repeat(3,1fr)}.controls{grid-column:1/-1}.card{padding:12px}.value{font-size:21px}.dpad{display:grid}header{padding:4px 2px 15px}.intro{font-size:12px}.topbar a,.topbar button{padding:8px 10px;font-size:10px}}
+  </style>
+</head>
+<body>
+  <nav class="topbar"><a href="portfolio.html">← Portfolio</a><button id="pauseTop" type="button">Pause</button></nav>
+  <main class="shell">
+    <header><p class="eyebrow">Werner's arcade</p><h1>Snake</h1><p class="intro">Collect the fruit, grow longer and survive as the game accelerates. Use arrow keys, WASD, swipe or the touch controls.</p></header>
+    <section class="game-layout" aria-label="Snake game">
+      <div class="board-wrap">
+        <canvas id="game" width="600" height="600" aria-label="Snake game board"></canvas>
+        <div class="overlay" id="overlay"><div><h2 id="overlayTitle">Ready?</h2><p id="overlayText">Every fifth fruit makes the game faster.</p><button class="primary" id="startBtn" type="button">Start game</button></div></div>
+      </div>
+      <aside class="side">
+        <div class="card"><span class="label">SCORE</span><strong class="value" id="score">0</strong></div>
+        <div class="card"><span class="label">BEST</span><strong class="value" id="best">0</strong></div>
+        <div class="card"><span class="label">SPEED</span><strong class="value" id="speed">1×</strong></div>
+        <div class="card controls"><span class="label">CONTROLS</span><p>Arrow keys / WASD</p><p>Space — pause</p><button class="secondary" id="restartBtn" type="button">New game</button></div>
+      </aside>
+    </section>
+    <div class="dpad" aria-label="Touch controls"><button class="up" data-dir="up" aria-label="Up">↑</button><button class="left" data-dir="left" aria-label="Left">←</button><button class="down" data-dir="down" aria-label="Down">↓</button><button class="right" data-dir="right" aria-label="Right">→</button></div>
+  </main>
+  <script>
+    const canvas=document.getElementById('game'),ctx=canvas.getContext('2d'),size=20,cell=canvas.width/size;
+    const scoreEl=document.getElementById('score'),bestEl=document.getElementById('best'),speedEl=document.getElementById('speed');
+    const overlay=document.getElementById('overlay'),overlayTitle=document.getElementById('overlayTitle'),overlayText=document.getElementById('overlayText');
+    let snake,direction,nextDirection,food,score,best=Number(localStorage.getItem('wernerSnakeBest')||0),timer,running=false,paused=false;
+    bestEl.textContent=best;
+    function randomFood(){let spot;do{spot={x:Math.floor(Math.random()*size),y:Math.floor(Math.random()*size)}}while(snake.some(p=>p.x===spot.x&&p.y===spot.y));return spot}
+    function reset(){snake=[{x:10,y:10},{x:9,y:10},{x:8,y:10}];direction={x:1,y:0};nextDirection={...direction};score=0;food=randomFood();running=true;paused=false;updateHud();hideOverlay();schedule();draw()}
+    function schedule(){clearTimeout(timer);if(running&&!paused)timer=setTimeout(tick,Math.max(65,145-Math.floor(score/5)*8))}
+    function tick(){direction=nextDirection;const head={x:snake[0].x+direction.x,y:snake[0].y+direction.y};if(head.x<0||head.x>=size||head.y<0||head.y>=size||snake.some(p=>p.x===head.x&&p.y===head.y)){end();return}snake.unshift(head);if(head.x===food.x&&head.y===food.y){score++;if(score>best){best=score;localStorage.setItem('wernerSnakeBest',best)}food=randomFood();updateHud()}else snake.pop();draw();schedule()}
+    function setDirection(x,y){if(!running||paused)return;if(x===-direction.x&&y===-direction.y)return;nextDirection={x,y}}
+    function updateHud(){scoreEl.textContent=score;bestEl.textContent=best;speedEl.textContent=(1+Math.floor(score/5)*.15).toFixed(score<5?0:1)+'×'}
+    function end(){running=false;clearTimeout(timer);overlayTitle.textContent='Game over';overlayText.textContent=`You collected ${score} fruit${score===1?'':'s'}. Best: ${best}.`;document.getElementById('startBtn').textContent='Play again';overlay.hidden=false}
+    function hideOverlay(){overlay.hidden=true;document.getElementById('pauseTop').textContent='Pause'}
+    function togglePause(){if(!running)return;paused=!paused;document.getElementById('pauseTop').textContent=paused?'Resume':'Pause';if(paused){overlayTitle.textContent='Paused';overlayText.textContent='Take a breath. Your run is safe.';document.getElementById('startBtn').textContent='Resume';overlay.hidden=false;clearTimeout(timer)}else{hideOverlay();schedule()}}
+    function draw(){ctx.fillStyle='#050c0b';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.strokeStyle='rgba(181,255,226,.045)';ctx.lineWidth=1;for(let i=1;i<size;i++){ctx.beginPath();ctx.moveTo(i*cell,0);ctx.lineTo(i*cell,canvas.height);ctx.stroke();ctx.beginPath();ctx.moveTo(0,i*cell);ctx.lineTo(canvas.width,i*cell);ctx.stroke()}ctx.fillStyle='#ff6b7a';ctx.shadowColor='#ff6b7a';ctx.shadowBlur=18;ctx.beginPath();ctx.arc((food.x+.5)*cell,(food.y+.5)*cell,cell*.3,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;snake.forEach((p,i)=>{const pad=i?3:2;ctx.fillStyle=i?'#43c993':'#64f4bd';ctx.beginPath();ctx.roundRect(p.x*cell+pad,p.y*cell+pad,cell-pad*2,cell-pad*2,6);ctx.fill()});const h=snake[0];ctx.fillStyle='#07110f';const ex=direction.x===0?cell*.28:direction.x>0?cell*.65:cell*.35;[-1,1].forEach(side=>{ctx.beginPath();ctx.arc(h.x*cell+ex,h.y*cell+cell*.5+side*(direction.x?cell*.18:direction.y>0?cell*.15:-cell*.15),2.5,0,Math.PI*2);ctx.fill()})}
+    const keys={ArrowUp:[0,-1],KeyW:[0,-1],ArrowDown:[0,1],KeyS:[0,1],ArrowLeft:[-1,0],KeyA:[-1,0],ArrowRight:[1,0],KeyD:[1,0]};
+    addEventListener('keydown',e=>{if(keys[e.code]){e.preventDefault();setDirection(...keys[e.code])}if(e.code==='Space'){e.preventDefault();togglePause()}});
+    document.getElementById('startBtn').onclick=()=>paused?togglePause():reset();document.getElementById('restartBtn').onclick=reset;document.getElementById('pauseTop').onclick=togglePause;
+    document.querySelectorAll('[data-dir]').forEach(b=>b.onclick=()=>{const d={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]}[b.dataset.dir];setDirection(...d)});
+    let sx=0,sy=0;canvas.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});canvas.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.max(Math.abs(dx),Math.abs(dy))<20)return;Math.abs(dx)>Math.abs(dy)?setDirection(Math.sign(dx),0):setDirection(0,Math.sign(dy))},{passive:true});
+    snake=[{x:10,y:10},{x:9,y:10},{x:8,y:10}];direction={x:1,y:0};food={x:14,y:10};score=0;draw();
+  </script>
+</body>
+</html>

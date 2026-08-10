@@ -1188,6 +1188,7 @@
         }
 
     </style>
+    <link rel="stylesheet" href="tetris-refresh.css">
 </head>
 <body>
     <div class="top-actions">
@@ -1202,6 +1203,11 @@
     </div>
 
     <div class="game-container">
+        <header class="game-title">
+            <p class="game-kicker">Werner's arcade</p>
+            <h1>Block Stack</h1>
+            <p>Clear lines, build your score and keep up as the pace gets faster.</p>
+        </header>
         <!-- 1. SCORE ja NEXT ylös -->
         <div class="info-panels-row">
             <div class="info-panel">
@@ -1214,6 +1220,11 @@
             <div class="info-panel">
                 <h2>NEXT</h2>
                 <canvas class="next-piece" id="nextPiece" width="120" height="120"></canvas>
+            </div>
+
+            <div class="info-panel hold-panel">
+                <h2>HOLD · C</h2>
+                <canvas class="next-piece" id="holdPiece" width="120" height="120"></canvas>
             </div>
         </div>
 
@@ -1250,9 +1261,11 @@
                 <p>⬇️ S / ↓ - Down</p>
                 <p>🔄 W / ↑ - Rotate</p>
                 <p>⚡ Space - Drop</p>
+                <p>📦 C - Hold piece</p>
                 <p>⏸️ P - Pause</p>
                 <p>🔄 Ctrl+R - New Game</p>
                 <button class="pause-btn" id="pauseBtn">⏸️ PAUSE</button>
+                <button class="hold-btn" id="holdBtn">📦 HOLD</button>
                 <button class="new-game-btn" id="newGameBtn">🎮 NEW GAME</button>
                 
                 <div class="volume-control">
@@ -1300,6 +1313,8 @@ const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
 const nextCanvas = document.getElementById('nextPiece');
 const nextContext = nextCanvas.getContext('2d');
+const holdCanvas = document.getElementById('holdPiece');
+const holdContext = holdCanvas.getContext('2d');
 
 // Pelin muuttujat
 let dropCounter = 0;
@@ -1388,6 +1403,21 @@ const player = {
 };
 
 let nextPiece = null;
+let heldPieceType = null;
+let canHold = true;
+let pieceBag = [];
+let combo = -1;
+
+function getNextType() {
+    if (pieceBag.length === 0) {
+        pieceBag = 'TLOJISZ'.split('');
+        for (let i = pieceBag.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [pieceBag[i], pieceBag[j]] = [pieceBag[j], pieceBag[i]];
+        }
+    }
+    return pieceBag.pop();
+}
 
 // ÄÄNITEHOSTEET - KORJATTU VERSIO
 let audioContext = null;
@@ -1681,6 +1711,51 @@ function drawNextPiece() {
     });
 }
 
+function drawHoldPiece() {
+    const previewSize = holdCanvas.width / holdContext.getTransform().a;
+    holdContext.fillStyle = '#000';
+    holdContext.fillRect(0, 0, previewSize, previewSize);
+    if (!heldPieceType) return;
+
+    const matrix = createPiece(heldPieceType);
+    const startX = Math.floor((6 - matrix[0].length) / 2);
+    const startY = Math.floor((6 - matrix.length) / 2);
+    matrix.forEach((row, y) => row.forEach((value, x) => {
+        if (!value) return;
+        holdContext.fillStyle = colors[heldPieceType];
+        holdContext.fillRect(startX + x, startY + y, 1, 1);
+        holdContext.strokeStyle = 'rgba(255,255,255,.8)';
+        holdContext.lineWidth = .05;
+        holdContext.strokeRect(startX + x, startY + y, 1, 1);
+    }));
+}
+
+function holdCurrentPiece() {
+    if (gameOver || isPaused || !player.matrix || !canHold) return;
+
+    const outgoingType = player.type;
+    if (heldPieceType) {
+        player.type = heldPieceType;
+        player.matrix = JSON.parse(JSON.stringify(createPiece(heldPieceType)));
+    } else {
+        player.type = nextPiece.type;
+        player.matrix = JSON.parse(JSON.stringify(nextPiece.matrix));
+        const nextType = getNextType();
+        nextPiece = { matrix: JSON.parse(JSON.stringify(createPiece(nextType))), type: nextType };
+    }
+
+    heldPieceType = outgoingType;
+    canHold = false;
+    player.pos.y = -1;
+    player.pos.x = Math.floor((arena[0].length - player.matrix[0].length) / 2);
+    dropCounter = 0;
+    createBeep(330, .08, 'sine');
+    drawHoldPiece();
+    drawNextPiece();
+
+    if (collide(arena, player)) endGame();
+}
+
 function drawGhostPiece() {
     if (!player.matrix || gameOver) return;
     
@@ -1838,9 +1913,12 @@ function arenaSweep() {
         const pointValues = [0, 40, 100, 300, 1200];
         const oldLevel = level;
         const earnedPoints = Math.round(pointValues[linesCleared] * level);
-        score += earnedPoints;
+        combo++;
+        const comboBonus = combo > 0 ? Math.round(combo * 50 * level) : 0;
+        score += earnedPoints + comboBonus;
         lines += linesCleared;
-        showPointsGain(earnedPoints, linesCleared === 4 ? 'TETRIS!' : `${linesCleared} LINE${linesCleared > 1 ? 'S' : ''}`);
+        const gainLabel = linesCleared === 4 ? 'TETRIS!' : `${linesCleared} LINE${linesCleared > 1 ? 'S' : ''}`;
+        showPointsGain(earnedPoints + comboBonus, comboBonus ? `${gainLabel} · ${combo + 1}× COMBO` : gainLabel);
         
         level = Math.floor(lines / LINES_PER_LEVEL) + 1;
         
@@ -1857,6 +1935,8 @@ function arenaSweep() {
         
         dropInterval = Math.max(MIN_INTERVAL, START_INTERVAL - (level - 1) * SPEED_STEP);
         updateDisplay();
+    } else {
+        combo = -1;
     }
 }
 
@@ -1868,6 +1948,7 @@ function playerDrop() {
         player.pos.y--;
         playDropSound();
         merge(arena, player);
+        canHold = true;
         playerReset();
         arenaSweep();
     }
@@ -1892,14 +1973,12 @@ function playerReset() {
         player.matrix = JSON.parse(JSON.stringify(nextPiece.matrix));
         player.type = nextPiece.type;
     } else {
-        const pieces = 'TLOJISZ';
-        const type = pieces[Math.floor(Math.random() * pieces.length)];
+        const type = getNextType();
         player.matrix = JSON.parse(JSON.stringify(createPiece(type)));
         player.type = type;
     }
     
-    const pieces = 'TLOJISZ';
-    const nextType = pieces[Math.floor(Math.random() * pieces.length)];
+    const nextType = getNextType();
     nextPiece = {
         matrix: JSON.parse(JSON.stringify(createPiece(nextType))),
         type: nextType
@@ -1948,6 +2027,7 @@ function hardDrop() {
     if (dropPoints > 0) showPointsGain(dropPoints, 'DROP');
     createBeep(100, 0.3, 'sine');
     merge(arena, player);
+    canHold = true;
     playerReset();
     arenaSweep();
     updateDisplay();
@@ -2098,6 +2178,11 @@ function startNewGame(forceStart = false) {
     player.type = null;
     player.pos = {x: 0, y: 0};
     nextPiece = null;
+    heldPieceType = null;
+    canHold = true;
+    pieceBag = [];
+    combo = -1;
+    drawHoldPiece();
     
     document.getElementById('gameOver').style.display = 'none';
     document.getElementById('pauseBtn').textContent = '⏸️ PAUSE';
@@ -2498,6 +2583,10 @@ document.addEventListener('keydown', event => {
             event.preventDefault();
             hardDrop();
             break;
+        case 'KeyC':
+            event.preventDefault();
+            holdCurrentPiece();
+            break;
         case 'KeyP':
             event.preventDefault();
             togglePause();
@@ -2512,6 +2601,11 @@ const volumeValue = document.getElementById('volumeValue');
 volumeSlider.addEventListener('input', (e) => {
     soundVolume = e.target.value / 100;
     volumeValue.textContent = e.target.value + '%';
+});
+
+document.getElementById('holdBtn').addEventListener('click', (e) => {
+    e.stopPropagation();
+    holdCurrentPiece();
 });
 
 // Event listeners
@@ -2543,6 +2637,7 @@ function adjustCanvasForMobile() {
     // Nollaa transformaatiot
     context.setTransform(1, 0, 0, 1, 0, 0);
     nextContext.setTransform(1, 0, 0, 1, 0, 0);
+    holdContext.setTransform(1, 0, 0, 1, 0, 0);
     
     if (window.innerWidth <= 350) {
         // Erittäin pienet näytöt
@@ -2556,6 +2651,9 @@ function adjustCanvasForMobile() {
         nextCanvas.width = 120;
         nextCanvas.height = 120;
         nextContext.scale(20, 20); // 120/6 = 20
+        holdCanvas.width = 120;
+        holdCanvas.height = 120;
+        holdContext.scale(20, 20);
     } else if (window.innerWidth <= 768) {
         // Mobile
         canvas.width = 240;
@@ -2568,6 +2666,9 @@ function adjustCanvasForMobile() {
         nextCanvas.width = 150;
         nextCanvas.height = 150;
         nextContext.scale(25, 25); // 150/6 = 25
+        holdCanvas.width = 150;
+        holdCanvas.height = 150;
+        holdContext.scale(25, 25);
     } else {
         // Desktop: 300x600
         canvas.width = 300;
@@ -2580,6 +2681,9 @@ function adjustCanvasForMobile() {
         nextCanvas.width = 200;
         nextCanvas.height = 200;
         nextContext.scale(33, 33); // 200/6 = 33
+        holdCanvas.width = 200;
+        holdCanvas.height = 200;
+        holdContext.scale(33, 33);
     }
     
     // Palauta pelaajan tila
@@ -2591,6 +2695,7 @@ function adjustCanvasForMobile() {
     if (nextPiece) {
         drawNextPiece();
     }
+    drawHoldPiece();
 }
 
 // Kutsu alustuksessa
