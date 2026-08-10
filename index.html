@@ -1,44 +1,190 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Werner Roslin</title>
-
-  <meta name="description" content="Portfolio and experiments by Werner Roslin — web development with a focus on AI and usability.">
-  <meta name="author" content="Werner Roslin" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Werner Roslin | Digital presence, AI & web development</title>
+  <meta name="description" content="Werner Roslin's personal website: digital personal branding, AI-assisted web development, projects and learning notes.">
+  <link rel="canonical" href="https://wernerroslin.fi/">
+  <meta name="theme-color" content="#171918">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Werner Roslin | Digital presence, AI & web development">
+  <meta property="og:description" content="Projects and insights at the intersection of personal branding, AI and web development.">
+  <meta property="og:url" content="https://wernerroslin.fi/">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
   <link rel="manifest" href="/assets/icons/site.webmanifest">
   <link rel="stylesheet" href="styles.css">
   <script src="scripts.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Werner Roslin",
+    "url": "https://wernerroslin.fi/",
+    "sameAs": ["https://www.linkedin.com/in/werner-r-589095154"]
+  }
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LRLHN7K86D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-LRLHN7K86D');
+  </script>
 </head>
 <body>
-  <header>
-    <h1>Werner Roslin</h1>
-    <img src="/assets/images/werner-profile.JPG" alt="Portrait of Werner Roslin" class="header-profile-image" />
-    <p class="tagline">Web development, AI, and digital experiments</p>
-    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">🌙</button>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header shell" aria-label="Site header">
+    <a class="brand" href="index.html" aria-label="Werner Roslin home">WR</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a class="active" href="index.html">Home</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="thesis.html">Thesis case</a>
+      <a href="blog.html">Blog</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="Toggle light and dark theme" title="Toggle theme">☀</button>
   </header>
 
-  <section>
-    <h2>About</h2>
-    <p>I build prototypes and experiment with AI. Based in Spain, seeking development roles.</p>
-    <a class="cta-btn" href="https://www.linkedin.com/in/werner-r-589095154" target="_blank" rel="noopener">Get in Touch</a>
-  </section>
+  <main id="main" class="shell page-stack">
+    <section class="hero panel hero-grid" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">DIGITAL PRESENCE · AI · WEB</p>
+        <h1 id="hero-title">Building a stronger digital presence — one practical experiment at a time.</h1>
+        <p class="lead">I build digital experiences and explore how AI can support web development, personal branding and professional visibility.</p>
+        <div class="button-row">
+          <a class="button primary" href="portfolio.html">View portfolio</a>
+          <a class="button secondary" href="thesis.html">Explore thesis case</a>
+        </div>
+      </div>
+      <div class="profile-card" aria-label="Werner Roslin profile">
+        <div class="avatar-wrap">
+          <img src="/assets/images/werner-profile.JPG" alt="Portrait of Werner Roslin" class="avatar header-profile-image" loading="eager" onerror="this.hidden=true; this.nextElementSibling.hidden=false;">
+          <span class="avatar-fallback" hidden aria-hidden="true">WR</span>
+        </div>
+        <div>
+          <p class="profile-name">Werner Roslin</p>
+          <p class="muted">Based in Finland · Open to development opportunities</p>
+        </div>
+      </div>
+    </section>
 
-  <section>
-    <h2>Explore</h2>
-    <ul class="main-links">
-      <li><a href="portfolio.html" class="big-link">Portfolio</a></li>
-      <li><a href="blog.html" class="big-link">Blog</a></li>
-    </ul>
-  </section>
+    <section class="panel" aria-labelledby="about-title">
+      <div class="section-heading">
+        <p class="eyebrow">ABOUT</p>
+        <h2 id="about-title">A portfolio with a business and branding perspective</h2>
+      </div>
+      <p>This site is more than a collection of coding projects. It is a practical case of how a personal website can bring together skills, projects, content and professional identity in one controlled digital channel.</p>
+      <p>I use the site to document what I build, what I learn and how generative AI fits into the process — including where it helps and where human judgement is still essential.</p>
+    </section>
 
-  <footer>
-    © Werner Roslin — 2025. Built with curiosity and AI support.<br>
-    <a href="https://www.linkedin.com/in/werner-r-589095154" target="_blank" rel="noopener">LinkedIn</a>
+    <section aria-labelledby="themes-title">
+      <div class="section-heading outside">
+        <p class="eyebrow">CORE THEMES</p>
+        <h2 id="themes-title">What I focus on</h2>
+      </div>
+      <div class="card-grid four">
+        <article class="mini-card">
+          <span class="icon-badge" aria-hidden="true">◎</span>
+          <h3>Personal branding</h3>
+          <p>Clear positioning, credibility and a consistent professional identity online.</p>
+        </article>
+        <article class="mini-card">
+          <span class="icon-badge" aria-hidden="true">✦</span>
+          <h3>AI in practice</h3>
+          <p>Using generative AI for ideation, content and development — with critical review.</p>
+        </article>
+        <article class="mini-card">
+          <span class="icon-badge" aria-hidden="true">⌘</span>
+          <h3>Web development</h3>
+          <p>Lightweight, responsive and maintainable websites built with core web technologies.</p>
+        </article>
+        <article class="mini-card">
+          <span class="icon-badge" aria-hidden="true">↗</span>
+          <h3>Digital visibility</h3>
+          <p>SEO, content structure and user journeys that make the site easier to find and use.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel feature-panel" aria-labelledby="case-title">
+      <div>
+        <p class="eyebrow">FEATURED CASE</p>
+        <h2 id="case-title">wernerroslin.fi as a personal-branding case</h2>
+        <p>The website itself is a development project: a controlled environment for testing how content, visual identity, usability, technology and AI support a coherent digital personal brand.</p>
+        <ul class="check-list">
+          <li>One clear home for professional identity and projects</li>
+          <li>Content designed for recruiters, collaborators and professional contacts</li>
+          <li>AI-assisted development with manual validation</li>
+          <li>SEO, accessibility and performance as quality indicators</li>
+        </ul>
+      </div>
+      <div class="metric-stack" aria-label="Case focus areas">
+        <div><strong>Brand</strong><span>clarity & consistency</span></div>
+        <div><strong>Content</strong><span>useful & credible</span></div>
+        <div><strong>UX</strong><span>simple & responsive</span></div>
+        <div><strong>AI</strong><span>assistant, not autopilot</span></div>
+      </div>
+      <a class="button primary" href="thesis.html">Read the case</a>
+    </section>
+
+    <section aria-labelledby="work-title">
+      <div class="section-heading outside split-heading">
+        <div>
+          <p class="eyebrow">FEATURED WORK</p>
+          <h2 id="work-title">Projects that show the process</h2>
+        </div>
+        <a class="text-link" href="portfolio.html">See all projects →</a>
+      </div>
+      <div class="card-grid two">
+        <article class="project-card">
+          <div class="project-topline"><span class="project-label">CASE STUDY</span><span>2026</span></div>
+          <h3>wernerroslin.fi</h3>
+          <p>Personal website designed as a portfolio, content platform and practical case in digital personal branding.</p>
+          <div class="tags"><span>Personal Branding</span><span>AI</span><span>Web</span><span>SEO</span></div>
+          <a class="text-link" href="thesis.html">View case →</a>
+        </article>
+        <article class="project-card">
+          <div class="project-topline"><span class="project-label">DEVELOPMENT</span><span>Project</span></div>
+          <h3>Tetris Game</h3>
+          <p>A browser-based Tetris implementation used to practise JavaScript logic, interaction and iterative problem-solving.</p>
+          <div class="tags"><span>HTML5</span><span>Canvas</span><span>JavaScript</span></div>
+          <a class="text-link" href="tetris.html">Play game →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="latest-title">
+      <div class="section-heading split-heading">
+        <div>
+          <p class="eyebrow">LATEST NOTES</p>
+          <h2 id="latest-title">Writing supports the brand, too</h2>
+        </div>
+        <a class="text-link" href="blog.html">Open blog →</a>
+      </div>
+      <div class="article-list compact">
+        <article><time datetime="2026-08">August 2026</time><h3>From portfolio to personal brand</h3><p>Why a personal site should communicate more than technical skills.</p></article>
+        <article><time datetime="2026-08">August 2026</time><h3>AI as a creative partner, not an autopilot</h3><p>What AI speeds up — and what still needs human judgement.</p></article>
+        <article><time datetime="2026-07">July 2026</time><h3>Building this portfolio</h3><p>Design choices, GitHub Pages and lessons from iterative development.</p></article>
+      </div>
+    </section>
+
+    <section id="contact" class="panel contact-panel" aria-labelledby="contact-title">
+      <div>
+        <p class="eyebrow">CONTACT</p>
+        <h2 id="contact-title">Let’s connect.</h2>
+        <p>Interested in a project, collaboration or development opportunity? The easiest way to reach me is through LinkedIn.</p>
+      </div>
+      <a class="button primary" href="https://www.linkedin.com/in/werner-r-589095154" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+    </section>
+  </main>
+
+  <footer class="site-footer shell">
+    <span>© <span data-current-year></span> Werner Roslin</span>
+    <span>Built with curiosity, testing and AI support.</span>
   </footer>
 </body>
 </html>

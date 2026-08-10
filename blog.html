@@ -1,60 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Blog — Werner Roslin</title>
-
-  <meta name="description" content="Technical insights and development notes by Werner Roslin — AI-assisted development, web technologies, and lessons learned.">
-  <meta name="author" content="Werner Roslin" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog | Werner Roslin</title>
+  <meta name="description" content="Notes by Werner Roslin about personal branding, AI, digital visibility and web development.">
+  <link rel="canonical" href="https://wernerroslin.fi/blog.html">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
   <link rel="manifest" href="/assets/icons/site.webmanifest">
   <link rel="stylesheet" href="styles.css">
   <script src="scripts.js" defer></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LRLHN7K86D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-LRLHN7K86D');
+  </script>
 </head>
 <body>
-  <header>
-    <h1>Blog</h1>
-    <p class="tagline">Development notes and insights</p>
-    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">🌙</button>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header shell">
+    <a class="brand" href="index.html">WR</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a><a href="portfolio.html">Portfolio</a><a href="thesis.html">Thesis case</a><a class="active" href="blog.html">Blog</a><a href="index.html#contact">Contact</a>
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="Toggle light and dark theme">☀</button>
   </header>
 
-  <section aria-label="Articles">
-    <h2>Recent Articles</h2>
-    
-    <article class="blog-post">
-      <h3>Building This Portfolio</h3>
-      <div class="date">July 4, 2025</div>
-      <p>Built this site from scratch using HTML, CSS, JavaScript and AI assistance. Hosted on GitHub Pages with clean, responsive design.</p>
-    </article>
+  <main id="main" class="shell page-stack">
+    <section class="hero panel page-hero">
+      <p class="eyebrow">BLOG</p>
+      <h1>Development notes & digital-brand insights.</h1>
+      <p class="lead">Short reflections on building this site, using AI critically and turning a technical portfolio into a clearer professional brand.</p>
+    </section>
 
-    <article class="blog-post">
-      <h3>Design System Setup</h3>
-      <div class="date">July 8, 2025</div>
-      <p>Refactored to use consistent styling across all pages. Centralized CSS and mobile-first responsive approach.</p>
-    </article>
+    <section class="panel" aria-labelledby="articles-title">
+      <div class="section-heading"><p class="eyebrow">RECENT ARTICLES</p><h2 id="articles-title">What I am learning</h2></div>
+      <div class="article-list">
+        <article class="article-entry">
+          <div class="article-meta"><time datetime="2026-08-10">August 10, 2026</time><span>Personal branding</span></div>
+          <h3>From portfolio to personal brand</h3>
+          <p>A technical portfolio answers “what can you build?”. A personal brand should also answer “what do you want to be known for?” and “why should the visitor remember you?”. My site redesign started by making that difference visible.</p>
+          <details><summary>Read note</summary><p>The biggest change was not visual. It was structural: the home page now introduces a clearer value proposition, the portfolio explains project purpose and outcomes, and the thesis case connects the practical site to a wider business and marketing perspective.</p></details>
+        </article>
 
-    <article class="blog-post">
-      <h3>AI Development Notes</h3>
-      <div class="date">July 11, 2025</div>
-      <p>AI is great for rapid prototyping and debugging, but needs human oversight for architecture and UX decisions.</p>
-    </article>
+        <article class="article-entry">
+          <div class="article-meta"><time datetime="2026-08-10">August 10, 2026</time><span>AI</span></div>
+          <h3>AI as a creative partner, not an autopilot</h3>
+          <p>Generative AI is excellent at producing options quickly. The harder work is deciding which option actually fits the goal, the audience and the brand.</p>
+          <details><summary>Read note</summary><p>My practical rule is simple: use AI to accelerate exploration, then validate the output. Code must be tested, claims must be verified, and generic text must be rewritten until it sounds like a real person rather than a template.</p></details>
+        </article>
 
-    <article class="blog-post">
-      <h3>My AI Love-Hate Story</h3>
-      <div class="date">August 12, 2025</div>
-      <p>I'm a "VibeCoder" - I want ideas to happen immediately. AI keeps me moving when I'd lose patience, but it also overcomplicated everything.</p>
-      <p>The trick: Be very specific. "Keep it simple" and "don't add features I didn't ask for" are my AI mantras.</p>
-    </article>
-  </section>
+        <article class="article-entry">
+          <div class="article-meta"><time datetime="2026-07-11">July 11, 2026</time><span>AI development</span></div>
+          <h3>My AI love–hate story</h3>
+          <p>I like ideas to happen quickly. AI keeps the momentum going, but it also has a habit of adding complexity that was never requested.</p>
+          <details><summary>Read note</summary><p>The lesson has been to prompt more precisely: keep it simple, make one change at a time, and do not add features that do not support the goal. This approach makes AI-assisted development much easier to control.</p></details>
+        </article>
 
-  <footer>
-    © Werner Roslin — 2025. Built with curiosity and AI support.<br>
-    <a href="index.html">Back to Home</a> | 
-    <a href="https://www.linkedin.com/in/werner-r-589095154" target="_blank" rel="noopener">LinkedIn</a>
-  </footer>
+        <article class="article-entry">
+          <div class="article-meta"><time datetime="2026-07-08">July 8, 2026</time><span>Design system</span></div>
+          <h3>Design system setup</h3>
+          <p>Centralising styles helped the site stay visually consistent across the home, portfolio, thesis and blog pages.</p>
+          <details><summary>Read note</summary><p>A small set of reusable design tokens — spacing, borders, text colours, card surfaces and accent gradients — made it easier to make changes without creating a slightly different visual language on every page.</p></details>
+        </article>
+
+        <article class="article-entry">
+          <div class="article-meta"><time datetime="2026-07-04">July 4, 2026</time><span>Web development</span></div>
+          <h3>Building this portfolio</h3>
+          <p>The site is built from core web technologies and published through GitHub Pages. The goal is to keep the setup lightweight and easy to maintain.</p>
+          <details><summary>Read note</summary><p>The project also works as a learning environment. Because the codebase is small, changes in structure, accessibility, responsiveness and content can be tested without a heavy framework getting in the way.</p></details>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel contact-panel"><div><p class="eyebrow">WHY THE BLOG?</p><h2>Content is part of the brand.</h2><p>Projects show what I build. Writing shows how I think, what I learn and how I evaluate the tools I use.</p></div><a class="button primary" href="thesis.html">See thesis case</a></section>
+  </main>
+
+  <footer class="site-footer shell"><span>© <span data-current-year></span> Werner Roslin</span><span><a href="index.html">Home</a> · <a href="https://www.linkedin.com/in/werner-r-589095154" target="_blank" rel="noopener noreferrer">LinkedIn</a></span></footer>
 </body>
 </html>
-

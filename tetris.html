@@ -514,6 +514,143 @@
             animation: levelUp 0.8s ease-in-out;
         }
 
+
+        /* ===== IMPROVED IN-GAME HUD ===== */
+        .game-board-shell {
+            position: relative;
+            order: 3;
+            display: inline-block;
+            border-radius: 15px;
+        }
+
+        .game-board-shell #tetris {
+            order: initial;
+        }
+
+        .game-hud {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            z-index: 20;
+            display: grid;
+            grid-template-columns: 1.4fr .9fr .9fr 1fr;
+            gap: 6px;
+            pointer-events: none;
+        }
+
+        .hud-item {
+            background: rgba(5, 10, 20, 0.82);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 10px;
+            padding: 7px 8px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+        }
+
+        .hud-label {
+            display: block;
+            font-size: 9px;
+            line-height: 1;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.65);
+            margin-bottom: 4px;
+            font-weight: 700;
+        }
+
+        .hud-value {
+            display: block;
+            font-size: 18px;
+            line-height: 1;
+            color: #ffffff;
+            font-weight: 900;
+            font-variant-numeric: tabular-nums;
+            text-shadow: 0 0 12px rgba(0, 255, 204, 0.35);
+        }
+
+        .hud-item.score .hud-value {
+            color: #00ffb3;
+            font-size: 21px;
+            text-shadow: 0 0 12px rgba(0, 255, 179, 0.75);
+        }
+
+        .points-pop {
+            position: absolute;
+            left: 50%;
+            top: 78px;
+            transform: translateX(-50%);
+            z-index: 30;
+            pointer-events: none;
+            font-size: 22px;
+            font-weight: 900;
+            color: #ffd54a;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95), 0 0 18px rgba(255, 213, 74, 0.65);
+            opacity: 0;
+            white-space: nowrap;
+        }
+
+        .points-pop.show {
+            animation: pointsRise 0.85s ease-out;
+        }
+
+        @keyframes pointsRise {
+            0%   { opacity: 0; transform: translate(-50%, 12px) scale(0.8); }
+            20%  { opacity: 1; transform: translate(-50%, 0) scale(1.08); }
+            70%  { opacity: 1; transform: translate(-50%, -16px) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -32px) scale(0.95); }
+        }
+
+        .score-display, .hud-value {
+            font-variant-numeric: tabular-nums;
+        }
+
+        @media (max-width: 768px) {
+            .game-board-shell {
+                order: 3;
+                flex: 1;
+                min-height: 0;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: stretch;
+            }
+
+            .game-board-shell #tetris {
+                flex: 1;
+            }
+
+            .game-hud {
+                top: 5px;
+                left: 5px;
+                right: 5px;
+                gap: 4px;
+            }
+
+            .hud-item {
+                border-radius: 7px;
+                padding: 5px 4px;
+            }
+
+            .hud-label {
+                font-size: 7px;
+                margin-bottom: 3px;
+            }
+
+            .hud-value {
+                font-size: 13px;
+            }
+
+            .hud-item.score .hud-value {
+                font-size: 16px;
+            }
+
+            .points-pop {
+                top: 56px;
+                font-size: 18px;
+            }
+        }
+
         /* SAFE AREA MOBILE LAYOUT - Bottom navigation support */
         @media (max-width: 768px) {
             body {
@@ -857,9 +994,206 @@
                 left: max(2px, env(safe-area-inset-left));
             }
         }
+
+
+        /* ===== DIFFICULTY + RANKING ===== */
+        .top-actions {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 120;
+            display: flex;
+            gap: 8px;
+        }
+
+        .rank-btn {
+            border: 1px solid rgba(255,255,255,.2);
+            background: rgba(5,10,20,.78);
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 5px 18px rgba(0,0,0,.3);
+        }
+
+        .rank-btn:hover { transform: translateY(-1px); }
+
+        .difficulty-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 24px;
+            padding: 3px 8px;
+            border-radius: 999px;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: .6px;
+            color: #fff;
+            background: rgba(255,255,255,.12);
+            border: 1px solid rgba(255,255,255,.16);
+            white-space: nowrap;
+        }
+
+        .modal-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 1400;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+            background: rgba(0,0,0,.78);
+            backdrop-filter: blur(14px);
+        }
+
+        .modal-screen.show { display: flex; }
+
+        .modal-card {
+            width: min(520px, 94vw);
+            max-height: 90vh;
+            overflow: auto;
+            background: linear-gradient(145deg, rgba(17,24,39,.98), rgba(8,15,30,.98));
+            border: 1px solid rgba(255,255,255,.16);
+            border-radius: 22px;
+            padding: 24px;
+            color: #fff;
+            box-shadow: 0 28px 80px rgba(0,0,0,.55);
+        }
+
+        .modal-card h2 {
+            margin: 0 0 6px;
+            font-size: 28px;
+            text-align: center;
+        }
+
+        .modal-subtitle {
+            margin: 0 0 20px;
+            text-align: center;
+            color: rgba(255,255,255,.68);
+            font-size: 13px;
+        }
+
+        .player-name-input {
+            width: 100%;
+            border: 1px solid rgba(255,255,255,.18);
+            background: rgba(255,255,255,.08);
+            color: #fff;
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-size: 16px;
+            outline: none;
+            margin-bottom: 16px;
+        }
+
+        .player-name-input:focus {
+            border-color: rgba(0,255,179,.8);
+            box-shadow: 0 0 0 3px rgba(0,255,179,.12);
+        }
+
+        .difficulty-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .difficulty-option {
+            border: 1px solid rgba(255,255,255,.15);
+            background: rgba(255,255,255,.06);
+            color: #fff;
+            border-radius: 14px;
+            padding: 12px;
+            text-align: left;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .difficulty-option:hover { transform: translateY(-2px); background: rgba(255,255,255,.1); }
+        .difficulty-option.selected {
+            border-color: #00ffb3;
+            background: rgba(0,255,179,.13);
+            box-shadow: 0 0 0 2px rgba(0,255,179,.1), 0 0 24px rgba(0,255,179,.12);
+        }
+
+        .difficulty-option strong { display:block; font-size:15px; margin-bottom:3px; }
+        .difficulty-option small { color:rgba(255,255,255,.62); line-height:1.35; }
+
+        .primary-game-btn, .secondary-game-btn {
+            width: 100%;
+            border: 0;
+            border-radius: 13px;
+            padding: 13px 16px;
+            font-size: 15px;
+            font-weight: 900;
+            cursor: pointer;
+        }
+
+        .primary-game-btn {
+            color: #04110c;
+            background: linear-gradient(135deg, #00ffb3, #4ecdc4);
+            box-shadow: 0 8px 24px rgba(0,255,179,.22);
+        }
+
+        .secondary-game-btn {
+            margin-top: 9px;
+            color: #fff;
+            background: rgba(255,255,255,.09);
+            border: 1px solid rgba(255,255,255,.14);
+        }
+
+        .leaderboard-list {
+            margin-top: 14px;
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .leaderboard-row {
+            display: grid;
+            grid-template-columns: 34px 1fr 92px 78px;
+            gap: 8px;
+            align-items: center;
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+            font-size: 12px;
+        }
+
+        .leaderboard-row:last-child { border-bottom: 0; }
+        .leaderboard-row.header {
+            color: rgba(255,255,255,.55);
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .5px;
+            background: rgba(255,255,255,.04);
+        }
+
+        .leaderboard-rank { font-weight: 900; text-align:center; }
+        .leaderboard-name { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-weight:800; }
+        .leaderboard-score { text-align:right; font-variant-numeric:tabular-nums; color:#00ffb3; font-weight:900; }
+        .leaderboard-difficulty { text-align:right; color:rgba(255,255,255,.7); font-weight:700; }
+        .leaderboard-empty { padding: 18px; text-align:center; color:rgba(255,255,255,.55); font-size:13px; }
+
+        .game-over .final-difficulty { margin-top: 7px; color: #ffd54a; font-weight: 800; }
+        .game-over .new-record { display:none; margin-top:10px; color:#00ffb3; font-weight:900; }
+
+        @media (max-width: 768px) {
+            .top-actions { top: max(3px, env(safe-area-inset-top)); right: 3px; }
+            .rank-btn { padding: 5px 7px; font-size: 8px; border-radius: 6px; }
+            .difficulty-grid { grid-template-columns: 1fr; }
+            .modal-card { padding: 18px; }
+            .modal-card h2 { font-size: 22px; }
+            .leaderboard-row { grid-template-columns: 28px 1fr 74px 62px; padding: 8px; font-size: 10px; gap:5px; }
+        }
+
     </style>
 </head>
 <body>
+    <div class="top-actions">
+        <button class="rank-btn" id="rankingBtn" type="button">🏆 RANKING</button>
+    </div>
+
     <!-- Takaisin-nappi -->
     <div class="back-button-container">
         <a href="index.html" class="back-btn">
@@ -883,8 +1217,29 @@
             </div>
         </div>
 
-        <!-- 2. TETRIS keskelle - POISTA .game-board wrapper! -->
-        <canvas id="tetris" width="300" height="600"></canvas>
+        <!-- 2. TETRIS + selkeä pelin aikainen pistetaulu -->
+        <div class="game-board-shell">
+            <div class="game-hud" aria-label="Game score">
+                <div class="hud-item score">
+                    <span class="hud-label">POINTS</span>
+                    <span class="hud-value" id="hudScore">0</span>
+                </div>
+                <div class="hud-item">
+                    <span class="hud-label">LEVEL</span>
+                    <span class="hud-value" id="hudLevel">1</span>
+                </div>
+                <div class="hud-item">
+                    <span class="hud-label">LINES</span>
+                    <span class="hud-value" id="hudLines">0</span>
+                </div>
+                <div class="hud-item">
+                    <span class="hud-label">SPEED</span>
+                    <span class="difficulty-badge" id="hudSpeed">1×</span>
+                </div>
+            </div>
+            <div class="points-pop" id="pointsPop" aria-live="polite"></div>
+            <canvas id="tetris" width="300" height="600"></canvas>
+        </div>
         
         <!-- 3. CONTROLS alas -->
         <div class="controls" id="controlsPanel">
@@ -915,7 +1270,29 @@
         <p>Final Score: <span id="finalScore">0</span></p>
         <p>Level: <span id="finalLevel">1</span></p>
         <p>Lines: <span id="finalLines">0</span></p>
-        <button class="restart-btn" onclick="startNewGame()">🎮 NEW GAME</button>
+        <p class="final-difficulty">Speed level: <span id="finalSpeed">1×</span></p>
+        <p class="new-record" id="newRecord">🏆 TOP 10 SCORE!</p>
+        <button class="restart-btn" onclick="openStartScreen()">🎮 NEW GAME</button>
+        <button class="secondary-game-btn" onclick="openRanking()">🏆 VIEW RANKING</button>
+    </div>
+
+    <div class="modal-screen" id="startScreen">
+        <div class="modal-card">
+            <h2>🎮 TETRIS</h2>
+            <p class="modal-subtitle">One game, one challenge: the pace increases automatically as you clear lines and reach higher levels.</p>
+            <input class="player-name-input" id="playerName" maxlength="15" autocomplete="nickname" placeholder="Player name" value="Player">
+            <button class="primary-game-btn" id="startGameBtn" type="button">START GAME</button>
+            <button class="secondary-game-btn" id="startRankingBtn" type="button">🏆 TOP 10 RANKING</button>
+        </div>
+    </div>
+
+    <div class="modal-screen" id="rankingScreen">
+        <div class="modal-card">
+            <h2>🏆 TOP 10</h2>
+            <p class="modal-subtitle">Best scores saved on this device/browser.</p>
+            <div class="leaderboard-list" id="leaderboardList"></div>
+            <button class="secondary-game-btn" id="closeRankingBtn" type="button">CLOSE</button>
+        </div>
     </div>
 
     <script>
@@ -934,6 +1311,15 @@ let lines = 0;
 let isPaused = false;
 let gameOver = false;
 let soundVolume = 0.5;
+
+// Progressive difficulty & ranking
+const START_INTERVAL = 950;   // milliseconds between automatic drops at level 1
+const SPEED_STEP = 65;        // each level makes the game faster
+const MIN_INTERVAL = 85;      // maximum speed cap
+const LINES_PER_LEVEL = 10;   // every 10 cleared lines = next level
+let playerName = 'Player';
+let scoreSavedForCurrentGame = false;
+const RANKING_KEY = 'wernerTetrisRankingV1';
 
 // Touch/Mouse muuttujat
 let isDragging = false;
@@ -1409,6 +1795,18 @@ function collide(arena, player) {
     return false;
 }
 
+
+function showPointsGain(amount, label = '') {
+    if (!amount || amount <= 0) return;
+    const pop = document.getElementById('pointsPop');
+    if (!pop) return;
+
+    pop.textContent = `+${amount}${label ? '  ' + label : ''}`;
+    pop.classList.remove('show');
+    void pop.offsetWidth; // restart animation
+    pop.classList.add('show');
+}
+
 function arenaSweep() {
     let linesCleared = 0;
     
@@ -1439,10 +1837,12 @@ function arenaSweep() {
 
         const pointValues = [0, 40, 100, 300, 1200];
         const oldLevel = level;
-        score += pointValues[linesCleared] * level;
+        const earnedPoints = Math.round(pointValues[linesCleared] * level);
+        score += earnedPoints;
         lines += linesCleared;
+        showPointsGain(earnedPoints, linesCleared === 4 ? 'TETRIS!' : `${linesCleared} LINE${linesCleared > 1 ? 'S' : ''}`);
         
-        level = Math.floor(lines / 10) + 1;
+        level = Math.floor(lines / LINES_PER_LEVEL) + 1;
         
         if (level > oldLevel) {
             setTimeout(() => {
@@ -1455,7 +1855,7 @@ function arenaSweep() {
             }, 500);
         }
         
-        dropInterval = Math.max(50, 1000 - (level - 1) * 50);
+        dropInterval = Math.max(MIN_INTERVAL, START_INTERVAL - (level - 1) * SPEED_STEP);
         updateDisplay();
     }
 }
@@ -1535,11 +1935,17 @@ function playerRotate(dir) {
 function hardDrop() {
     if (gameOver) return;
     
+    let dropPoints = 0;
     while (!collide(arena, player)) {
         player.pos.y++;
-        score += 1;
+        const perCell = 2;
+        score += perCell;
+        dropPoints += perCell;
     }
     player.pos.y--;
+    score = Math.round(score);
+    dropPoints = Math.round(dropPoints);
+    if (dropPoints > 0) showPointsGain(dropPoints, 'DROP');
     createBeep(100, 0.3, 'sine');
     merge(arena, player);
     playerReset();
@@ -1548,9 +1954,98 @@ function hardDrop() {
 }
 
 function updateDisplay() {
-    document.getElementById('score').textContent = score;
+    const formattedScore = score.toLocaleString('fi-FI');
+    document.getElementById('score').textContent = formattedScore;
     document.getElementById('level').textContent = level;
     document.getElementById('lines').textContent = lines;
+
+    const hudScore = document.getElementById('hudScore');
+    const hudLevel = document.getElementById('hudLevel');
+    const hudLines = document.getElementById('hudLines');
+    if (hudScore) hudScore.textContent = formattedScore;
+    if (hudLevel) hudLevel.textContent = level;
+    if (hudLines) hudLines.textContent = lines;
+    const hudSpeed = document.getElementById('hudSpeed');
+    if (hudSpeed) {
+        const speedRatio = START_INTERVAL / dropInterval;
+        hudSpeed.textContent = `${speedRatio.toFixed(speedRatio < 2 ? 1 : 0)}×`;
+    }
+}
+
+
+function getRanking() {
+    try {
+        const data = JSON.parse(localStorage.getItem(RANKING_KEY) || '[]');
+        return Array.isArray(data) ? data : [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function saveRankingScore() {
+    if (scoreSavedForCurrentGame || score <= 0) return false;
+    scoreSavedForCurrentGame = true;
+
+    const entry = {
+        name: (playerName || 'Player').trim().slice(0, 15) || 'Player',
+        score: Math.round(score),
+        level,
+        lines,
+        date: new Date().toISOString()
+    };
+
+    const ranking = getRanking();
+    ranking.push(entry);
+    ranking.sort((a, b) => b.score - a.score || b.level - a.level || b.lines - a.lines);
+    const top10 = ranking.slice(0, 10);
+    localStorage.setItem(RANKING_KEY, JSON.stringify(top10));
+    renderRanking();
+    return top10.some(r => r.date === entry.date && r.score === entry.score && r.name === entry.name);
+}
+
+function renderRanking() {
+    const list = document.getElementById('leaderboardList');
+    if (!list) return;
+    const ranking = getRanking();
+
+    if (!ranking.length) {
+        list.innerHTML = '<div class="leaderboard-empty">No scores yet. Be the first! 🎮</div>';
+        return;
+    }
+
+    const escapeHtml = value => String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+    list.innerHTML = `
+        <div class="leaderboard-row header">
+            <div>#</div><div>PLAYER</div><div style="text-align:right">SCORE</div><div style="text-align:right">LEVEL</div>
+        </div>` + ranking.map((r, i) => `
+        <div class="leaderboard-row">
+            <div class="leaderboard-rank">${i === 0 ? '🥇' : i === 1 ? '🥈' : i === 2 ? '🥉' : i + 1}</div>
+            <div class="leaderboard-name">${escapeHtml(r.name)}</div>
+            <div class="leaderboard-score">${Number(r.score || 0).toLocaleString('fi-FI')}</div>
+            <div class="leaderboard-difficulty">${Number(r.level || 1)}</div>
+        </div>`).join('');
+}
+
+function openRanking() {
+    renderRanking();
+    document.getElementById('rankingScreen').classList.add('show');
+}
+
+function closeRanking() {
+    document.getElementById('rankingScreen').classList.remove('show');
+}
+
+function openStartScreen() {
+    document.getElementById('gameOver').style.display = 'none';
+    gameOver = true;
+    isPaused = false;
+    document.getElementById('startScreen').classList.add('show');
+}
+
+function beginSelectedGame() {
+    playerName = (document.getElementById('playerName').value || 'Player').trim().slice(0, 15) || 'Player';
+    document.getElementById('startScreen').classList.remove('show');
+    startNewGame(true);
 }
 
 function endGame() {
@@ -1568,19 +2063,22 @@ function endGame() {
     player.matrix = null;
     player.type = null;
     
-    document.getElementById('finalScore').textContent = score;
+    document.getElementById('finalScore').textContent = Math.round(score).toLocaleString('fi-FI');
     document.getElementById('finalLevel').textContent = level;
     document.getElementById('finalLines').textContent = lines;
+    document.getElementById('finalSpeed').textContent = `${(START_INTERVAL / dropInterval).toFixed(1)}×`;
+    const madeTop10 = saveRankingScore();
+    document.getElementById('newRecord').style.display = madeTop10 ? 'block' : 'none';
     document.getElementById('gameOver').style.display = 'block';
 }
 
-function startNewGame() {
+function startNewGame(forceStart = false) {
     // Analytics
     if (typeof gtag !== 'undefined') {
         gtag('event', 'game_start', { event_category: 'tetris' });
     }
     
-    const confirmRestart = gameOver || confirm('Do you really want to start a new game?');
+    const confirmRestart = forceStart || gameOver || confirm('Do you really want to start a new game?');
     
     if (!confirmRestart) return;
 
@@ -1590,8 +2088,9 @@ function startNewGame() {
     score = 0;
     level = 1;
     lines = 0;
-    dropInterval = 1000;
+    dropInterval = START_INTERVAL;
     dropCounter = 0;
+    scoreSavedForCurrentGame = false;
     lastTime = 0;
     isPaused = false;
     
@@ -1967,7 +2466,7 @@ document.addEventListener('keydown', event => {
     
     if (event.code === 'KeyR' && (event.ctrlKey || event.metaKey)) {
         event.preventDefault();
-        startNewGame();
+        openStartScreen();
         return;
     }
     
@@ -2017,7 +2516,22 @@ volumeSlider.addEventListener('input', (e) => {
 
 // Event listeners
 document.getElementById('pauseBtn').addEventListener('click', togglePause);
-document.getElementById('newGameBtn').addEventListener('click', startNewGame);
+document.getElementById('newGameBtn').addEventListener('click', () => {
+    if (!gameOver && !confirm('Start a new game?')) return;
+    openStartScreen();
+});
+
+// Start and ranking controls
+document.getElementById('startGameBtn').addEventListener('click', beginSelectedGame);
+document.getElementById('startRankingBtn').addEventListener('click', openRanking);
+document.getElementById('rankingBtn').addEventListener('click', openRanking);
+document.getElementById('closeRankingBtn').addEventListener('click', closeRanking);
+document.getElementById('rankingScreen').addEventListener('click', (e) => {
+    if (e.target.id === 'rankingScreen') closeRanking();
+});
+document.getElementById('playerName').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') beginSelectedGame();
+});
 
 // Dynaaminen canvas-skaalaus mobiilille
 function adjustCanvasForMobile() {
@@ -2086,9 +2600,10 @@ adjustCanvasForMobile();
 
 // Kaikki alustukset
 initControls();
-playerReset();
+gameOver = true;
 updateDisplay();
-update();
+renderRanking();
+openStartScreen();
 
 // Simple Google Analytics tracking
 window.addEventListener('load', () => {

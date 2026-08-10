@@ -1,53 +1,93 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Portfolio — Werner Roslin</title>
-
-  <meta name="description" content="Portfolio of Werner Roslin — web development projects and games.">
-  <meta name="author" content="Werner Roslin" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio | Werner Roslin</title>
+  <meta name="description" content="Selected projects by Werner Roslin: personal branding, AI-assisted web development and browser-based experiments.">
+  <link rel="canonical" href="https://wernerroslin.fi/portfolio.html">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/favicon-16x16.png">
   <link rel="manifest" href="/assets/icons/site.webmanifest">
   <link rel="stylesheet" href="styles.css">
   <script src="scripts.js" defer></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LRLHN7K86D"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-LRLHN7K86D');
+  </script>
 </head>
 <body>
-  <header>
-    <h1>Portfolio</h1>
-    <p class="tagline">Current projects</p>
-    <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle theme">🌙</button>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header shell">
+    <a class="brand" href="index.html">WR</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a><a class="active" href="portfolio.html">Portfolio</a><a href="thesis.html">Thesis case</a><a href="blog.html">Blog</a><a href="index.html#contact">Contact</a>
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="Toggle light and dark theme">☀</button>
   </header>
 
-  <section aria-label="Portfolio">
-    <h2>Featured Project</h2>
-    
-    <div class="portfolio-card">
-      <div class="portfolio-body">
-        <h3 class="portfolio-title">Tetris Game</h3>
-        <p class="portfolio-desc">Complete Tetris implementation using HTML5 Canvas with piece rotation, line clearing, and scoring system.</p>
-        
-        <div class="portfolio-meta">
-          <span class="badge">HTML5</span>
-          <span class="badge">Canvas</span>
-          <span class="badge">JavaScript</span>
+  <main id="main" class="shell page-stack">
+    <section class="hero panel page-hero">
+      <p class="eyebrow">PORTFOLIO</p>
+      <h1>Projects with a purpose.</h1>
+      <p class="lead">I use projects to demonstrate not only what I can build, but how I think: defining a goal, making choices, testing the result and learning from the process.</p>
+    </section>
+
+    <section class="panel project-case" aria-labelledby="site-case-title">
+      <div class="project-case-head">
+        <div>
+          <p class="project-label">FEATURED CASE · PERSONAL BRANDING</p>
+          <h2 id="site-case-title">wernerroslin.fi</h2>
+          <p class="lead small">A personal website that combines portfolio, professional identity, content and an AI-assisted development process.</p>
         </div>
+        <span class="status-pill">Live project</span>
       </div>
-      
-      <div class="portfolio-actions">
-        <a href="tetris.html" class="big-link">Play Game</a>
+
+      <div class="case-grid">
+        <div><h3>Purpose</h3><p>Create one controlled digital channel for presenting skills, projects and professional identity.</p></div>
+        <div><h3>Audience</h3><p>Recruiters, potential collaborators, professional contacts and people interested in my work.</p></div>
+        <div><h3>My role</h3><p>Strategy, content, visual direction, HTML/CSS/JavaScript development, testing and iteration.</p></div>
+        <div><h3>AI use</h3><p>Ideation, drafts, code assistance and quality-check prompts — followed by manual review and testing.</p></div>
       </div>
-    </div>
 
-    <p style="text-align: center; margin-top: 2rem; color: var(--muted);">More projects coming soon...</p>
-  </section>
+      <h3>What this project demonstrates</h3>
+      <ul class="check-list columns">
+        <li>Personal-brand positioning</li><li>Digital customer journey thinking</li><li>Responsive design</li><li>Accessibility awareness</li><li>SEO basics</li><li>GitHub Pages publishing</li>
+      </ul>
+      <div class="tags"><span>Personal Branding</span><span>Digital Marketing</span><span>AI</span><span>HTML</span><span>CSS</span><span>JavaScript</span><span>GitHub Pages</span></div>
+      <div class="button-row"><a class="button primary" href="thesis.html">Read full case</a><a class="button secondary" href="index.html">View site home</a></div>
+    </section>
 
-  <footer>
-    © Werner Roslin — 2025. Built with curiosity and AI support.<br>
-    <a href="index.html">Back to Home</a> | 
-    <a href="https://www.linkedin.com/in/werner-r-589095154" target="_blank" rel="noopener">LinkedIn</a>
-  </footer>
+    <section aria-labelledby="projects-title">
+      <div class="section-heading outside"><p class="eyebrow">OTHER PROJECTS</p><h2 id="projects-title">Technical experiments</h2></div>
+      <div class="card-grid two">
+        <article class="project-card large">
+          <div class="project-topline"><span class="project-label">BROWSER GAME</span><span>JavaScript</span></div>
+          <h3>Tetris Game</h3>
+          <p>A complete browser-based Tetris implementation using HTML5 Canvas. The project focuses on game-loop logic, piece rotation, collision detection, line clearing, scoring and keyboard interaction.</p>
+          <div class="project-details"><strong>What I practised:</strong> decomposing a larger problem into smaller functions, debugging interaction logic and refining a working prototype.</div>
+          <div class="tags"><span>HTML5</span><span>Canvas</span><span>JavaScript</span></div>
+          <a class="button primary" href="tetris.html">Play game</a>
+        </article>
+        <article class="project-card large muted-card">
+          <div class="project-topline"><span class="project-label">NEXT</span><span>In development</span></div>
+          <h3>Next case</h3>
+          <p>The portfolio is intentionally iterative. Future projects will be documented using the same structure: purpose, audience, role, process, outcome and lessons learned.</p>
+          <div class="tags"><span>Case Study</span><span>Learning</span><span>Iteration</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel contact-panel">
+      <div><p class="eyebrow">NEXT STEP</p><h2>Want the thinking behind the website?</h2><p>The thesis case explains how the site connects personal branding, digital visibility and generative AI.</p></div>
+      <a class="button primary" href="thesis.html">Explore thesis case</a>
+    </section>
+  </main>
+
+  <footer class="site-footer shell"><span>© <span data-current-year></span> Werner Roslin</span><span><a href="index.html">Home</a> · <a href="https://www.linkedin.com/in/werner-r-589095154" target="_blank" rel="noopener noreferrer">LinkedIn</a></span></footer>
 </body>
 </html>
