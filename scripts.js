@@ -1,3 +1,9 @@
+if (!document.querySelector('script[src="analytics.js"]')) {
+  const analyticsScript = document.createElement('script');
+  analyticsScript.src = 'analytics.js';
+  document.head.appendChild(analyticsScript);
+}
+
 (() => {
   const root = document.documentElement;
   const button = document.querySelector('.theme-toggle');

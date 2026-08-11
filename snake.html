@@ -41,7 +41,7 @@
   </style>
 </head>
 <body>
-  <nav class="topbar"><a href="portfolio.html">← Portfolio</a><button id="pauseTop" type="button">Pause</button></nav>
+  <nav class="topbar"><a href="arcade.html">← Arcade</a><button id="pauseTop" type="button">Pause</button></nav>
   <main class="shell">
     <header><p class="eyebrow">Werner's arcade</p><h1>Snake</h1><p class="intro">Collect the fruit, grow longer and survive as the game accelerates. Use arrow keys, WASD, swipe or the touch controls.</p></header>
     <section class="game-layout" aria-label="Snake game">
@@ -58,6 +58,7 @@
     </section>
     <div class="dpad" aria-label="Touch controls"><button class="up" data-dir="up" aria-label="Up">↑</button><button class="left" data-dir="left" aria-label="Left">←</button><button class="down" data-dir="down" aria-label="Down">↓</button><button class="right" data-dir="right" aria-label="Right">→</button></div>
   </main>
+  <script src="arcade-audio.js"></script>
   <script>
     const canvas=document.getElementById('game'),ctx=canvas.getContext('2d'),size=20,cell=canvas.width/size;
     const scoreEl=document.getElementById('score'),bestEl=document.getElementById('best'),speedEl=document.getElementById('speed');
@@ -65,12 +66,12 @@
     let snake,direction,nextDirection,food,score,best=Number(localStorage.getItem('wernerSnakeBest')||0),timer,running=false,paused=false;
     bestEl.textContent=best;
     function randomFood(){let spot;do{spot={x:Math.floor(Math.random()*size),y:Math.floor(Math.random()*size)}}while(snake.some(p=>p.x===spot.x&&p.y===spot.y));return spot}
-    function reset(){snake=[{x:10,y:10},{x:9,y:10},{x:8,y:10}];direction={x:1,y:0};nextDirection={...direction};score=0;food=randomFood();running=true;paused=false;updateHud();hideOverlay();schedule();draw()}
+    function reset(){arcadeSound.play('start');window.trackArcadeEvent?.('game_start',{game_name:'snake'});snake=[{x:10,y:10},{x:9,y:10},{x:8,y:10}];direction={x:1,y:0};nextDirection={...direction};score=0;food=randomFood();running=true;paused=false;updateHud();hideOverlay();schedule();draw()}
     function schedule(){clearTimeout(timer);if(running&&!paused)timer=setTimeout(tick,Math.max(65,145-Math.floor(score/5)*8))}
-    function tick(){direction=nextDirection;const head={x:snake[0].x+direction.x,y:snake[0].y+direction.y};if(head.x<0||head.x>=size||head.y<0||head.y>=size||snake.some(p=>p.x===head.x&&p.y===head.y)){end();return}snake.unshift(head);if(head.x===food.x&&head.y===food.y){score++;if(score>best){best=score;localStorage.setItem('wernerSnakeBest',best)}food=randomFood();updateHud()}else snake.pop();draw();schedule()}
+    function tick(){direction=nextDirection;const head={x:snake[0].x+direction.x,y:snake[0].y+direction.y};if(head.x<0||head.x>=size||head.y<0||head.y>=size||snake.some(p=>p.x===head.x&&p.y===head.y)){end();return}snake.unshift(head);if(head.x===food.x&&head.y===food.y){score++;arcadeSound.play(score%5===0?'level':'point');if(score>best){best=score;localStorage.setItem('wernerSnakeBest',best)}food=randomFood();updateHud()}else snake.pop();draw();schedule()}
     function setDirection(x,y){if(!running||paused)return;if(x===-direction.x&&y===-direction.y)return;nextDirection={x,y}}
     function updateHud(){scoreEl.textContent=score;bestEl.textContent=best;speedEl.textContent=(1+Math.floor(score/5)*.15).toFixed(score<5?0:1)+'×'}
-    function end(){running=false;clearTimeout(timer);overlayTitle.textContent='Game over';overlayText.textContent=`You collected ${score} fruit${score===1?'':'s'}. Best: ${best}.`;document.getElementById('startBtn').textContent='Play again';overlay.hidden=false}
+    function end(){running=false;clearTimeout(timer);arcadeSound.play('gameover');window.trackArcadeEvent?.('game_over',{game_name:'snake',score});overlayTitle.textContent='Game over';overlayText.textContent=`You collected ${score} fruit${score===1?'':'s'}. Best: ${best}.`;document.getElementById('startBtn').textContent='Play again';overlay.hidden=false}
     function hideOverlay(){overlay.hidden=true;document.getElementById('pauseTop').textContent='Pause'}
     function togglePause(){if(!running)return;paused=!paused;document.getElementById('pauseTop').textContent=paused?'Resume':'Pause';if(paused){overlayTitle.textContent='Paused';overlayText.textContent='Take a breath. Your run is safe.';document.getElementById('startBtn').textContent='Resume';overlay.hidden=false;clearTimeout(timer)}else{hideOverlay();schedule()}}
     function draw(){ctx.fillStyle='#050c0b';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.strokeStyle='rgba(181,255,226,.045)';ctx.lineWidth=1;for(let i=1;i<size;i++){ctx.beginPath();ctx.moveTo(i*cell,0);ctx.lineTo(i*cell,canvas.height);ctx.stroke();ctx.beginPath();ctx.moveTo(0,i*cell);ctx.lineTo(canvas.width,i*cell);ctx.stroke()}ctx.fillStyle='#ff6b7a';ctx.shadowColor='#ff6b7a';ctx.shadowBlur=18;ctx.beginPath();ctx.arc((food.x+.5)*cell,(food.y+.5)*cell,cell*.3,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;snake.forEach((p,i)=>{const pad=i?3:2;ctx.fillStyle=i?'#43c993':'#64f4bd';ctx.beginPath();ctx.roundRect(p.x*cell+pad,p.y*cell+pad,cell-pad*2,cell-pad*2,6);ctx.fill()});const h=snake[0];ctx.fillStyle='#07110f';const ex=direction.x===0?cell*.28:direction.x>0?cell*.65:cell*.35;[-1,1].forEach(side=>{ctx.beginPath();ctx.arc(h.x*cell+ex,h.y*cell+cell*.5+side*(direction.x?cell*.18:direction.y>0?cell*.15:-cell*.15),2.5,0,Math.PI*2);ctx.fill()})}

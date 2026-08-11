@@ -198,3 +198,37 @@ body {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
 }
+
+/* Keep game information outside the playable grid. */
+.game-board-shell {
+  display: flex;
+  flex-direction: column;
+}
+
+.game-hud {
+  position: static;
+  width: 100%;
+  margin-bottom: 8px;
+  pointer-events: auto;
+}
+
+.points-pop {
+  top: 82px;
+}
+
+@media (max-width: 800px) {
+  .game-board-shell {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .game-hud {
+    position: static;
+    width: 100%;
+    margin-bottom: 6px;
+  }
+
+  .points-pop {
+    top: 66px;
+  }
+}

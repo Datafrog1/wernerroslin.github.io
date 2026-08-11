@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Blog | Werner Roslin</title>
-  <meta name="description" content="Notes by Werner Roslin about personal branding, AI, digital visibility and web development.">
+  <meta name="description" content="Honest notes by Werner Roslin about maintaining a personal website, working with AI and learning by building.">
   <link rel="canonical" href="https://wernerroslin.fi/blog.html">
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/favicon-32x32.png">
@@ -12,13 +12,6 @@
   <link rel="manifest" href="/assets/icons/site.webmanifest">
   <link rel="stylesheet" href="styles.css">
   <script src="scripts.js" defer></script>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LRLHN7K86D"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-LRLHN7K86D');
-  </script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -31,53 +24,46 @@
   </header>
 
   <main id="main" class="shell page-stack">
-    <section class="hero panel page-hero">
+    <section class="hero panel page-hero blog-hero">
       <p class="eyebrow">BLOG</p>
-      <h1>Development notes & digital-brand insights.</h1>
-      <p class="lead">Short reflections on building this site, using AI critically and turning a technical portfolio into a clearer professional brand.</p>
+      <h1>One year of working on this website.</h1>
+      <p class="lead">There was no grand publishing plan or perfect roadmap. I have kept this site running for about a year and updated it whenever I had a new idea worth trying.</p>
+      <div class="blog-topics" aria-label="Blog topics"><span>Web development</span><span>ChatGPT</span><span>VS Code</span><span>Learning by building</span></div>
     </section>
 
-    <section class="panel" aria-labelledby="articles-title">
-      <div class="section-heading"><p class="eyebrow">RECENT ARTICLES</p><h2 id="articles-title">What I am learning</h2></div>
-      <div class="article-list">
-        <article class="article-entry">
-          <div class="article-meta"><time datetime="2026-08-10">August 10, 2026</time><span>Personal branding</span></div>
-          <h3>From portfolio to personal brand</h3>
-          <p>A technical portfolio answers “what can you build?”. A personal brand should also answer “what do you want to be known for?” and “why should the visitor remember you?”. My site redesign started by making that difference visible.</p>
-          <details><summary>Read note</summary><p>The biggest change was not visual. It was structural: the home page now introduces a clearer value proposition, the portfolio explains project purpose and outcomes, and the thesis case connects the practical site to a wider business and marketing perspective.</p></details>
-        </article>
+    <article class="panel featured-story" aria-labelledby="story-title">
+      <div class="article-meta"><time datetime="2026-08-11">Updated 11 Aug 2026</time><span>Personal experience</span><span>4 min read</span></div>
+      <p class="story-label">HONESTLY</p>
+      <h2 id="story-title">The site grew one small update at a time — and ChatGPT accelerated it the most</h2>
+      <p class="story-intro">This website did not begin as one polished project. I have kept it alive for about a year, changing the design, adding content and testing ideas whenever I had the time and interest.</p>
 
-        <article class="article-entry">
-          <div class="article-meta"><time datetime="2026-08-10">August 10, 2026</time><span>AI</span></div>
-          <h3>AI as a creative partner, not an autopilot</h3>
-          <p>Generative AI is excellent at producing options quickly. The harder work is deciding which option actually fits the goal, the audience and the brand.</p>
-          <details><summary>Read note</summary><p>My practical rule is simple: use AI to accelerate exploration, then validate the output. Code must be tested, claims must be verified, and generic text must be rewritten until it sounds like a real person rather than a template.</p></details>
-        </article>
+      <div class="honest-story">
+        <p>Sometimes the site has stayed untouched for a long time. Then, in one evening, I might change several things. Recently, a simple request to improve the look of Tetris turned into a complete arcade section with multiple games. That way of working suits me: try something, see whether it works and continue from there.</p>
 
-        <article class="article-entry">
-          <div class="article-meta"><time datetime="2026-07-11">July 11, 2026</time><span>AI development</span></div>
-          <h3>My AI love–hate story</h3>
-          <p>I like ideas to happen quickly. AI keeps the momentum going, but it also has a habit of adding complexity that was never requested.</p>
-          <details><summary>Read note</summary><p>The lesson has been to prompt more precisely: keep it simple, make one change at a time, and do not add features that do not support the goal. This approach makes AI-assisted development much easier to control.</p></details>
-        </article>
+        <h3>ChatGPT, Copilot and Gemini</h3>
+        <p>I have used ChatGPT a lot while developing the site. I have also tried Copilot and Gemini, but in my own work ChatGPT has been clearly better. It understands the wider context, continues from the current state of the project and helps with both the code and the question of what is actually worth building next.</p>
+        <p>That is my experience, not a universal fact. Copilot can be useful for quick code suggestions, and Gemini may suit someone else’s workflow better. For me, the conversational way of working with ChatGPT is the best fit.</p>
 
-        <article class="article-entry">
-          <div class="article-meta"><time datetime="2026-07-08">July 8, 2026</time><span>Design system</span></div>
-          <h3>Design system setup</h3>
-          <p>Centralising styles helped the site stay visually consistent across the home, portfolio, thesis and blog pages.</p>
-          <details><summary>Read note</summary><p>A small set of reusable design tokens — spacing, borders, text colours, card surfaces and accent gradients — made it easier to make changes without creating a slightly different visual language on every page.</p></details>
-        </article>
+        <h3>ChatGPT directly inside VS Code</h3>
+        <p>The biggest difference comes from having ChatGPT connected directly to VS Code. It does not need to guess what the project looks like. It can inspect the files, locate the problem, edit the correct place and check that the surrounding structure still holds together.</p>
+        <p>I can explain an idea in ordinary language — for example, that the cars move far too quickly or the score display covers the game board. The tool finds the cause in the code and applies the fix. And voilà: it works.</p>
 
-        <article class="article-entry">
-          <div class="article-meta"><time datetime="2026-07-04">July 4, 2026</time><span>Web development</span></div>
-          <h3>Building this portfolio</h3>
-          <p>The site is built from core web technologies and published through GitHub Pages. The goal is to keep the setup lightweight and easy to maintain.</p>
-          <details><summary>Read note</summary><p>The project also works as a learning environment. Because the codebase is small, changes in structure, accessibility, responsiveness and content can be tested without a heavy framework getting in the way.</p></details>
-        </article>
+        <h3>It still does not happen automatically</h3>
+        <p>AI works quickly, but I still have to decide what I want. Sometimes the first solution is too complicated or simply looks wrong. Then I say exactly what is not working and move on to the next version. The best result usually appears after several small corrections.</p>
+        <p>I do not think AI built the site for me. I chose the direction, accepted or rejected the solutions and kept the project alive. ChatGPT made experimentation fast enough that many ideas actually became working parts of the website.</p>
+      </div>
+    </article>
+
+    <section class="panel" aria-labelledby="lessons-title">
+      <div class="section-heading"><p class="eyebrow">WHAT DID THE YEAR TEACH ME?</p><h2 id="lessons-title">Three simple observations</h2></div>
+      <div class="card-grid three blog-lessons">
+        <article class="mini-card"><span class="story-number">01</span><h3>A website does not need to be finished at once</h3><p>Small updates keep the project moving and leave room for new ideas.</p></article>
+        <article class="mini-card"><span class="story-number">02</span><h3>The tool has to fit the way you work</h3><p>For me, a conversation with ChatGPT works better than isolated code suggestions.</p></article>
+        <article class="mini-card"><span class="story-number">03</span><h3>Personal judgment still matters</h3><p>AI speeds up implementation, but a person decides what looks good and feels right.</p></article>
       </div>
     </section>
 
-    <section class="panel contact-panel"><div><p class="eyebrow">WHY THE BLOG?</p><h2>Content is part of the brand.</h2><p>Projects show what I build. Writing shows how I think, what I learn and how I evaluate the tools I use.</p></div><a class="button primary" href="thesis.html">See thesis case</a></section>
+    <section class="panel contact-panel"><div><p class="eyebrow">SEE WHAT CAME OUT OF IT</p><h2>A year of experiments lives here.</h2><p>The portfolio presents the wider project. The arcade contains the games that appeared along the way.</p></div><div class="button-row"><a class="button primary" href="portfolio.html">Portfolio</a><a class="button secondary" href="arcade.html">Arcade</a></div></section>
   </main>
 
   <footer class="site-footer shell"><span>© <span data-current-year></span> Werner Roslin</span><span><a href="index.html">Home</a> · <a href="https://www.linkedin.com/in/werner-r-589095154" target="_blank" rel="noopener noreferrer">LinkedIn</a></span></footer>
